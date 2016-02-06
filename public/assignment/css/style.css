@@ -1,19 +1,22 @@
 .form-horizontal .control-label.text-left{
     text-align: left;
+    white-space: nowrap;
 }
 
 .glyphiconmysize{
     font-size: 30px;
-    float: right;
 }
 
 .glyphiconmysizehidden{
     font-size: 30px;
-    float: right;
     visibility: hidden;
 }
 
 .tablefloatmargin{
     float: right;
     margin-top: 40px;
+}
+
+.nowrap{
+    white-space: nowrap;
 }
