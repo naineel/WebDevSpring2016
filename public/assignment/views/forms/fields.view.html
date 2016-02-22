@@ -1,198 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Forms</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/dashboard.css">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/style.css">
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../home/home.view.html">Form Maker</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Username</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1>Forms</h1>
+    <ul class="nav nav-tabs">
+        <li><a href="#/forms">Forms</a></li>
+        <li class="active"><a href="#">Fields</a><span class="sr-only">(current)</span></li>
+    </ul>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="../home/home.view.html">Home</a></li>
-                <li><a href="../users/profile.view.html">Profile</a></li>
-                <li><a href="../admin/admin.view.html">Admin</a></li>
-                <li class="active"><a href="#">Forms</a><span class="sr-only">(current)</span></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1>Forms</h1>
-            <ul class="nav nav-tabs">
-                <li><a href="forms.view.html">Forms</a></li>
-                <li class="active"><a href="#">Fields</a><span class="sr-only">(current)</span></li>
-            </ul>
-
-            <form>
-            <br>
-            <fieldset class="form-group">
-                <label for="firstname">First Name:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
-                        <input type="text" class="form-control col-xs-6" id="firstname" placeholder="First Name">
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="nowrap">
-                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
-                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                        </div>
+    <form>
+        <br>
+        <fieldset class="form-group">
+            <label for="firstname">First Name:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <input type="text" class="form-control col-xs-6" id="firstname" placeholder="First Name">
+                </div>
+                <div class="col-xs-6">
+                    <div class="nowrap">
+                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
                     </div>
                 </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <label for="ln">Last Name:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
+            </div>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="ln">Last Name:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
 
-                        <input type="text" class="form-control" id="ln" placeholder="Last Name">
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="nowrap">
-                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                        </div>
-                    </div>
+                    <input type="text" class="form-control" id="ln" placeholder="Last Name">
                 </div>
-            </fieldset>
-            <fieldset>
-                <label for="dob">Date of Birth:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
-                        <input type="date" class="form-control" id="dob">
-                    </div>
-                    <div class="form-group col-xs-6">
+                <div class="form-group col-xs-6">
                     <div class="nowrap">
                         <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
                         <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
                         <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
                         <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
                     </div>
-                    </div>
-                    </div>
-            </fieldset>
-            <fieldset>
-                <label>Gender:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
-                        <select class="form-control">
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="nowrap">
-                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                        </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label for="dob">Date of Birth:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <input type="date" class="form-control" id="dob">
+                </div>
+                <div class="form-group col-xs-6">
+                    <div class="nowrap">
+                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
                     </div>
                 </div>
-            </fieldset>
-            <fieldset>
-                <label>Roles:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
-                        <div class="checkbox">
+            </div>
+        </fieldset>
+        <fieldset>
+            <label>Gender:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <select class="form-control">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                    <div class="nowrap">
+                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <label>Roles:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <div class="checkbox">
                         <label><input type="checkbox">Admin</label>
                         <br>
                         <label><input type="checkbox">Student</label>
                         <br>
                         <label><input type="checkbox">User</label>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="nowrap">
-                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                        </div>
                     </div>
                 </div>
-            </fieldset>
-            <fieldset>
-                <label>License Agreement:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
-                        <div class="radio">
-                            <label><input type="radio" name="optradio">Yes</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="optradio">No</label>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="nowrap">
-                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                        </div>
+                <div class="form-group col-xs-6">
+                    <div class="nowrap">
+                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
                     </div>
                 </div>
-            </fieldset>
-            <hr class="form-group">
-            <fieldset>
-                <label>Add New Field:</label>
-                <div class="row">
-                    <div class="form-group col-xs-6">
-                        <select class="form-control">
-                            <option>Single Line Text</option>
-                            <option>Date</option>
-                            <option>Dropdown</option>
-                            <option>Checkboxes</option>
-                            <option>Radio buttons</option>
-                            <option>Paragraph Text Field</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="nowrap">
-                            <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
-                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
-                            <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
             </div>
-        </div>
-    </div>
+        </fieldset>
+        <fieldset>
+            <label>License Agreement:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Yes</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">No</label>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6">
+                    <div class="nowrap">
+                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <hr class="form-group">
+        <fieldset>
+            <label>Add New Field:</label>
+            <div class="row">
+                <div class="form-group col-xs-6">
+                    <select class="form-control">
+                        <option>Single Line Text</option>
+                        <option>Date</option>
+                        <option>Dropdown</option>
+                        <option>Checkboxes</option>
+                        <option>Radio buttons</option>
+                        <option>Paragraph Text Field</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                    <div class="nowrap">
+                        <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
+                        <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
 </div>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</body>
-</html>
