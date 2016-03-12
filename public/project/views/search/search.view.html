@@ -1,0 +1,37 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<h1>Search for a startup/user</h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <input ng-model="startupName" value="Bitsight Technologies" class="form-control"/>
+            <button ng-click="searchMovie(startupName)" class="btn btn-primary btn-block">
+                Search
+            </button>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Poster</th>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-click="renderDetails(startupName)" ng-repeat="startupName in data">
+                    <td>
+                        <img height="100px" ng-src="{{startupName.pic}}"/>
+                    </td>
+                    <td>
+                        {{startupName.name}}
+                    </td>
+                    <td>
+                        {{startupName.url}}
+                    </td>
+                    <td>
+                        {{startupName.type}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
