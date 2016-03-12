@@ -7,16 +7,25 @@
 
     function CommentService() {
         var allComments = [
-            {"_id": "1", "userId": 123, "comment": "Example comment 1", "dateCreated": ""},
-            {"_id": "2", "userId": 123, "comment": "Example comment 2", "dateCreated": ""},
-            {"_id": "3", "userId": 234, "comment": "Example comment 1", "dateCreated": ""}
+            {"_id": "1", "userId": 123, "comment": "comment 1", "dateCreated": ""},
+            {"_id": "2", "userId": 123, "comment": "comment 2", "dateCreated": ""},
+            {"_id": "3", "userId": 234, "comment": "comment 1", "dateCreated": ""}
         ];
+
+        var service = {
+            createCommentForUser: createCommentForUser,
+            findAllCommentsForUser: findAllCommentsForUser,
+            deleteCommentById: deleteCommentById,
+            updateCommentById: updateCommentById
+        };
+
+        return service;
 
         function createCommentForUser(userId, comment, callback) {
             var newComment = {
                 "_id": (new Date).getTime(),
                 "userId": userId,
-                "comment": comment,
+                "comment": comment.comment,
                 "dataCreated": (new Date).getTime()
             };
             allComments.push(newComment);
@@ -44,19 +53,12 @@
             for (var i = 0; i < allComments.length; i++) {
                 var original_comment = allComments[i];
                 if (original_comment._id == commentId) {
-                    allComments[i].comment = updatedComment.comment;
-                    allComments[i].userId = updatedComment.userId;
+                    original_comment.comment = updatedComment.comment;
                 }
             }
             console.log(allComments);
-            callback(updatedComment);
+            callback(allComments);
         }
 
-        return {
-            createCommentForUser: createCommentForUser,
-            findAllCommentsForUser: findAllCommentsForUser,
-            deleteCommentById: deleteCommentById,
-            updateCommentById: updateCommentById
-        };
     }
 }());

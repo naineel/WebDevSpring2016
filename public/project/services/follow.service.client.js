@@ -35,11 +35,13 @@
 
         function findAllFollowingForUser(user1, callback) {
             var emptyArray = [];
-            for (var i=0; i < forms.length; i++) {
+            console.log(user1);
+            for (var i=0; i < followData.length; i++) {
                 if (followData[i].user1 == user1) {
                     emptyArray.push(followData[i]);
                 }
             }
+            console.log(emptyArray);
             callback(emptyArray);
         }
 

@@ -14,7 +14,7 @@
         allComments();
 
         function allComments() {
-            CommentService.findAllCommentsForUser($rootScope.user._id, function(comments){
+            CommentService.findAllCommentsForUser($rootScope.newUser._id, function(comments){
                 $scope.userComments = comments;
                 delete $scope.selectedComment;
             });
@@ -28,7 +28,7 @@
         function addComment(comment) {
             console.log(comment);
             if (comment.comment) {
-                CommentService.createCommentForUser($rootScope.user._id, comment, allComments);
+                CommentService.createCommentForUser($rootScope.newUser._id, comment, allComments);
             }
         }
 

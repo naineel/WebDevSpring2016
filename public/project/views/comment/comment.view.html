@@ -21,13 +21,13 @@
                     </div>
                 </td>
             </tr>
-            <tr ng-repeat="current in userComments">
-                <td>{{current.comment}}</td>
-                <td>{{current.dateCreated}}</td>
+            <tr ng-repeat="currentComment in userComments">
+                <td>{{currentComment.comment}}</td>
+                <td>{{currentComment.dateCreated}}</td>
                 <td>
                     <div class="nowrap">
-                        <a ng-click="deleteComment(current)" class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"></a>
-                        <a ng-click="selectComment(current)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                        <a ng-click="deleteComment(currentComment)" class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"></a>
+                        <a ng-click="selectComment(currentComment)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                     </div>
                 </td>
             </tr>

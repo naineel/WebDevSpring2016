@@ -10,12 +10,12 @@
 
     function FollowController($rootScope, $scope, FollowService) {
 
-        $scope.userFollowing = [];
+        $scope.userFollows = [];
         allFollows();
 
         function allFollows() {
-            FollowService.findAllFollowingForUser($rootScope.user.username, function(follows){
-                $scope.userFollowing = follows;
+            FollowService.findAllFollowingForUser($rootScope.newUser.username, function(follows){
+                $scope.userFollows = follows;
                 delete $scope.selectedFollows;
                 delete $scope.selectedFollowsIndex;
             });
@@ -33,13 +33,13 @@
             }
         }
 
-        function readFollowing(index) {
-            $scope.selectedFollowsIndex = index;
+        function readFollowing(follows) {
+            $scope.selectedFollowsIndex = follows._id;
             $scope.selectedFollows = {
-                _id: $scope.userFollowing[index]._id,
-                user1: $scope.userFollowing[index].user1,
-                user2: $scope.userFollowing[index].user2
-            }
+                _id: follows._id,
+                user1: follows.user1,
+                user2: follows.user2
+            };
         }
 
         function updateFollowing(follows) {
@@ -47,6 +47,7 @@
         }
 
         function deleteFollowing(follows) {
+            console.log(follows);
             FollowService.deleteAFollowById(follows._id, allFollows);
         }
 
