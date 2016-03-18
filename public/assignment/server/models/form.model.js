@@ -1,15 +1,14 @@
 /**
  * Created by naineel on 3/17/16.
  */
-var forms = require("./form.mock.json");
-
 module.exports = function() {
+    var forms = require('./form.mock.json');
     var api = {
         createFormForUser : createFormForUser,
         findAllFormsForUser : findAllFormsForUser,
         deleteFormById : deleteFormById,
         updateFormById : updateFormById,
-        findFormByTitle : findFormByTitle
+        findFormById : findFormById
     };
 
     return api;
@@ -56,9 +55,9 @@ module.exports = function() {
         return newForm;
     }
 
-    function findFormByTitle(title) {
+    function findFormById(formId) {
         for (var i = 0; i < forms.length; i++) {
-            if (forms[i].title === title) {
+            if (forms[i]._id === formId) {
                 return forms[i];
             }
         }

@@ -6,12 +6,20 @@ module.exports = function(app, model) {
     app.get("/api/assignment/user", getAllUsers);
     app.get("/api/assignment/user/:id", getUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
-    app.get("/api/assignment/user?username=alice&password=wonderland", getUserByCredentials);
+    app.get("/api/assignment/user?username=username&password=password", getUserByCredentials);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUserById);
 
     function getAllUsers(req, res) {
-        res.json(model.findAllUsers());
+        if (req.query.username) {
+            if(req.query.password) {
+                getUserByCredentials(req, res);
+            } else {
+                getUserByUsername(req, res);
+            }
+        } else {
+            res.json(model.findAllUsers());
+        }
     }
 
     function getUserById(req, res) {
@@ -24,8 +32,11 @@ module.exports = function(app, model) {
     }
 
     function getUserByUsername(req, res) {
-        var username = req.params.username;
-        if (model.findUserByUsername(username)) {
+        var username = req.query.username;
+        console.log("Username: " + username);
+        var user = model.findUserByUsername(username);
+        console.log("User: " + user);
+        if (user) {
             res.json(model.findUserByUsername(username))
         } else {
             res.json({Error: "User doesn't exist"});
@@ -33,10 +44,12 @@ module.exports = function(app, model) {
     }
 
     function getUserByCredentials(req, res) {
-        var username = req.params.username;
-        var password = req.params.password;
+        var username = req.query.username;
+        var password = req.query.password;
 
         var credentials = {username: username, password: password};
+
+        console.log(credentials);
 
         var user = model.findUserByCredentials(credentials);
         if (user) {

@@ -30,11 +30,13 @@ module.exports = function() {
     function findUserByCredentials(credentials) {
         var i;
         for (i = 0; i < users.length; i++) {
-            if (users[i].username === credentials.username &&
-                users[i].password === credentials.password) {
-                return users[i];
+            if (users[i].username === credentials.username) {
+                if (users[i].password === credentials.password) {
+                    return users[i];
+                }
             }
         }
+        console.log("Did not find the user");
         return null;
     }
 

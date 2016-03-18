@@ -24,7 +24,9 @@
         function update (user) {
             $scope.error = null;
             $scope.message = null;
-            UserService.updateUser(user._id, user, updatedProfileCallback)
+            UserService
+                .updateUser(user._id, user)
+                .then(updatedProfileCallback);
         }
 
 
