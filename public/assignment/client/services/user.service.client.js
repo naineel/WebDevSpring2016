@@ -7,21 +7,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($rootScope) {
-        var users = [
-            {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                "username":"alice",  "password":"alice",   "roles": ["student"]		},
-            {	"_id":234, "firstName":"Bob",              "lastName":"Hope",
-                "username":"bob",    "password":"bob",     "roles": ["admin"]		},
-            {	"_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                "username":"charlie","password":"charlie", "roles": ["faculty"]		},
-            {	"_id":456, "firstName":"Dan",              "lastName":"Craig",
-                "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
-            {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
-                "username":"ed",     "password":"ed",      "roles": ["student"]		}
-        ];
-
-        console.log(users);
+    function UserService($rootScope, $http) {
 
         var service = {
             findUserByCredentials : findUsersByCredentials,
@@ -30,67 +16,47 @@
             deleteUserById : deleteUserById,
             updateUser:updateUser,
             getCurrentUser : getCurrentUser,
-            setCurrentUser : setCurrentUser
+            //setCurrentUser : setCurrentUser,
+            findUserByUsername : findUserByUsername
         };
 
         return service;
 
-        function findUsersByCredentials(username, password, callback)
+        function findUsersByCredentials(username, password)
         {
-            for (var i=0;i<users.length;i++){
-                var user = users[i];
-                if (user.username == username && user.password == password) {
-                    callback(user);
-                }
-            }
+            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
 
         }
 
-        function findAllUsers(callback)
+        function findAllUsers()
         {
-            callback(users);
+            return $http.get("/api/assignment/user");
         }
 
-        function createUser(user, callback)
+        function createUser(user)
         {
-            user._id = (new Date).getTime();
-            users.push(user);
-            callback(user);
+            return $http.post("/api/assignment/user", user);
         }
 
-        function deleteUserById(userid, callback) {
-            for (var i = 0; i < users.length; i++) {
-                var user = users[i];
-                if (user._id == userid) {
-                    users.remove(user);
-                }
-            }
-            callback(users);
+        function deleteUserById(userid) {
+            return $http.delete("/api/assignment/user/" + userid);
         }
 
         function updateUser(userId, user, callback)
-        {   console.log("update user: " + userId);
-
-            for (var i = 0; i < users.length; i++) {
-                var original_user = users[i];
-                if (original_user._id == userId) {
-                    users[i].username = user.username;
-                    users[i].firstName = user.firstName;
-                    users[i].lastName = user.lastName;
-                    users[i].password = user.password;
-                    users[i].roles = user.roles;
-                }
-            }
-            console.log(users);
-            callback(user);
+        {
+            return $http.put("/api/assignment/user/" + userId, user);
         }
 
         function getCurrentUser() {
             return $rootScope.newUser;
         }
 
-        function setCurrentUser (user) {
-            $rootScope.newUser = user;
+        //function setCurrentUser (user) {
+        //    $rootScope.newUser = user;
+        //}
+
+        function findUserByUsername(username) {
+            return $http.get("/api/assignment/user?username=" + username);
         }
 
     }
