@@ -12,7 +12,8 @@ module.exports = function() {
         findFieldByFieldIdAndFormId : findFieldByFieldIdAndFormId,
         updateFieldInForm : updateFieldInForm,
         createFieldInForm : createFieldInForm,
-        deleteFieldByFieldIdAndFormId : deleteFieldByFieldIdAndFormId
+        deleteFieldByFieldIdAndFormId : deleteFieldByFieldIdAndFormId,
+        findFormByTitle : findFormByTitle
     };
 
     return api;
@@ -95,7 +96,9 @@ module.exports = function() {
                 break;
             }
         }
-        return field;
+        form.fields = fields;
+        updateFormById(formId, form);
+        return form;
     }
 
     function createFieldInForm(formId, field) {
@@ -106,8 +109,9 @@ module.exports = function() {
           type: field.type,
           placeholder: field.placeholder
         };
-        form.fields(newField);
-        return newField;
+        form.fields.push(newField);
+        updateFormById(formId, form);
+        return form;
     }
 
     function deleteFieldByFieldIdAndFormId(formId, fieldId) {
@@ -122,6 +126,16 @@ module.exports = function() {
         form.fields = fields;
         updateFormById(formId, form);
         return form;
+    }
+
+    function findFormByTitle(title) {
+        for (var a = 0 ; a < forms.length; a++) {
+            if (forms[a].title == title) {
+                return forms[a];
+            }
+        }
+
+        return null;
     }
 
 };

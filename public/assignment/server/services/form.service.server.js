@@ -34,6 +34,8 @@ module.exports = function(app, model) {
     function createFormUsingUserId(req, res) {
         var userId = req.params.userId;
         var form = req.body;
+        form._id = uuid.v4();
+        form.fields = [];
         var newForm = model.createFormForUser(userId, form);
         res.json(newForm);
     }
@@ -42,7 +44,11 @@ module.exports = function(app, model) {
         var formId = req.params.formId;
         var form = req.body;
         form = model.updateFormById(formId, form);
-        res.json(form);
+        if (form) {
+            res.json(form);
+        } else {
+            res.json({Error : "Form doesn't exist"});
+        }
     }
 
 };

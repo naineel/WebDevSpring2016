@@ -7,11 +7,17 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $rootScope, $location, FormService){
+    function FormController($scope, $rootScope, $location, FormService, UserService){
         var currentUser = $rootScope.newUser;
         $scope.$location = $location;
-        FormService.findAllFormsForUser(currentUser._id)
-            .then(formCallback);
+
+        function init() {
+            FormService
+                .findAllFormsForUser(currentUser._id)
+                .then(formCallback);
+        }
+
+        init();
 
         $scope.addForm = addForm;
         $scope.updateForm = updateForm;
@@ -20,16 +26,12 @@
         $scope.clickedForm = clickedForm;
 
         function addForm (form) {
-            if (form) {
-                form._id = (new Date).getTime();
-                form.userId = currentUser._id;
-                console.log(form);
-                console.log(currentUser._id);
-                FormService
-                    .createFormForUser(currentUser._id, form)
-                    .then(addNewForm);
-                $scope.form = null;
-            }
+            form._id = (new Date).getTime();
+            form.userId = currentUser._id;
+            FormService
+                .createFormForUser(currentUser._id, form)
+                .then(addNewForm);
+            $scope.form = null;
         }
 
         function updateForm (form) {
@@ -61,13 +63,11 @@
         }
 
         function addNewForm() {
-            console.log("AddNewForm");
-            FormService
-                .findAllFormsForUser(currentUser._id)
-                .then(formCallback);
+            init();
         }
 
         function clickedForm(form) {
+            console.log("clickedForm");
             $location.path("/form/" + form._id + "/fields");
         }
 

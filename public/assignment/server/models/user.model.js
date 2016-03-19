@@ -81,13 +81,13 @@ module.exports = function() {
         return user;
     }
 
-    function getCurrentUser() {
-        return $rootScope.newUser;
-    }
-
-    function setCurrentUser (user) {
-        $rootScope.newUser = user;
-    }
+    //function getCurrentUser() {
+    //    return $rootScope.newUser;
+    //}
+    //
+    //function setCurrentUser (user) {
+    //    $rootScope.newUser = user;
+    //}
 
     function findUserById(userId) {
         for (var i = 0; i < users.length; i++) {
