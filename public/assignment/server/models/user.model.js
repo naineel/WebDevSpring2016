@@ -12,9 +12,9 @@ module.exports = function() {
         createUser : createUser,
         deleteUserById : deleteUserById,
         updateUser: updateUser,
-        findUserById : findUserById,
-        getCurrentUser : getCurrentUser,
-        setCurrentUser : setCurrentUser
+        findUserById : findUserById
+        //getCurrentUser : getCurrentUser,
+        //setCurrentUser : setCurrentUser
     };
 
     return api;
