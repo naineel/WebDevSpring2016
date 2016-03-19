@@ -16,7 +16,7 @@
             deleteUserById : deleteUserById,
             updateUser:updateUser,
             getCurrentUser : getCurrentUser,
-            //setCurrentUser : setCurrentUser,
+            setCurrentUser : setCurrentUser,
             findUserByUsername : findUserByUsername
         };
 
@@ -42,7 +42,7 @@
             return $http.delete("/api/assignment/user/" + userid);
         }
 
-        function updateUser(userId, user, callback)
+        function updateUser(userId, user)
         {
             return $http.put("/api/assignment/user/" + userId, user);
         }
@@ -51,9 +51,9 @@
             return $rootScope.newUser;
         }
 
-        //function setCurrentUser (user) {
-        //    $rootScope.newUser = user;
-        //}
+        function setCurrentUser (user) {
+            $rootScope.newUser = user;
+        }
 
         function findUserByUsername(username) {
             return $http.get("/api/assignment/user?username=" + username);

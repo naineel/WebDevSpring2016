@@ -8,7 +8,11 @@ module.exports = function() {
         findAllFormsForUser : findAllFormsForUser,
         deleteFormById : deleteFormById,
         updateFormById : updateFormById,
-        findFormById : findFormById
+        findFormById : findFormById,
+        findFieldByFieldIdAndFormId : findFieldByFieldIdAndFormId,
+        updateFieldInForm : updateFieldInForm,
+        createFieldInForm : createFieldInForm,
+        deleteFieldByFieldIdAndFormId : deleteFieldByFieldIdAndFormId
     };
 
     return api;
@@ -31,6 +35,7 @@ module.exports = function() {
                 emptyArray.push(forms[i]);
             }
         }
+        console.log(emptyArray);
         return emptyArray;
     }
 
@@ -45,7 +50,8 @@ module.exports = function() {
         for (var i = 0; i < forms.length; i++) {
             var original_form = forms[i];
             if (original_form._id == formId) {
-                //forms[i]._id = newForm._id;
+                forms[i]._id = formId;
+                newForm._id = formId;
                 forms[i].title = newForm.title;
                 forms[i].userId = newForm.userId;
                 break;
@@ -64,4 +70,58 @@ module.exports = function() {
 
         return null;
     }
+
+    function findFieldByFieldIdAndFormId(formId, fieldId) {
+        var form = findFormById(formId);
+        var formFields = form.fields;
+        for (var i=0; i < formFields; i++) {
+            if (formFields[i] == fieldId) {
+                return formFields[i];
+            }
+        }
+        return null;
+    }
+
+    function updateFieldInForm(formId, fieldId, field) {
+        var form = findFormById(formId);
+        var fields = form.fields;
+        for(var i = 0; i < fields.length; i++) {
+            if (fields[i]._id == fieldId) {
+                fields[i]._id = fieldId;
+                fieldId._id = fieldId;
+                fields[index].label = field.label;
+                fields[index].type = field.type;
+                fields[index].placeholder = field.placeholder;
+                break;
+            }
+        }
+        return field;
+    }
+
+    function createFieldInForm(formId, field) {
+        var form = findFormById(formId);
+        var newField = {
+          _id: (new Date).getTime(),
+          label: field.label,
+          type: field.type,
+          placeholder: field.placeholder
+        };
+        form.fields(newField);
+        return newField;
+    }
+
+    function deleteFieldByFieldIdAndFormId(formId, fieldId) {
+        var form = findFormById(formId);
+        var fields = form.fields;
+        for(var i=0; i < fields.length; i++) {
+            if(fields[i]._id == fieldId) {
+                fields.splice(i, 1);
+                break;
+            }
+        }
+        form.fields = fields;
+        updateFormById(formId, form);
+        return form;
+    }
+
 };

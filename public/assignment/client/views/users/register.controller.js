@@ -43,12 +43,12 @@
 
         function registerCallback (user) {
             console.log("In register callback function " + user);
-            $rootScope.newUser = user;
+            $rootScope.newUser = user.data;
             $location.path('/profile');
         }
 
         function callbackFunction(user) {
-            if (user != null) {
+            if (user) {
                 $scope.message = "User already exists";
             }
         }

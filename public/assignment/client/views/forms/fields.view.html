@@ -1,145 +1,194 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1>Forms</h1>
+    <h1 class="page-header">Forms : Registration Form</h1>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Single Line Field</h3>
+        </div>
+        <div class="modal-body">
+            <label for="TEXT-MODAL-LABEL" class="control-label">Label:</label>
+            <div class="row nowrap">
+                <div class="col-xs-12" >
+                    <input type="text" id="TEXT-MODAL-LABEL" ng-model="modal.label" class="form-control">
+                </div>
+            </div>
+
+            <br>
+
+            <label for="TEXT-MODAL-PLACEHOLDER" class="control-label">Placeholder:</label>
+            <div class="row nowrap">
+                <div class="col-xs-12" >
+                    <input type="text" id="TEXT-MODAL-PLACEHOLDER" ng-model="modal.placeholder" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok(modal)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
     <ul class="nav nav-tabs">
-        <li><a href="#/forms">Forms</a></li>
-        <li class="active"><a href="#">Fields</a><span class="sr-only">(current)</span></li>
+        <li role="presentation"><a href="#/forms">Forms</a></li>
+        <li role="presentation" class="active"><a href="#">Fields</a></li>
     </ul>
 
-    <form>
-        <br>
-        <fieldset class="form-group">
-            <label for="firstname">First Name:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-                    <input type="text" class="form-control col-xs-6" id="firstname" placeholder="First Name">
-                </div>
-                <div class="col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
+    <br>
+    <div n-sortable>
+        <div ng-repeat="field in fields" ng-switch on="field.type">
+            <div ng-switch-when="TEXT">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div class="col-xs-6" >
+                            <input type="text" id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control">
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
                     </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="ln">Last Name:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-
-                    <input type="text" class="form-control" id="ln" placeholder="Last Name">
-                </div>
-                <div class="form-group col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
+            <div ng-switch-when="EMAIL">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div class="col-xs-6" >
+                            <input type="email" id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control">
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <fieldset>
-            <label for="dob">Date of Birth:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-                    <input type="date" class="form-control" id="dob">
-                </div>
-                <div class="form-group col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
+            <div ng-switch-when="TEXTAREA">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div class="col-xs-6" >
+                            <textarea id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control"></textarea>
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <fieldset>
-            <label>Gender:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-                    <select class="form-control">
-                        <option>Male</option>
-                        <option>Female</option>
-                    </select>
-                </div>
-                <div class="form-group col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
+            <div ng-switch-when="OPTIONS">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div class="col-xs-6">
+                            <select id="{{field._id}}" class="form-control">
+                                <option ng-repeat="option in field.options" value="{{option.value}}">{{option.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <fieldset>
-            <label>Roles:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-                    <div class="checkbox">
-                        <label><input type="checkbox">Admin</label>
-                        <br>
-                        <label><input type="checkbox">Student</label>
-                        <br>
-                        <label><input type="checkbox">User</label>
+            <div ng-switch-when="DATE">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div class="col-xs-6">
+                            <input type="date" id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control">
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                    </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <fieldset>
-            <label>License Agreement:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-                    <div class="radio">
-                        <label><input type="radio" name="optradio">Yes</label>
+            <div ng-switch-when="RADIOS">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div id="{{field._id}}" class="col-xs-6">
+                            <div class="radio" ng-repeat="option in field.options">
+                                <label>
+                                    <input type="radio" name="{{field.label}}" value="{{option.value}}" checked>
+                                    {{option.label}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
+                        </div>
                     </div>
-                    <div class="radio">
-                        <label><input type="radio" name="optradio">No</label>
-                    </div>
-                </div>
-                <div class="form-group col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true" ></a>
-                    </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
-        <hr class="form-group">
-        <fieldset>
-            <label>Add New Field:</label>
-            <div class="row">
-                <div class="form-group col-xs-6">
-                    <select class="form-control">
-                        <option>Single Line Text</option>
-                        <option>Date</option>
-                        <option>Dropdown</option>
-                        <option>Checkboxes</option>
-                        <option>Radio buttons</option>
-                        <option>Paragraph Text Field</option>
-                    </select>
-                </div>
-                <div class="form-group col-xs-6">
-                    <div class="nowrap">
-                        <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
-                        <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true" ></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
-                        <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"></a>
+            <div ng-switch-when="CHECKBOXES">
+                <fieldset class="form-group">
+                    <label for="{{field._id}}" class="control-label">{{field.label}}</label>
+                    <div class="row nowrap">
+                        <div id="{{field._id}}" class="col-xs-6">
+                            <div class="checkbox" ng-repeat="option in field.options">
+                                <label>
+                                    <input type="checkbox" value="{{option.value}}">
+                                    {{option.label}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                            <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
+                               ng-click="removeField(field)"></a>
+                            <a class="glyphicon glyphicon-menu-hamburger glyphiconmysize" aria-hidden="true"></a>
                     </div>
-                </div>
+                </fieldset>
             </div>
-        </fieldset>
+        </div>
+    </div>
+    <hr>
+    <fieldset class="form-group">
+        <label for="add_new_field" class="control-label">Add New Field:</label>
+        <div class="row nowrap">
+            <div class="col-xs-6">
+                <select id="add_new_field" ng-model="model.fieldType" class="form-control">
+                    <option value="SINGLE_LINE_TEXT">Single Line Text</option>
+                    <option value="MULTI_LINE_TEXT">Paragraph Text Field</option>
+                    <option value="DATE">Date</option>
+                    <option value="DROPDOWN">Dropdown</option>
+                    <option value="CHECKBOXES">Checkboxes</option>
+                    <option value="RADIO">Radio Buttons</option>
+                </select>
+            </div>
+            <div class="col-xs-6">
+                <a class="glyphicon glyphicon-pencil glyphiconmysizehidden" aria-hidden="true"></a>
+                <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"
+                   ng-click="addField(model.fieldType)"></a>
+                <a class="glyphicon glyphicon-remove glyphiconmysizehidden" aria-hidden="true"
+                   ></a>
+                <a class="glyphicon glyphicon-menu-hamburger glyphiconmysizehidden" aria-hidden="true"></a>
+            </div>
+        </div>
+    </fieldset>
 </div>

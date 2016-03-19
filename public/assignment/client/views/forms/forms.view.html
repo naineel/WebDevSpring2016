@@ -22,7 +22,7 @@
                 </td>
             </tr>
             <tr ng-repeat="form in forms">
-                <td><a href="fields.view.html">{{form.title}}</a></td>
+                <td><a ng-click="clickedForm(form)">{{form.title}}</a></td>
                 <td>
                     <div class="nowrap">
                         <a ng-click="deleteForm(form)" class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"></a>

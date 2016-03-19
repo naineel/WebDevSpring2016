@@ -11,8 +11,10 @@ module.exports = function() {
         findAllUsers : findAllUsers,
         createUser : createUser,
         deleteUserById : deleteUserById,
-        updateUser:updateUser,
-        findUserById : findUserById
+        updateUser: updateUser,
+        findUserById : findUserById,
+        getCurrentUser : getCurrentUser,
+        setCurrentUser : setCurrentUser
     };
 
     return api;
@@ -79,13 +81,13 @@ module.exports = function() {
         return user;
     }
 
-    //function getCurrentUser() {
-    //    return $rootScope.newUser;
-    //}
+    function getCurrentUser() {
+        return $rootScope.newUser;
+    }
 
-    //function setCurrentUser (user) {
-    //    $rootScope.newUser = user;
-    //}
+    function setCurrentUser (user) {
+        $rootScope.newUser = user;
+    }
 
     function findUserById(userId) {
         for (var i = 0; i < users.length; i++) {

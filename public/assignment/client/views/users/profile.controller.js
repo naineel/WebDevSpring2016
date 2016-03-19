@@ -10,25 +10,24 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, $location, UserService){
+    function ProfileController($rootScope, $scope, $location, UserService){
         $scope.error = null;
         $scope.message = null;
 
         $scope.user = UserService.getCurrentUser();
-        if (!$scope.user) {
+        if (!$scope.newUser) {
             $location.url("/home");
         }
 
         $scope.update = update;
 
-        function update (user) {
+        function update(user) {
             $scope.error = null;
             $scope.message = null;
             UserService
-                .updateUser(user._id, user)
+                .updateUser($rootScope.user._id, user)
                 .then(updatedProfileCallback);
         }
-
 
         function updatedProfileCallback (user) {
             if (user) {

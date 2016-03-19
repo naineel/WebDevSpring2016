@@ -1,12 +1,60 @@
 /**
  * Created by naineel on 3/18/16.
  */
-module.exports = function(app, model) {
-    app.get("/apt/assignment/form/:formId/field", getAllfieldsForFormId);
-    app.get("/apt/assignment/form/:formId/field/:fieldId", getFieldById);
-    app.delete("/apt/assignment/form/:formId/field/:fieldId", deleteFieldUsingId);
-    app.post("/api/assignment/form/:formId/field", createFormUsingUserId);
+module.exports = function(app, model, uuid) {
+    app.get("/api/assignment/form/:formId/field", getAllfieldsForFormId);
+    app.get("/api/assignment/form/:formId/field/:fieldId", getFieldById);
+    app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldUsingId);
+    app.post("/api/assignment/form/:formId/field", createFormUsingFieldId);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldUsingId);
 
+    function getAllfieldsForFormId(req, res) {
+        var formId = req.params.formId;
+        var form = model.findFormById(formId);
+        if (form) {
+            res.json(form.fields);
+        } else {
+            res.json({Error: "Form does not exist"});
+        }
+    }
 
+    function getFieldById(req, res) {
+        var formId = req.params.formId;
+        var fieldId = req.params.fieldId;
+        var field = model.findFieldByFieldIdAndFormId(formId, fieldId);
+        if (field) {
+            res.json(field);
+        } else {
+            res.json({Error: "Field does not exist"});
+        }
+    }
+
+    function deleteFieldUsingId(req, res) {
+        var formId = req.params.formId;
+        var fieldId = req.params.fieldId;
+        if (model.deleteFieldByFieldIdAndFormId(formId, fieldId)) {
+            return;
+        }
+        res.json({Error: "Field does not exist"});
+    }
+
+    function createFormUsingFieldId(req, res) {
+        var field = req.body;
+        field._id = uuid.v4();
+        var formId = req.params.formId;
+        var form = model.createFieldInForm(formId, field);
+        res.json(form);
+    }
+
+    function updateFieldUsingId(req, res) {
+        var formId = req.params.formId;
+        var fieldId = req.params.fieldId;
+        var newField = req.body;
+        var field = model.updateFieldInForm(formId, fieldId, newField);
+        if(field) {
+            res.json(form);
+        } else {
+            res.json({Error: "Field does not exist"});
+        }
+    }
 };

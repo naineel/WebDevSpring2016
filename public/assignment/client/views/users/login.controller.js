@@ -17,9 +17,8 @@
         };
 
         function loginCallback (user) {
-
             if (user != null) {
-                $rootScope.newUser = user;
+                $rootScope.newUser = user.data;
                 $location.path('/profile');
             }
         }

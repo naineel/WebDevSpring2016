@@ -18,7 +18,11 @@ module.exports = function(app, model) {
         var formId = req.params.formId;
         console.log("FormId: " + formId);
         var form = model.findFormById(formId);
-        res.json(form);
+        if (form) {
+            res.json(form);
+        } else {
+            res.json({Error: "Form not found"});
+        }
     }
 
     function deleteFormUsingFormId(req, res) {
