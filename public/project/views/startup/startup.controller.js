@@ -10,11 +10,13 @@
     function startupDetailsController($scope, $location, $http, $routeParams) {
         var startupId = $routeParams.startupId;
 
-        //$scope.renderDetails = renderDetails;
+        $scope.renderDetails = renderDetails;
 
         console.log(startupId);
 
-        //function renderDetails() {
+        renderDetails();
+
+        function renderDetails() {
             var url = startupById
                 .replace("STARTUPID", startupId);
             $http.jsonp(url)
@@ -22,7 +24,7 @@
                     console.log(json.data);
                     $scope.startup = json.data;
                 });
-        //}
+        }
 
     }
 })();

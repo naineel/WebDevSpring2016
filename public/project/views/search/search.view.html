@@ -21,7 +21,9 @@
                         <img height="100px" ng-src="{{startupName.pic}}"/>
                     </td>
                     <td>
-                        {{startupName.name}}
+                        <a href="#/details/{{startupName.id}}">
+                            {{startupName.name}}
+                        </a>
                     </td>
                     <td>
                         {{startupName.url}}
