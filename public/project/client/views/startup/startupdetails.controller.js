@@ -2,12 +2,12 @@
  * Created by naineel on 3/11/16.
  */
 (function(){
-    var startupById = "https://api.angel.co/1/startups/STARTUPID?access_token=5ea0e05d9bdb98611f02fdcf40448f6d3f346b2a6321a378&callback=JSON_CALLBACK";
+
     angular
         .module("FormBuilderApp")
         .controller("StartupDetailsController", startupDetailsController);
 
-    function startupDetailsController($scope, $location, $http, $routeParams) {
+    function startupDetailsController($scope, $routeParams, StartupService) {
         var startupId = $routeParams.startupId;
 
         $scope.renderDetails = renderDetails;
@@ -17,9 +17,7 @@
         renderDetails();
 
         function renderDetails() {
-            var url = startupById
-                .replace("STARTUPID", startupId);
-            $http.jsonp(url)
+            StartupService.renderDetails(startupId)
                 .then(function(json) {
                     console.log(json.data);
                     $scope.startup = json.data;

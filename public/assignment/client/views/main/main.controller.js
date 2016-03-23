@@ -7,8 +7,11 @@
         .module("FormBuilderApp")
         .controller("MainController", mainController);
 
-    function mainController($scope, $location) {
+    function mainController($scope, $location, $rootScope) {
         $scope.$location = $location;
         //console.log($location.url());
+        if ($location.url() === '/home') {
+            $rootScope.showSidebar = false;
+        }
     }
 })();

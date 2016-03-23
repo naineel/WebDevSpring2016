@@ -31,7 +31,7 @@
                 templateUrl: "views/home/home.view.html"
             })
             .when("/details/:startupId", {
-                templateUrl: "views/startup/startup.views.html",
+                templateUrl: "views/startup/startupdetails.views.html",
                 controller: "StartupDetailsController"
             })
             .when("/search", {
