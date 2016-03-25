@@ -1,53 +1,82 @@
-/**
- * Created by naineel on 2/22/16.
- */
-"use strict";
 (function(){
     angular
-        .module("FormBuilderApp")
+        .module("OmdbApp")
         .config(configuration);
 
     function configuration($routeProvider) {
         $routeProvider
-            .when("/", {
-                templateUrl: "views/home/home.view.html"
-            })
-            .when("/register", {
-                templateUrl: "views/users/register.view.html",
-                controller: "RegisterController"
-            })
-            .when("/login", {
-                templateUrl: "views/users/login.view.html",
-                controller: "LoginController"
-            })
-            .when("/profile", {
-                templateUrl: "views/users/profile.view.html",
-                controller: "ProfileController"
-            })
-            .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
-            })
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
-            })
-            .when("/details/:startupId", {
-                templateUrl: "views/startup/startupdetails.views.html",
-                controller: "StartupDetailsController"
+                templateUrl: "views/home/home.view.html",
+                resolve: {
+                    getLoggedIn : getLoggedIn
+                }
             })
             .when("/search", {
                 templateUrl: "views/search/search.view.html",
-                controller: "SearchController"
+                controller: "SearchControllerReal",
+                controllerAs: "model",
+                resolve: {
+                    getLoggedIn : getLoggedIn
+                }
             })
-            .when("/follow", {
-                templateUrl: "views/follow/follow.view.html",
-                controller: "FollowController"
+            .when("/login", {
+                templateUrl: "views/login/login.view.html",
+                controller: "LoginController",
+                controllerAs: "model"
             })
-            .when("/comment", {
-                templateUrl: "views/comment/comment.view.html",
-                controller: "CommentController"
+            .when("/profile", {
+                templateUrl: "views/profile/profile.view.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
+            })
+            .when("/register", {
+                templateUrl: "views/register/register.view.html",
+                controller: "RegisterController",
+                controllerAs: "model"
+            })
+            .when("/details/:startupId", {
+                templateUrl: "views/details/startupdetails.view.html",
+                controller: "StartupDetailsController",
+                controllerAs: "model",
+                resolve: {
+                    getLoggedIn : getLoggedIn
+                }
             })
             .otherwise({
-                redirectTo: "/"
+                redirectTo: "/home"
             });
     }
+
+    function checkLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+        UserService
+            .getCurrentUser()
+            .then(function (response){
+                var currentUser = response.data;
+                if(currentUser) {
+                    UserService.setCurrentUser(currentUser);
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                    $location.url("/home");
+                }
+            });
+        return deferred.promise;
+    }
+
+    function getLoggedIn(UserService, $q) {
+        var deferred = $q.defer();
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var currentUser = response.data;
+                UserService.setCurrentUser(currentUser);
+                deferred.resolve();
+            });
+        return deferred.promise;
+    }
+
 })();

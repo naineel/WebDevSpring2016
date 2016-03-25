@@ -1,16 +1,25 @@
 (function(){
     angular
-        .module("FormBuilderApp")
-        .controller("SearchController", SearchController);
+        .module("OmdbApp")
+        .controller("SearchControllerReal", SearchControllerReal);
 
-    function SearchController($scope, StartupService) {
-        $scope.searchStartup = searchStartup;
+    function SearchControllerReal(AngelListService) {
+        var vm = this;
+        vm.searchStartupReal = searchStartupReal;
 
-        function searchStartup(startupName) {
-            StartupService.searchStartup(startupName)
+        function init() {
+
+        }
+
+        init();
+
+        function searchStartupReal(startupName) {
+            console.log("Startup search in client/view/search: startupName = " + startupName);
+            AngelListService
+                .searchStartupReal(startupName)
                 .then(function(json) {
                     console.log(json.data);
-                    $scope.data = json.data;
+                    vm.data = json.data;
                 });
         }
 

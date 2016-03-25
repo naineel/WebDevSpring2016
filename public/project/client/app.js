@@ -1,5 +1,4 @@
-"use strict";
 (function(){
     angular
-        .module("FormBuilderApp", ["ngRoute", "youtube-embed"]);
+        .module("OmdbApp", ["ngRoute", "youtube-embed"]);
 })();

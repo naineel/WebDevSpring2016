@@ -1,44 +1,23 @@
-<nav ng-controller="HeaderController" class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#/">Start-Up</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="newUser">
-                    <a href="#/search" class="btn">
-                        Search
-                    </a>
-                </li>
-                <li ng-hide="newUser"
-                    ng-class="{'active': $location.url()=='/register'}">
-                    <a href="#/register">Register</a>
-                </li>
-                <li ng-show="newUser.roles.indexOf('admin') >= 0"
-                    ng-class="{'active': $location.url()=='/admin'}">
-                    <a href="#/admin">Admin</a>
-                </li>
-                <li ng-show="newUser"
-                    ng-class="{'active': $location.url()=='/profile'}">
-                    <a href="#/profile">{{newUser.username}}</a>
-                </li>
-                <li ng-hide="newUser"
-                    ng-class="{'active': $location.url()=='/login'}">
-                    <a href="#/login">Login</a>
-                </li>
-                <li ng-show="newUser">
-                    <a href="#/home" ng-click="logout()">Logout</a>
-                </li>
-                <li ng-class="{'active': $location.url().indexOf('/details')>=0}"
-                    ng-show="$location.url().indexOf('/details')>=0"><a>Details</a></li>
-
-            </ul>
-        </div>
-    </div>
+<nav ng-controller="NavigationController as model">
+    <ul class="nav nav-pills">
+        <li ng-class="{'active': model.$location.url() == '/home'}"><a href="#/home">Home</a></li>
+        <li ng-class="{'active': model.$location.url() == '/register'}"
+            ng-hide="currentUser">
+            <a href="#/register">Register</a>
+        </li>
+        <li ng-class="{'active': model.$location.url() == '/login'}"
+            ng-hide="currentUser">
+            <a href="#/login">Login</a>
+        </li>
+        <li ng-show="currentUser">
+            <a ng-click="model.logout()">Logout</a>
+        </li>
+        <li ng-class="{'active': model.$location.url() == '/search'}"><a href="#/search">Search</a></li>
+        <li ng-class="{'active': model.$location.url() == '/profile'}"
+            ng-show="currentUser">
+            <a href="#/profile">Profile</a>
+        </li>
+        <li ng-class="{'active': $location.url().indexOf('/details')>=0}"
+            ng-show="$location.url().indexOf('/details')>=0"><a>Details</a></li>
+    </ul>
 </nav>

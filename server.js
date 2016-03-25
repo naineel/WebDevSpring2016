@@ -28,11 +28,11 @@ var userService = require("./public/assignment/server/services/user.service.serv
 var formService = require("./public/assignment/server/services/form.service.server")(app, formModel, uuid);
 var fieldService = require("./public/assignment/server/services/field.service.server")(app, formModel, uuid);
 
-require("./public/sampleProject/server/app.js")(app);
-//var movieModel = require("./public/sampleProject/server/models/movie.model.server.js");
-//var userModelTwo = require("./public/sampleProject/server/models/user.model.server.js");
+require("./public/project/server/app.js")(app);
+//var movieModel = require("./public/project/server/models/movie.model.server.js");
+//var userModelTwo = require("./public/project/server/models/user.model.server.js");
 //
-//require("./public/sampleProject/server/services/movie.service.server")(app, movieModel, userModelTwo);
-//require("./public/sampleProject/server/services/user.service.server")(app, movieModel, userModelTwo);
+//require("./public/project/server/services/movie.service.server")(app, movieModel, userModelTwo);
+//require("./public/project/server/services/user.service.server")(app, movieModel, userModelTwo);
 
 app.listen(port, ipaddress);

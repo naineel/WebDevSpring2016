@@ -1,41 +1,45 @@
-(function(){
+(function (){
     angular
-        .module("FormBuilderApp")
+        .module("OmdbApp")
         .factory("UserService", userService);
 
     function userService($http, $rootScope) {
         var api = {
-            login: login,
-            setCurrentUser: setCurrentUser,
-            getCurrentUser: getCurrentUser,
-            register: register,
+            findUserByCredentials : findUserByCredentials,
+            setCurrentUser : setCurrentUser,
+            getCurrentUser : getCurrentUser,
             logout: logout,
-            getProfile: getProfile
+            registerUser : registerUser,
+            getProfile : getProfile
         };
         return api;
 
-        function getProfile() {
-            return $http.get("/api/project/profile/" + $rootScope.currentUser._id);
+        function findUserByCredentials(credentials) {
+            console.log("In Client/service/UserService: credentials=" + credentials);
+            return $http.post("/api/project/login", credentials);
         }
 
-        function register(user) {
-            return $http.post("/api/project/register", user);
-        }
-
-        function logout() {
-            return $http.post("/api/project/logout");
+        function setCurrentUser(user) {
+            $rootScope.currentUser = user;
+            console.log("Current User: " + $rootScope.currentUser);
         }
 
         function getCurrentUser() {
             return $http.get("/api/project/loggedin");
         }
 
-        function setCurrentUser(user) {
-            $rootScope.newUser = user;
+        function logout() {
+            return $http.post("/api/project/logout");
         }
 
-        function login(credentials) {
-            return $http.post("/api/project/login", credentials);
+        function registerUser(user) {
+            return $http.post("/api/project/user", user);
+        }
+
+        function getProfile() {
+            console.log($rootScope.currentUser._id);
+            return $http.get("/api/project/profile/" + $rootScope.currentUser._id);
         }
     }
+
 })();
