@@ -32,9 +32,12 @@ module.exports = function(app, userModel, startupModel) {
     }
 
     function profile(req, res) {
+        console.log("profile function");
         var userId = req.params.userId;
-        //console.log(userId);
-        var user = userModel.findUserById(userId);
+        console.log("In server user service: " + userId);
+        var user = userModel.findUserByIdP(userId);
+        console.log("Th user username: " + user.username);
+        console.log(user);
         var startupIds = user.follows;
         var startups = startupModel.findStartupsByStartupIds(startupIds);
         user.followsStartups = startups;

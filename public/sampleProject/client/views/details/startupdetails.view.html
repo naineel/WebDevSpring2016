@@ -1,37 +1,37 @@
 <h2>Details</h2>
-<img class="pull-left"  ng-src="{{startup.logo_url}}">
+<img class="pull-left"  ng-src="{{model.startup.logo_url}}">
 
 <div class="top-buffer">
-    <h1 class="page-header">{{startup.name}}</h1>
+    <h1 class="page-header">{{model.startup.name}}</h1>
 </div>
 <br>
 <p>Startup High concept:</p>
-<p>{{startup.high_concept}}</p>
+<p>{{model.startup.high_concept}}</p>
 <br>
 <button class="btn btn-primary"
-        ng-click="follow(startup)">
-    <span class="glyphicon glyphicon-start-empty"></span>
+        ng-click="model.follow(model.startup)">
+    <span class="glyphicon glyphicon-star-empty"></span>
 </button>
 <p>Startup Description:</p>
-<p>{{startup.product_desc}}</p>
+<p>{{model.startup.product_desc}}</p>
 
 <p>Startup url:</p>
-<p>{{startup.company_url}}</p>
+<p>{{model.startup.company_url}}</p>
 
 <p>Product</p>
-<youtube-video video-url="startup.video_url"></youtube-video>
+<youtube-video video-url="model.startup.video_url"></youtube-video>
 
 <p>Startup markets:</p>
-<p>{{startup.markets}}</p>
+<p>{{model.startup.markets}}</p>
 
 <p>Startup locations:</p>
-<p>{{startup.locations[0]}}</p>
+<p>{{model.startup.locations[0]}}</p>
 
 <p>Comments</p>
-<p>{{startup.comments}}</p>
+<p>{{model.startup.comments}}</p>
 
 <p>Jobs availaible</p>
-<p>{{startupJobs.jobs}}</p>
+<p>{{model.startupJobs.jobs}}</p>
 
 <h3>People associated with the startup</h3>
 <table class="table table-striped">
@@ -45,7 +45,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="role in startupRoles">
+    <tr ng-repeat="role in model.startupRoles">
         <td>
             <img height="50px" ng-src="{{role.tagged.image}}"/>
         </td>

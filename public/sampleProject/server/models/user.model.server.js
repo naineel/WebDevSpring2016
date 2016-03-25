@@ -3,7 +3,7 @@ module.exports = function() {
     var api = {
         findUserByCredentialsReal : findUserByCredentialsReal,
         createUser : createUser,
-        findUserById : findUserById
+        findUserByIdP : findUserByIdP
     };
 
     return api;
@@ -29,7 +29,7 @@ module.exports = function() {
         return userDetails;
     }
 
-    function findUserById(userId) {
+    function findUserByIdP(userId) {
         var i;
         for (i = 0; i < users.length; i++) {
             if (users[i]._id === userId) {

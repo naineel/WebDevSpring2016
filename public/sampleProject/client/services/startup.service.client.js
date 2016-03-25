@@ -15,7 +15,7 @@
 
         function setUserFollowsStartup(userId, startup) {
             console.log([userId, startup]);
-            return $http.post("/api/project/user/" + userId + "/startup/" + startup.startupId, startup);
+            return $http.post("/api/project/user/" + userId + "/startup/" + startup.id, startup);
         }
 
     }
