@@ -1,0 +1,37 @@
+<h1>Search for startups</h1>
+<div class="row">
+    <div class="col-xs-6">
+        <input ng-model="model.startupName" placeholder="Bitsight Technologies" class="form-control"/>
+        <button ng-click="model.searchStartupReal(model.startupName)" class="btn btn-primary btn-block">
+            Search
+        </button>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Poster</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-click="model.renderDetailsReal(startupName)" ng-repeat="startupName in model.data">
+                <td>
+                    <img height="100px" ng-src="{{startupName.pic}}"/>
+                </td>
+                <td>
+                    <a href="#/details/{{startupName.id}}">
+                        {{startupName.name}}
+                    </a>
+                </td>
+                <td>
+                    {{startupName.url}}
+                </td>
+                <td>
+                    {{startupName.type}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

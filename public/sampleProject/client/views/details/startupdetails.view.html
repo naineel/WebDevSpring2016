@@ -1,0 +1,66 @@
+<h2>Details</h2>
+<img class="pull-left"  ng-src="{{startup.logo_url}}">
+
+<div class="top-buffer">
+    <h1 class="page-header">{{startup.name}}</h1>
+</div>
+<br>
+<p>Startup High concept:</p>
+<p>{{startup.high_concept}}</p>
+<br>
+<button class="btn btn-primary"
+        ng-click="follow(startup)">
+    <span class="glyphicon glyphicon-start-empty"></span>
+</button>
+<p>Startup Description:</p>
+<p>{{startup.product_desc}}</p>
+
+<p>Startup url:</p>
+<p>{{startup.company_url}}</p>
+
+<p>Product</p>
+<youtube-video video-url="startup.video_url"></youtube-video>
+
+<p>Startup markets:</p>
+<p>{{startup.markets}}</p>
+
+<p>Startup locations:</p>
+<p>{{startup.locations[0]}}</p>
+
+<p>Comments</p>
+<p>{{startup.comments}}</p>
+
+<p>Jobs availaible</p>
+<p>{{startupJobs.jobs}}</p>
+
+<h3>People associated with the startup</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Title</th>
+        <th>Profile link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="role in startupRoles">
+        <td>
+            <img height="50px" ng-src="{{role.tagged.image}}"/>
+        </td>
+        <td>
+                {{role.tagged.name}}
+        </td>
+        <td>
+            {{role.role}}
+        </td>
+        <td>
+            {{role.title}}
+        </td>
+        <td>
+            <a href={{role.tagged.angellist_url}} target="_blank">{{role.tagged.angellist_url}}</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

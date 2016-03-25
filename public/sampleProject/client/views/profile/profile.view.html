@@ -1,0 +1,13 @@
+<h2>profile</h2>
+{{vm.profile}}
+<div ng-if="model.profile.followsStartups">
+    <h3>Startups I follow</h3>
+    <div class="panel panel-default jga-movie-panel"
+    ng-repeat="startup in model.profile.followsStartups">
+        <div class="panel-heading">{{startup.name}}</div>
+        <div class="panel-body">
+            <img ng-src="{{startup.logo_url}}" width="100px"/>
+        </div>
+
+    </div>
+</div>
