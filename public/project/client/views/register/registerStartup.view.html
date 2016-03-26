@@ -1,0 +1,38 @@
+<h2>Register</h2>
+<ul class="nav nav-tabs">
+    <li role="presentation"><a href="#/registerUser">User</a></li>
+    <li role="presentation" class="active"><a href="#/registerStartup">Startup</a></li>
+</ul>
+<input ng-model="model.company.name"
+       type="text"
+       class="form-control"
+       placeholder="Company Name"/>
+<input ng-model="model.company.image"
+       type="file"
+       class="form-control"
+       name="pic"
+       accept="image/*"
+       placeholder="Company Logo"/>
+<input ng-model="model.company.highConcept"
+       type="text"
+       class="form-control"
+       placeholder="High Concept Pitch"/>
+<input ng-model="model.company.url"
+       type="text"
+       class="form-control"
+       placeholder="Company Website"/>
+<textarea ng-model="model.company.product"
+       class="form-control"
+          rows="4"
+          cols="50"
+       placeholder="Product description"></textarea>
+<input ng-model="model.company.Location"
+       type="text"
+       class="form-control"
+       placeholder="Add Locations"/>
+<input ng-model="model.company.Location"
+       type="text"
+       class="form-control"
+       placeholder="Add Markets"/>
+<a class="btn btn-info" role="button"
+   ng-click="model.registerUser(model.user)">Register</a>

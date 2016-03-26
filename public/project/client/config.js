@@ -25,7 +25,7 @@
                 controllerAs: "model"
             })
             .when("/profile", {
-                templateUrl: "views/profile/profile.view.html",
+                templateUrl: "views/profile/userprofile.view.html",
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
@@ -33,7 +33,7 @@
                 }
             })
             .when("/register", {
-                templateUrl: "views/register/register.view.html",
+                templateUrl: "views/register/registerUser.view.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })
@@ -44,6 +44,16 @@
                 resolve: {
                     getLoggedIn : getLoggedIn
                 }
+            })
+            .when("/registerStartup", {
+                templateUrl: "views/register/registerStartup.view.html",
+                controller: "RegisterController",
+                controllerAs: "model"
+            })
+            .when("/registerUser", {
+                templateUrl: "views/register/registerUser.view.html",
+                controller: "RegisterController",
+                controllerAs: "model"
             })
             .otherwise({
                 redirectTo: "/home"

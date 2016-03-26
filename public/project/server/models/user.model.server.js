@@ -24,8 +24,11 @@ module.exports = function() {
     }
 
     function createUser(userDetails) {
-        userDetails._id = (new Date).getTime();
+        console.log("In model/UserModel createUser Function");
+        console.log(userDetails);
+        userDetails._id = (new Date).getTime().toString();
         users.push(userDetails);
+        console.log(users);
         return userDetails;
     }
 

@@ -25,6 +25,7 @@ module.exports = function(app, userModel, startupModel) {
     }
 
     function createUser(req, res) {
+        console.log("Creating new user");
         var newUser = userModel.createUser(req.body);
         //Important
         req.session.currentUser = newUser;
