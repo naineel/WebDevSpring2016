@@ -4,6 +4,7 @@ module.exports = function(app, userModel, startupModel) {
   app.post("/api/project/logout", logout);
   app.post("/api/project/user", createUser);
   app.get("/api/project/profile/:userId", profile);
+  app.put("/api/project/profile/:userId", updateProfile);
 
     function login(req,  res) {
         var credentials = req.body;
@@ -43,5 +44,16 @@ module.exports = function(app, userModel, startupModel) {
         var startups = startupModel.findStartupsByStartupIds(startupIds);
         user.followsStartups = startups;
         res.json(user);
+    }
+
+    function updateProfile(req, res) {
+        var id = req.params.userId;
+        var user = req.body;
+        user = userModel.updateUser(id, user);
+        if (user) {
+            res.json(user);
+        } else {
+            res.json({Error: "User doesn't exist"})
+        }
     }
 };

@@ -1,5 +1,45 @@
 <h2>profile</h2>
-{{model.profile}}
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="username" class="col-md-2 control-label text-left">Username:</label>
+        <div class="col-md-10">
+            <input ng-model="model.profile.username" type="text" class="form-control" id="username" placeholder="Username">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword3" class="col-md-2 control-label text-left">Password:</label>
+        <div class="col-md-10">
+            <input ng-model="model.profile.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="firstname" class="col-md-2 control-label text-left">First Name:</label>
+        <div class="col-md-10">
+            <input ng-model="model.profile.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastname" class="col-md-2 control-label text-left">Last Name:</label>
+        <div class="col-md-10">
+            <input ng-model="model.profile.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail3" class="col-md-2 control-label text-left">Email:</label>
+        <div class="col-md-10">
+            <input ng-model="model.profile.email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail3" class="col-md-2 control-label text-left"></label>
+        <div class="col-md-10">
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-info" role="button"
+                   ng-click="model.update(model.profile)">Update</a>
+            </div>
+        </div>
+    </div>
+</form>
 <div ng-if="model.profile.followsStartups.length">
     <h3>Startups I follow</h3>
     <div class="panel panel-default jga-movie-panel"

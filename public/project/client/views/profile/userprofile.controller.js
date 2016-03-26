@@ -6,6 +6,8 @@
     function profileController(UserService, $routeParams) {
         var vm = this;
 
+        vm.update = update;
+
         var username = $routeParams.username;
         console.log("Username in profile controller: " + username);
 
@@ -19,6 +21,15 @@
                 });
         }
         return init();
+
+        function update(user) {
+            UserService
+                .updateUser(user._id, user)
+                .then(function (response) {
+                    vm.profile = response.data;
+                    console.log(vm.profile);
+                });
+        }
     }
 
 })();

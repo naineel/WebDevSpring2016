@@ -10,7 +10,8 @@
             getCurrentUser : getCurrentUser,
             logout: logout,
             registerUser : registerUser,
-            getProfile : getProfile
+            getProfile : getProfile,
+            updateUser : updateUser
         };
         return api;
 
@@ -39,6 +40,10 @@
         function getProfile() {
             console.log($rootScope.currentUser._id);
             return $http.get("/api/project/profile/" + $rootScope.currentUser._id);
+        }
+
+        function updateUser(userId, user) {
+            return $http.put("/api/project/profile/" + userId, user);
         }
     }
 

@@ -3,7 +3,8 @@ module.exports = function() {
     var api = {
         findUserByCredentialsReal : findUserByCredentialsReal,
         createUser : createUser,
-        findUserByIdP : findUserByIdP
+        findUserByIdP : findUserByIdP,
+        updateUser : updateUser
     };
 
     return api;
@@ -42,5 +43,21 @@ module.exports = function() {
         }
         console.log("Couldn't find the user");
         return null;
+    }
+
+    function updateUser(userId, user) {
+        console.log("update user: " + userId);
+        for (var i = 0; i < users.length; i++) {
+            var original_user = users[i];
+            if (original_user._id == userId) {
+                users[i].username = user.username;
+                users[i].firstName = user.firstName;
+                users[i].lastName = user.lastName;
+                users[i].password = user.password;
+                users[i].email = user.email;
+            }
+        }
+        console.log(users);
+        return user;
     }
 };
