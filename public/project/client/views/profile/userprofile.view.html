@@ -4,7 +4,10 @@
     <h3>Startups I follow</h3>
     <div class="panel panel-default jga-movie-panel"
     ng-repeat="startup in model.profile.followsStartups">
-        <div class="panel-heading">{{startup.name}}</div>
+        <div class="panel-heading">
+            <a href="#/details/{{startup.startupId}}">
+                {{startup.name}}
+            </a></div>
         <div class="panel-body">
             <img ng-src="{{startup.logo_url}}" width="100px"/>
         </div>

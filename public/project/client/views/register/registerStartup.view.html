@@ -7,7 +7,8 @@
        type="text"
        class="form-control"
        placeholder="Company Name"/>
-<input ng-model="model.company.image"
+<label>Logo:</label>
+<input ng-model="model.company.logo_url"
        type="file"
        class="form-control"
        name="pic"
@@ -17,11 +18,11 @@
        type="text"
        class="form-control"
        placeholder="High Concept Pitch"/>
-<input ng-model="model.company.url"
+<input ng-model="model.company.company_url"
        type="text"
        class="form-control"
        placeholder="Company Website"/>
-<textarea ng-model="model.company.product"
+<textarea ng-model="model.company.description"
        class="form-control"
           rows="4"
           cols="50"
@@ -30,9 +31,9 @@
        type="text"
        class="form-control"
        placeholder="Add Locations"/>
-<input ng-model="model.company.Location"
+<input ng-model="model.company.Markets"
        type="text"
        class="form-control"
        placeholder="Add Markets"/>
 <a class="btn btn-info" role="button"
-   ng-click="model.registerUser(model.user)">Register</a>
+   ng-click="model.registerStartup(model.company)">Register</a>
