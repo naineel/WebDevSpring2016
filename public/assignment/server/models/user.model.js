@@ -4,7 +4,7 @@
 "use strict";
 var users = require("./user.mock.json");
 
-module.exports = function () {
+module.exports = function (db, mongoose) {
     var api = {
         findUserByUsername : findUserByUsername,
         findUserByCredentials : findUserByCredentials,
