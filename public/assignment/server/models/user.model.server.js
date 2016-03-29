@@ -11,7 +11,7 @@ module.exports = function (db, mongoose) {
         findAllUsers : findAllUsers,
         createUser : createUser,
         deleteUserById : deleteUserById,
-        updateUser: updateUser,
+        updateUserA : updateUserA,
         findUserById : findUserById
         //getCurrentUser : getCurrentUser,
         //setCurrentUser : setCurrentUser
@@ -64,7 +64,7 @@ module.exports = function (db, mongoose) {
         return users;
     }
 
-    function updateUser(userId, user)
+    function updateUserA(userId, user)
     {   console.log("update user: " + userId);
 
         for (var i = 0; i < users.length; i++) {

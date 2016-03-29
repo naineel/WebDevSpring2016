@@ -38,8 +38,8 @@ app.get('/sayHello', rootRequest);
 function rootRequest(req, res){
     res.send('hello world');
 }
-var userModel = require("./public/assignment/server/models/user.model")();
-var formModel = require("./public/assignment/server/models/form.model")();
+var userModel = require("./public/assignment/server/models/user.model.server.js")();
+var formModel = require("./public/assignment/server/models/form.model.server.js")();
 var userService = require("./public/assignment/server/services/user.service.server")(app, userModel, uuid);
 var formService = require("./public/assignment/server/services/form.service.server")(app, formModel, uuid);
 var fieldService = require("./public/assignment/server/services/field.service.server")(app, formModel, uuid);

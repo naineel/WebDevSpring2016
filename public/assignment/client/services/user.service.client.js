@@ -12,9 +12,9 @@
         var service = {
             findUserByCredentials : findUsersByCredentials,
             findAllUsers : findAllUsers,
-            createUser : createUser,
+            createUserA : createUserA,
             deleteUserById : deleteUserById,
-            updateUser:updateUser,
+            updateUserA : updateUserA,
             getCurrentUser : getCurrentUser,
             setCurrentUser : setCurrentUser,
             findUserByUsername : findUserByUsername
@@ -33,7 +33,7 @@
             return $http.get("/api/assignment/user");
         }
 
-        function createUser(user)
+        function createUserA(user)
         {
             return $http.post("/api/assignment/user", user);
         }
@@ -42,7 +42,7 @@
             return $http.delete("/api/assignment/user/" + userid);
         }
 
-        function updateUser(userId, user)
+        function updateUserA(userId, user)
         {
             return $http.put("/api/assignment/user/" + userId, user);
         }

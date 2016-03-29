@@ -32,23 +32,25 @@
                 return;
             }
 
+            console.log("user: " + user.username + " password: " + user.password);
+            //UserService
+            //    .findUserByCredentials(user.username, user.password)
+            //    .then(callbackFunction);
             UserService
-                .findUserByCredentials(user.username, user.password)
-                .then(callbackFunction);
-            UserService
-                .createUser(user)
+                .createUserA(user)
                 .then(registerCallback);
             console.log(user);
         }
 
         function registerCallback (user) {
-            console.log("In register callback function " + user);
+            console.log("In RegisterController/ register callback function " + user);
+            console.log(user.data);
             $rootScope.newUser = user.data;
             $location.path('/profile');
         }
 
         function callbackFunction(user) {
-            if (user) {
+            if (user != null) {
                 $scope.message = "User already exists";
             }
         }

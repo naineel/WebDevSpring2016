@@ -10,7 +10,7 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($rootScope, $scope, $location, UserService){
+    function ProfileController($scope, $location, UserService){
         $scope.error = null;
         $scope.message = null;
 
@@ -25,7 +25,7 @@
             $scope.error = null;
             $scope.message = null;
             UserService
-                .updateUser($rootScope.user._id, user)
+                .updateUserA(user._id, user)
                 .then(updatedProfileCallback);
         }
 
@@ -33,6 +33,7 @@
             if (user) {
                 $scope.message = "User updated successfully";
                 UserService.setCurrentUser(user);
+                $scope.user = user;
             } else {
                 $scope.message = "Unable to update the user";
             }

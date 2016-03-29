@@ -2,7 +2,7 @@
  * Created by naineel on 3/18/16.
  */
 module.exports = function(app, model) {
-    app.post("/apt/assignment/user", createNewUser);
+    app.post("/api/assignment/user", createNewUser);
     app.get("/api/assignment/user", getAllUsers);
     app.get("/api/assignment/user/:id", getUserById);
     app.get("/api/assignment/user?username=username", getUserByUsername);
@@ -62,11 +62,12 @@ module.exports = function(app, model) {
     function updateUserById(req, res) {
         var id = req.params.id;
         var user = req.body;
-        user = model.updateUser(id, user);
+        console.log("Trying to update user: " + user);
+        user = model.updateUserA(id, user);
         if (user) {
             res.json(user);
         } else {
-            res.json({Error: "User doesn't exist"})
+            res.json({Error: "User doesn't exist"});
         }
 
     }
