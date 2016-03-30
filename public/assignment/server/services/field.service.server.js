@@ -11,13 +11,8 @@ module.exports = function(app, model, uuid) {
 
     function getAllfieldsForFormId(req, res) {
         var formId = req.params.formId;
-        var form = model.findFormById(formId);
-        if (form) {
-            res.json(form.fields);
-            return;
-        } else {
-            res.json({Error: "Form does not exist"});
-        }
+        var fields = model.findAllFieldsForFormByFormId(formId);
+        res.json(fields);
     }
 
     function getFieldById(req, res) {
@@ -35,7 +30,9 @@ module.exports = function(app, model, uuid) {
     function deleteFieldUsingId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        if (model.deleteFieldByFieldIdAndFormId(formId, fieldId)) {
+        var form = model.deleteFieldByFieldIdAndFormId(formId, fieldId);
+        if (form) {
+            res.send(form);
             return;
         }
         res.json({Error: "Field does not exist"});
@@ -46,7 +43,7 @@ module.exports = function(app, model, uuid) {
         field._id = uuid.v4();
         var formId = req.params.formId;
         var form = model.createFieldInForm(formId, field);
-        res.json(form);
+        res.send(form);
     }
 
     function updateFieldUsingId(req, res) {

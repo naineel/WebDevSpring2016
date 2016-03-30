@@ -17,7 +17,7 @@
                                     <input type="text" id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control">
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('TEXT',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -33,7 +33,7 @@
                                     <input type="email" id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control">
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('EMAIL',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -50,7 +50,7 @@
                                     <textarea id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control"></textarea>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('TEXTAREA',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -69,7 +69,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('OPTIONS',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -86,7 +86,7 @@
                                     <input type="date" id="{{field._id}}" placeholder="{{field.placeholder}}" class="form-control">
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('DATE',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('RADIOS',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -120,7 +120,7 @@
                     <div ng-switch-when="CHECKBOXES">
                         <fieldset class="form-group">
                             <label for="{{field._id}}" class="control-label">{{field.label}}</label>
-                            <div class="row nowrap">
+                            <div class="row">
                                 <div id="{{field._id}}" class="col-xs-6">
                                     <div class="checkbox" ng-repeat="option in field.options">
                                         <label>
@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                                    <a ng-click="open('CHECKBOXES',field)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
                                     <a class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"
                                        ng-click="removeField(field)"></a>
@@ -146,12 +146,9 @@
                 <div class="row nowrap">
                     <div class="col-xs-6">
                         <select id="add_new_field" ng-model="model.fieldType" class="form-control">
-                            <option value="SINGLE_LINE_TEXT">Single Line Text</option>
-                            <option value="MULTI_LINE_TEXT">Paragraph Text Field</option>
-                            <option value="DATE">Date</option>
-                            <option value="DROPDOWN">Dropdown</option>
-                            <option value="CHECKBOXES">Checkboxes</option>
-                            <option value="RADIO">Radio Buttons</option>
+                            <option ng-repeat="option in model.availableOptions" value="{{option.name}}">
+                                {{option.name}}
+                            </option>
                         </select>
                     </div>
                     <div class="col-xs-6">

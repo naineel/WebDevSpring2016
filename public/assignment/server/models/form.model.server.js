@@ -14,18 +14,15 @@ module.exports = function(db, mongoose) {
         createFieldInForm : createFieldInForm,
         deleteFieldByFieldIdAndFormId : deleteFieldByFieldIdAndFormId,
         findFormByTitle : findFormByTitle,
-        updateAllFields : updateAllFields
+        updateAllFields : updateAllFields,
+        findAllFieldsForFormByFormId : findAllFieldsForFormByFormId
     };
 
     return api;
 
     function createFormForUser(userId, form) {
-        var newForm = {
-            "_id": (new Date).getTime(),
-            "title": form.title,
-            "userId": userId
-        };
-        forms.push(newForm);
+        form.userId = userId;
+        forms.push(form);
         console.log(forms);
         return form;
     }
@@ -145,6 +142,11 @@ module.exports = function(db, mongoose) {
         form.fields = fields;
         updateFormById(formId, form);
         return form;
+    }
+
+    function findAllFieldsForFormByFormId(formId) {
+        var form = findFormById(formId);
+        return form.fields;
     }
 
 };

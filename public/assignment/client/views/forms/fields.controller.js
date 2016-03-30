@@ -10,6 +10,7 @@
 
             $scope.editField = editField;
             $scope.popupHeader = popupHeader;
+
             if(editField.options) {
                 console.log(editField.options);
                 var formattedOptions = null;
@@ -51,7 +52,7 @@
         .controller('FieldsController', FieldsController);
 
     function FieldsController($routeParams, $scope, FieldService, UserService, $location,
-                              FormService,$uibModal) {
+                              $uibModal) {
 
         var formId = $routeParams.formId;
         var currentUser = UserService.getCurrentUser();
@@ -216,7 +217,7 @@
             console.log(fieldType);
             if (fieldType) {
                 switch (fieldType) {
-                    case 'SINGLE_LINE_TEXT':
+                    case "Single Line Text Field":
                         FieldService.createFieldForForm(formId, {
                                 "_id": null,
                                 "label": "New Text Field",
@@ -227,7 +228,7 @@
                                 $scope.fields = response.data.fields;
                             });
                         break;
-                    case 'MULTI_LINE_TEXT':
+                    case 'Multi Line Text Field':
                         FieldService.createFieldForForm(formId, {
                                 "_id": null,
                                 "label": "New Text Field",
@@ -238,7 +239,7 @@
                                 $scope.fields = response.data.fields;
                             });
                         break;
-                    case 'DATE':
+                    case 'Date field':
                         FieldService.createFieldForForm(formId, {
                                 "_id": null,
                                 "label": "New Date Field",
@@ -248,7 +249,7 @@
                                 $scope.fields = response.data.fields;
                             });
                         break;
-                    case 'DROPDOWN':
+                    case 'Dropdown Field':
                         FieldService.createFieldForForm(formId, {
                                 "_id": null, "label": "New Dropdown", "type": "OPTIONS", "options": [
                                     {"label": "Option 1", "value": "OPTION_1"},
@@ -260,7 +261,7 @@
                                 $scope.fields = response.data.fields;
                             });
                         break;
-                    case 'CHECKBOXES':
+                    case 'Radio Buttons Field':
                         FieldService.createFieldForForm(formId, {
                                 "_id": null, "label": "New Checkboxes", "type": "CHECKBOXES", "options": [
                                     {"label": "Option A", "value": "OPTION_A"},
@@ -295,8 +296,8 @@
                 .then(successCallback);
         }
 
-        function successCallback(response) {
-            $scope.fields = response.data.fields;
+        function successCallback(fields) {
+            $scope.fields = fields.data.fields;
         }
 
     }
