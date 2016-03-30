@@ -7,12 +7,14 @@ module.exports = function(app, model, uuid) {
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldUsingId);
     app.post("/api/assignment/form/:formId/field", createFormUsingFieldId);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldUsingId);
+    app.put("/api/assignment/form/:formId/field", updateAllFields);
 
     function getAllfieldsForFormId(req, res) {
         var formId = req.params.formId;
         var form = model.findFormById(formId);
         if (form) {
             res.json(form.fields);
+            return;
         } else {
             res.json({Error: "Form does not exist"});
         }
@@ -24,6 +26,7 @@ module.exports = function(app, model, uuid) {
         var field = model.findFieldByFieldIdAndFormId(formId, fieldId);
         if (field) {
             res.json(field);
+            return;
         } else {
             res.json({Error: "Field does not exist"});
         }
@@ -53,8 +56,14 @@ module.exports = function(app, model, uuid) {
         var field = model.updateFieldInForm(formId, fieldId, newField);
         if(field) {
             res.json(form);
+            return;
         } else {
             res.json({Error: "Field does not exist"});
         }
+    }
+
+    function updateAllFields(req, res) {
+        var form = model.updateAllFields(req.params.formId, req.body);
+        res.json(form);
     }
 };

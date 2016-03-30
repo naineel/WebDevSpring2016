@@ -2,7 +2,7 @@
  * Created by naineel on 2/22/16.
  */
 "use strict";
-(function(){
+(function () {
 
     angular
         .module('FormBuilderApp')
@@ -11,22 +11,21 @@
             $scope.editField = editField;
             $scope.popupHeader = popupHeader;
             if(editField.options) {
-
                 console.log(editField.options);
-                var fromattedOptions = null;
+                var formattedOptions = null;
                 for (var index =0; index< editField.options.length; index++) {
                     console.log(editField.options[index]);
                     var option = editField.options[index];
-                    if (fromattedOptions) {
+                    if (formattedOptions) {
 
-                        fromattedOptions = fromattedOptions + "\n" + option.value + ":" + option.label;
+                        formattedOptions = formattedOptions + "\n" + option.value + ":" + option.label;
                     } else {
 
-                        fromattedOptions = option.value + ":" + option.label;
+                        formattedOptions = option.value + ":" + option.label;
                     }
                 }
 
-                $scope.editField.placeholder = fromattedOptions;
+                $scope.editField.placeholder = formattedOptions;
             }
             $scope.submit = function(updatedOptions) {
                 var temp = updatedOptions.placeholder.split('\n');
@@ -65,7 +64,6 @@
 
         function FormFieldsCallback(responses) {
             $scope.fields = responses.data;
-            console.log(fields);
         }
 
         init();
@@ -214,6 +212,8 @@
         }
 
         function addField(fieldType) {
+            console.log("This is the field type: ");
+            console.log(fieldType);
             if (fieldType) {
                 switch (fieldType) {
                     case 'SINGLE_LINE_TEXT':
@@ -296,7 +296,7 @@
         }
 
         function successCallback(response) {
-            $scope.fields = response.data;
+            $scope.fields = response.data.fields;
         }
 
     }

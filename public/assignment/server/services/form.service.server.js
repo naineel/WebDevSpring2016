@@ -34,7 +34,7 @@ module.exports = function(app, model) {
     function createFormUsingUserId(req, res) {
         var userId = req.params.userId;
         var form = req.body;
-        form._id = uuid.v4();
+        form._id = new Date().getTime();
         form.fields = [];
         var newForm = model.createFormForUser(userId, form);
         res.json(newForm);

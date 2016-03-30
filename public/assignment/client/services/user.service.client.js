@@ -10,19 +10,19 @@
     function UserService($rootScope, $http) {
 
         var service = {
-            findUserByCredentials : findUsersByCredentials,
+            findUserByCredentialsA : findUsersByCredentialsA,
             findAllUsers : findAllUsers,
             createUserA : createUserA,
             deleteUserById : deleteUserById,
             updateUserA : updateUserA,
             getCurrentUser : getCurrentUser,
-            setCurrentUser : setCurrentUser,
+            setCurrentUserA : setCurrentUserA,
             findUserByUsername : findUserByUsername
         };
 
         return service;
 
-        function findUsersByCredentials(username, password)
+        function findUsersByCredentialsA(username, password)
         {
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
 
@@ -51,7 +51,7 @@
             return $rootScope.newUser;
         }
 
-        function setCurrentUser (user) {
+        function setCurrentUserA (user) {
             $rootScope.newUser = user;
         }
 

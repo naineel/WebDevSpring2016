@@ -13,7 +13,8 @@ module.exports = function(db, mongoose) {
         updateFieldInForm : updateFieldInForm,
         createFieldInForm : createFieldInForm,
         deleteFieldByFieldIdAndFormId : deleteFieldByFieldIdAndFormId,
-        findFormByTitle : findFormByTitle
+        findFormByTitle : findFormByTitle,
+        updateAllFields : updateAllFields
     };
 
     return api;
@@ -115,6 +116,7 @@ module.exports = function(db, mongoose) {
     }
 
     function deleteFieldByFieldIdAndFormId(formId, fieldId) {
+        console.log(formId + " " + fieldId);
         var form = findFormById(formId);
         var fields = form.fields;
         for(var i=0; i < fields.length; i++) {
@@ -136,6 +138,13 @@ module.exports = function(db, mongoose) {
         }
 
         return null;
+    }
+
+    function updateAllFields(formId, fields) {
+        var form = findFormById(formId);
+        form.fields = fields;
+        updateFormById(formId, form);
+        return form;
     }
 
 };

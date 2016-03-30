@@ -13,8 +13,6 @@ module.exports = function (db, mongoose) {
         deleteUserById : deleteUserById,
         updateUserA : updateUserA,
         findUserById : findUserById
-        //getCurrentUser : getCurrentUser,
-        //setCurrentUser : setCurrentUser
     };
 
     return api;
@@ -32,8 +30,8 @@ module.exports = function (db, mongoose) {
     function findUserByCredentials(credentials) {
         var i;
         for (i = 0; i < users.length; i++) {
-            if (users[i].username === credentials.username) {
-                if (users[i].password === credentials.password) {
+            if (users[i].username == credentials.username) {
+                if (users[i].password == credentials.password) {
                     return users[i];
                 }
             }
@@ -80,14 +78,6 @@ module.exports = function (db, mongoose) {
         console.log(users);
         return user;
     }
-
-    //function getCurrentUser() {
-    //    return $rootScope.newUser;
-    //}
-    //
-    //function setCurrentUser (user) {
-    //    $rootScope.newUser = user;
-    //}
 
     function findUserById(userId) {
         for (var i = 0; i < users.length; i++) {

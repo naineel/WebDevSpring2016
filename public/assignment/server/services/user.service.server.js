@@ -52,11 +52,15 @@ module.exports = function(app, model) {
         console.log(credentials);
 
         var user = model.findUserByCredentials(credentials);
-        if (user) {
+        console.log("Find credentials from model: ");
+        console.log(user);
+
+        if (user != null) {
             res.json(user);
-        } else {
-            res.json({Error: "User doesn't exist"});
+            return;
         }
+
+        res.json({Error: "User doesn't exist"});
     }
 
     function updateUserById(req, res) {
