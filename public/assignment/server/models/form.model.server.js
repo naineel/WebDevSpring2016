@@ -21,8 +21,13 @@ module.exports = function(db, mongoose) {
     return api;
 
     function createFormForUser(userId, form) {
-        form.userId = userId;
-        forms.push(form);
+        var newForm = {
+            "_id": (new Date).getTime(),
+            "title": form.title,
+            "userId": userId,
+            "fields": []
+        };
+        forms.push(newForm);
         console.log(forms);
         return form;
     }
@@ -62,7 +67,7 @@ module.exports = function(db, mongoose) {
 
     function findFormById(formId) {
         for (var i = 0; i < forms.length; i++) {
-            if (forms[i]._id === formId) {
+            if (forms[i]._id == formId) {
                 return forms[i];
             }
         }
