@@ -26,7 +26,6 @@
         $scope.clickedForm = clickedForm;
 
         function addForm (form) {
-            form._id = (new Date).getTime();
             form.userId = currentUser._id;
             FormService
                 .createFormForUser(currentUser._id, form)
@@ -44,7 +43,7 @@
         function deleteForm (form) {
             console.log("Delete form " + form);
             FormService
-                .deleteFormById(form)
+                .deleteFormById(form._id)
                 .then(addNewForm);
         }
 

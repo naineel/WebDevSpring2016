@@ -10,12 +10,12 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, $location, UserService){
+    function ProfileController($rootScope, $scope, $location, UserService){
         $scope.error = null;
         $scope.message = null;
 
         $scope.user = UserService.getCurrentUser();
-        if (!$scope.newUser) {
+        if ($rootScope.newUser == null) {
             $location.url("/home");
         }
 
@@ -26,17 +26,15 @@
             $scope.message = null;
             UserService
                 .updateUserA(user._id, user)
-                .then(updatedProfileCallback);
-        }
-
-        function updatedProfileCallback (user) {
-            if (user) {
-                $scope.message = "User updated successfully";
-                UserService.setCurrentUser(user);
-                $scope.user = user;
-            } else {
-                $scope.message = "Unable to update the user";
-            }
+                .then(function updatedProfileCallback(response) {
+                    if (response.status == 200) {
+                        $scope.message = "User updated successfully";
+                        UserService.setCurrentUserA(user);
+                        $scope.user = user;
+                    } else {
+                        $scope.message = "Unable to update the user";
+                    }
+                });
         }
 
     }

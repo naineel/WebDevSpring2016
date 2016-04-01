@@ -2,12 +2,23 @@
  * Created by naineel on 3/28/16.
  */
 module.exports = function(mongoose) {
+    var FieldSchema = require("./field.schema.server.js")(mongoose);
+
     var FormSchema = mongoose.Schema({
-        userIf: String,
-        title: String,
-        fields: String,
-        created: String,
-        updated: [String]
+        userId: String,
+        title: {
+            type: String,
+            default: 'New Form'
+        },
+        fields: [FieldSchema],
+        created: {
+            type: Date,
+            default: Date.now
+        },
+        updated: {
+            type: Date,
+            default: Date.now()
+        }
     }, {
         collection: 'form'
     });

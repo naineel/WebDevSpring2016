@@ -36,6 +36,7 @@
             //UserService
             //    .findUserByCredentials(user.username, user.password)
             //    .then(callbackFunction);
+            user.emails = user.emails.split(',');
             UserService
                 .createUserA(user)
                 .then(registerCallback);

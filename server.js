@@ -38,17 +38,8 @@ app.get('/sayHello', rootRequest);
 function rootRequest(req, res){
     res.send('hello world');
 }
-var userModel = require("./public/assignment/server/models/user.model.server.js")();
-var formModel = require("./public/assignment/server/models/form.model.server.js")();
-var userService = require("./public/assignment/server/services/user.service.server")(app, userModel, uuid);
-var formService = require("./public/assignment/server/services/form.service.server")(app, formModel, uuid);
-var fieldService = require("./public/assignment/server/services/field.service.server")(app, formModel, uuid);
 
+require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
 require("./public/project/server/app.js")(app, db, mongoose);
-//var movieModel = require("./public/project/server/models/movie.model.server.js");
-//var userModelTwo = require("./public/project/server/models/user.model.server.js");
-//
-//require("./public/project/server/services/movie.service.server")(app, movieModel, userModelTwo);
-//require("./public/project/server/services/user.service.server")(app, movieModel, userModelTwo);
 
 app.listen(port, ipaddress);
