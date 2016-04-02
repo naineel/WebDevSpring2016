@@ -125,7 +125,8 @@ module.exports = function(app, model) {
         model
             .updateUserA(id, user)
             .then(
-                function (user) {
+                function (stats) {
+                    req.session.currentUser = user;
                     res.send(200);
                 },
                 function (err) {
