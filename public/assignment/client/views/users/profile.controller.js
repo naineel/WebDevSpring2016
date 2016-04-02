@@ -28,9 +28,9 @@
                 .updateUserA(user._id, user)
                 .then(function updatedProfileCallback(response) {
                     if (response.status == 200) {
-                        $scope.message = "User updated successfully";
                         UserService.setCurrentUserA(user);
                         $scope.user = user;
+                        $scope.message = "User updated successfully";
                     } else {
                         $scope.message = "Unable to update the user";
                     }

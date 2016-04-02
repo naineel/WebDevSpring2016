@@ -9,6 +9,8 @@ module.exports = function(app, model) {
     app.get("/api/assignment/user?username=username&password=password", getAllUsers);
     app.put("/api/assignment/user/:id", updateUserById);
     app.delete("/api/assignment/user/:id", deleteUserById);
+    app.get('/api/assignment/usersession', getLoggedInUser);
+    app.delete('/api/assignment/usersession', deleteSession);
 
     function getAllUsers(req, res) {
         //model.findAllUsers()
@@ -30,6 +32,7 @@ module.exports = function(app, model) {
                 model.findUserByCredentials(credentials)
                     .then(
                         function (user) {
+                            req.session.currentUser = user;
                             res.json(user);
                         },
                         function (err) {
@@ -152,14 +155,23 @@ module.exports = function(app, model) {
             .createUser(newUser)
             .then(
                 function(users) {
-                    // TODO
-                    res.json(users);
+                    req.session.currentUser = users;
+                     res.json(users);
                 },
                 function (err) {
                     res.status(400).send(err);
                 }
             );
 
+    }
+
+    function getLoggedInUser(req, res) {
+        res.json(req.session.currentUser);
+    }
+
+    function deleteSession(req, res) {
+        req.session.destroy();
+        res.send(200);
     }
 
 };

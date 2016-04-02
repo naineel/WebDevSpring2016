@@ -10,7 +10,10 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "views/home/home.view.html",
+                resolve: {
+                    getLoggedIn : getLoggedIn
+                }
             })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
@@ -22,24 +25,69 @@
             })
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
-                controller: "ProfileController"
+                controller: "ProfileController",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
+                templateUrl: "views/admin/admin.view.html",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
             })
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "views/home/home.view.html",
+                resolve: {
+                    getLoggedIn : getLoggedIn
+                }
             })
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
-                controller: "FormController"
+                controller: "FormController",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
             })
             .when("/form/:formId/fields", {
                 templateUrl: "views/forms/fields.view.html",
-                controller: "FieldsController"
+                controller: "FieldsController",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
             })
             .otherwise({
                 redirectTo: "/"
             });
     }
+
+    function checkLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+        UserService
+            .getLoggedInUser()
+            .then(function (response){
+                var currentUser = response.data;
+                if(currentUser) {
+                    UserService.setCurrentUserA(currentUser);
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                    $location.url("/home");
+                }
+            });
+        return deferred.promise;
+    }
+
+    function getLoggedIn(UserService, $q) {
+        var deferred = $q.defer();
+        UserService
+            .getLoggedInUser()
+            .then(function (response) {
+                var currentUser = response.data;
+                UserService.setCurrentUserA(currentUser);
+                deferred.resolve();
+            });
+        return deferred.promise;
+    }
+
 })();

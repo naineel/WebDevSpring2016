@@ -17,7 +17,9 @@
             updateUserA : updateUserA,
             getCurrentUser : getCurrentUser,
             setCurrentUserA : setCurrentUserA,
-            findUserByUsername : findUserByUsername
+            findUserByUsername : findUserByUsername,
+            getLoggedInUser : getLoggedInUser,
+            deleteSession : deleteSession
         };
 
         return service;
@@ -57,6 +59,14 @@
 
         function findUserByUsername(username) {
             return $http.get("/api/assignment/user?username=" + username);
+        }
+
+        function getLoggedInUser() {
+            return $http.get('/api/assignment/usersession');
+        }
+
+        function deleteSession() {
+            return $http.delete('/api/assignment/usersession');
         }
 
     }

@@ -12,7 +12,9 @@
         $scope.logout = logout;
 
         function logout() {
-            $rootScope.newUser = null;
+            //$rootScope.newUser = null;
+            UserService.setCurrentUserA(null);
+            UserService.deleteSession();
             $location.url("/home");
         }
 
