@@ -7,11 +7,12 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, $rootScope, $location, UserService){
+    function LoginController($rootScope, $location, UserService){
+        var vm = this;
         console.log("In the login controller");
         //Event Handler declaration
-        $scope.login = login;
-        $scope.$location = $location;
+        vm.login = login;
+        vm.$location = $location;
 
         function login(user) {
             UserService

@@ -10,29 +10,30 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($rootScope, $scope, $location, UserService){
-        $scope.error = null;
-        $scope.message = null;
+    function ProfileController ($rootScope, $location, UserService) {
+        var vm = this;
+        vm.error = null;
+        vm.message = null;
 
-        $scope.user = UserService.getCurrentUser();
+        vm.user = UserService.getCurrentUser();
         if ($rootScope.newUser == null) {
             $location.url("/home");
         }
 
-        $scope.update = update;
+        vm.update = update;
 
         function update(user) {
-            $scope.error = null;
-            $scope.message = null;
+            vm.error = null;
+            vm.message = null;
             UserService
                 .updateUserA(user._id, user)
                 .then(function updatedProfileCallback(response) {
                     if (response.status == 200) {
                         UserService.setCurrentUserA(user);
-                        $scope.user = user;
-                        $scope.message = "User updated successfully";
+                        vm.user = user;
+                        vm.message = "User updated successfully";
                     } else {
-                        $scope.message = "Unable to update the user";
+                        vm.message = "Unable to update the user";
                     }
                 });
         }

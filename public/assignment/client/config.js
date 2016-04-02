@@ -17,15 +17,18 @@
             })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
-                controller: "RegisterController"
+                controller: "RegisterController",
+                controllerAs: "model"
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html",
-                controller: "LoginController"
+                controller: "LoginController",
+                controllerAs: "model"
             })
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html",
                 controller: "ProfileController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
                 }
@@ -45,6 +48,7 @@
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
                 controller: "FormController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
                 }
@@ -52,6 +56,7 @@
             .when("/form/:formId/fields", {
                 templateUrl: "views/forms/fields.view.html",
                 controller: "FieldsController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
                 }

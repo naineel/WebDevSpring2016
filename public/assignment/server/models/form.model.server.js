@@ -113,6 +113,7 @@ module.exports = function (db, mongoose) {
         //console.log(forms);
         //return newForm;
         var deferred = q.defer();
+        delete newForm._id;
         Form.findByIdAndUpdate(formId,
             newForm,
             function (err, forms) {

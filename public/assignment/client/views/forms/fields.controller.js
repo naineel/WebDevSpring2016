@@ -6,43 +6,44 @@
 
     angular
         .module('FormBuilderApp')
-        .controller('ModalInstance', function ($scope, $uibModalInstance, editField, popupHeader) {
+        .controller('ModalInstance', function ($uibModalInstance, editField, popupHeader) {
+            var vm = this;
+            vm.editField = editField;
+            vm.popupHeader = popupHeader;
 
-            $scope.editField = editField;
-            $scope.popupHeader = popupHeader;
-
-            if(editField.options) {
-                console.log(editField.options);
+            if(vm.editField.options.length > 0) {
+                console.log(vm.editField.options);
                 var formattedOptions = null;
-                for (var index =0; index< editField.options.length; index++) {
-                    console.log(editField.options[index]);
-                    var option = editField.options[index];
+                for (var index =0; index< vm.editField.options.length; index++) {
+                    console.log(vm.editField.options[index]);
+                    var option = vm.editField.options[index];
                     if (formattedOptions) {
-
                         formattedOptions = formattedOptions + "\n" + option.value + ":" + option.label;
                     } else {
-
                         formattedOptions = option.value + ":" + option.label;
                     }
                 }
 
-                $scope.editField.placeholder = formattedOptions;
+                vm.editField.placeholder = formattedOptions;
             }
-            $scope.submit = function(updatedOptions) {
-                var temp = updatedOptions.placeholder.split('\n');
-                var newOptions = [];
-                for(var index =0;index<temp.length;index++) {
-                    var tempString = temp[index];
-                    newOptions.push({
-                        value: tempString.split(':')[0],
-                        label: tempString.split(':')[1]
-                    })
+
+            vm.submit = function(model) {
+                if (model.options.length > 0) {
+                    var temp = model.placeholder.split('\n');
+                    var newOptions = [];
+                    for (var index = 0; index < temp.length; index++) {
+                        var tempString = temp[index];
+                        newOptions.push({
+                            value: tempString.split(':')[0],
+                            label: tempString.split(':')[1]
+                        })
+                    }
+                    model.options = newOptions;
                 }
-                updatedOptions.options = newOptions;
-                $uibModalInstance.close(updatedOptions);
+                $uibModalInstance.close(model);
             };
 
-            $scope.cancel = function() {
+            vm.cancel = function() {
                 $uibModalInstance.dismiss();
             };
         });
@@ -51,9 +52,9 @@
         .module('FormBuilderApp')
         .controller('FieldsController', FieldsController);
 
-    function FieldsController($routeParams, $scope, FieldService, UserService, $location,
+    function FieldsController($routeParams, FieldService, UserService, $location,
                               $uibModal) {
-
+        var vm = this;
         var formId = $routeParams.formId;
         var currentUser = UserService.getCurrentUser();
 
@@ -64,24 +65,22 @@
         }
 
         function FormFieldsCallback(responses) {
-            $scope.fields = responses.data.fields;
+            vm.fields = responses.data.fields;
         }
 
         init();
-        $scope.$location = $location;
+        vm.$location = $location;
 
 
-        $scope.model = {
-            fieldType: null,
-            availableOptions: [{id: '1', name: 'Single Line Text Field'},
+        vm.fieldType = null;
+        vm.availableOptions = [{id: '1', name: 'Single Line Text Field'},
                 {id: '2', name: 'Multi Line Text Field'},
                 {id: '3', name: 'Date Field'},
                 {id: '4', name: 'Checkboxes Field'},
                 {id: '5', name: 'Dropdown Field'},
-                {id: '6', name: 'Radio Buttons Field'}]
-        };
+                {id: '6', name: 'Radio Buttons Field'}];
 
-        $scope.open = function (fieldType, field) {
+        vm.open = function (fieldType, field) {
 
             var modalInstance = null;
             var currentLabel = field.label,
@@ -99,7 +98,8 @@
                                 return 'Single Line Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 case 'EMAIL':
@@ -113,7 +113,8 @@
                                 return 'Email Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 case 'TEXTAREA':
@@ -127,7 +128,8 @@
                                 return 'Multiple Lines Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 case 'DATE':
@@ -141,7 +143,8 @@
                                 return 'Date Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 case 'OPTIONS':
@@ -155,7 +158,8 @@
                                 return 'Dropdown Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 case 'CHECKBOXES':
@@ -169,7 +173,8 @@
                                 return 'Checkbox Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 case 'RADIOS':
@@ -183,7 +188,8 @@
                                 return 'Radio Button Field'
                             },
                             editField: field
-                        }
+                        },
+                        controllerAs: 'modelTwo'
                     });
                     break;
                 default:
@@ -193,23 +199,23 @@
             modalInstance.result.then(function (model) {
                 field.label = model.label;
                 field.placeholder = model.placeholder;
-                FieldService.updateFields(formId, $scope.fields);
+                FieldService.updateFields(formId, vm.fields);
                 console.log(field);
             }, function () {
                 field.label = currentLabel;
                 field.placeholder = currentPlaceholder;
-                console.log("Cancel Pressed");
+                //console.log("Cancel Pressed");
             });
 
         };
 
 
-        $scope.addField = addField;
-        $scope.removeField = removeField;
-        $scope.updateModel = updateModel;
+        vm.addField = addField;
+        vm.removeField = removeField;
+        vm.updateModel = updateModel;
 
         function updateModel() {
-            FieldService.updateFields(formId, $scope.fields);
+            FieldService.updateFields(formId, vm.fields);
         }
 
         function addField(fieldType) {
@@ -224,7 +230,7 @@
                                 "placeholder": "New Field"
                             })
                             .then(function successCallback(response) {
-                                $scope.fields = response.data.fields;
+                                vm.fields = response.data.fields;
                             });
                         break;
                     case 'Multi Line Text Field':
@@ -234,7 +240,7 @@
                                 "placeholder": "New Field"
                             })
                             .then(function successCallback(response) {
-                                $scope.fields = response.data.fields;
+                                vm.fields = response.data.fields;
                             });
                         break;
                     case 'Date Field':
@@ -243,7 +249,7 @@
                                 "type": "DATE"
                             })
                             .then(function successCallback(response) {
-                                $scope.fields = response.data.fields;
+                                vm.fields = response.data.fields;
                             });
                         break;
                     case 'Dropdown Field':
@@ -255,7 +261,7 @@
                                 ]
                             })
                             .then(function successCallback(response) {
-                                $scope.fields = response.data.fields;
+                                vm.fields = response.data.fields;
                             });
                         break;
                     case 'Checkboxes Field':
@@ -267,7 +273,7 @@
                                 ]
                             })
                             .then(function successCallback(response) {
-                                $scope.fields = response.data.fields;
+                                vm.fields = response.data.fields;
                             });
                         break;
                     case 'Radio Buttons Field':
@@ -279,7 +285,7 @@
                                 ]
                             })
                             .then(function successCallback(response) {
-                                $scope.fields = response.data.fields;
+                                vm.fields = response.data.fields;
                             });
                         break;
                     default:
@@ -294,7 +300,7 @@
         }
 
         function successCallback(fields) {
-            $scope.fields = fields.data.fields;
+            vm.fields = fields.data.fields;
         }
 
     }

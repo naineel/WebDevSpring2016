@@ -1,4 +1,4 @@
-<nav ng-controller="HeaderController" class="navbar navbar-inverse navbar-fixed-top">
+<nav ng-controller="HeaderController as model" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -33,7 +33,7 @@
                     <a href="#/login">Login</a>
                 </li>
                 <li ng-show="newUser">
-                    <a href="#/home" ng-click="logout()">Logout</a>
+                    <a href="#/home" ng-click="model.logout()">Logout</a>
                 </li>
             </ul>
         </div>

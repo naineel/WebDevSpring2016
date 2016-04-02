@@ -7,9 +7,10 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $rootScope, $location, FormService, UserService){
+    function FormController($rootScope, $location, FormService, UserService){
+        var vm = this;
         var currentUser = $rootScope.newUser;
-        $scope.$location = $location;
+        vm.$location = $location;
 
         function init() {
             FormService
@@ -19,25 +20,25 @@
 
         init();
 
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
-        $scope.clickedForm = clickedForm;
+        vm.addForm = addForm;
+        vm.updateForm = updateForm;
+        vm.deleteForm = deleteForm;
+        vm.selectForm = selectForm;
+        vm.clickedForm = clickedForm;
 
         function addForm (form) {
             form.userId = currentUser._id;
             FormService
                 .createFormForUser(currentUser._id, form)
                 .then(addNewForm);
-            $scope.form = null;
+            vm.form = null;
         }
 
         function updateForm (form) {
             FormService
                 .updateFormById(form._id, form)
                 .then(addNewForm);
-            $scope.form = null;
+            vm.form = null;
         }
 
         function deleteForm (form) {
@@ -49,7 +50,7 @@
 
         function selectForm (form) {
             //$scope.selectedForm = form;
-            $scope.form = {
+            vm.form = {
                 _id: form._id,
                 title: form.title,
                 userId: form.userId
@@ -58,7 +59,7 @@
         }
 
         function formCallback(forms) {
-            $scope.forms = forms.data;
+            vm.forms = forms.data;
         }
 
         function addNewForm() {

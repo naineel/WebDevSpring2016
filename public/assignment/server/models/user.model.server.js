@@ -140,6 +140,7 @@ module.exports = function (db, mongoose) {
         //console.log(users);
         //return user;
         var deferred = q.defer();
+        delete user._id;
         UserModel
             .update (
                 {_id: userId},

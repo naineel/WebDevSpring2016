@@ -12,21 +12,21 @@
             </tr>
             <tr>
                 <td>
-                    <input ng-model="form.title" type="text" class="form-control" placeholder="name">
+                    <input ng-model="model.form.title" type="text" class="form-control" placeholder="name">
                 </td>
                 <td>
                     <div class="nowrap">
-                        <a ng-click="addForm(form)" class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
-                        <a ng-click="updateForm(form)" class="glyphicon glyphicon-ok glyphiconmysize" aria-hidden="true"></a>
+                        <a ng-click="model.addForm(model.form)" class="glyphicon glyphicon-plus glyphiconmysize" aria-hidden="true"></a>
+                        <a ng-click="model.updateForm(model.form)" class="glyphicon glyphicon-ok glyphiconmysize" aria-hidden="true"></a>
                     </div>
                 </td>
             </tr>
-            <tr ng-repeat="form in forms">
-                <td><a ng-click="clickedForm(form)">{{form.title}}</a></td>
+            <tr ng-repeat="form in model.forms">
+                <td><a ng-click="model.clickedForm(form)">{{form.title}}</a></td>
                 <td>
                     <div class="nowrap">
-                        <a ng-click="deleteForm(form)" class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"></a>
-                        <a ng-click="selectForm(form)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
+                        <a ng-click="model.deleteForm(form)" class="glyphicon glyphicon-remove glyphiconmysize" aria-hidden="true"></a>
+                        <a ng-click="model.selectForm(form)" class="glyphicon glyphicon-pencil glyphiconmysize" aria-hidden="true"></a>
                     </div>
                 </td>
             </tr>

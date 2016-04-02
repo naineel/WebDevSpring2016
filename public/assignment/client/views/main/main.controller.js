@@ -7,8 +7,9 @@
         .module("FormBuilderApp")
         .controller("MainController", mainController);
 
-    function mainController($scope, $location, $rootScope) {
-        $scope.$location = $location;
+    function mainController($location, $rootScope) {
+        var vm = this;
+        vm.$location = $location;
         //console.log($location.url());
         if ($location.url() === '/home') {
             $rootScope.showSidebar = false;
