@@ -7,6 +7,7 @@ var uuid = require('node-uuid');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var passport = require('passport');
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs5610';
 
@@ -30,8 +31,13 @@ ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
-app.use(session({ secret: "thisIsMySecret"}));
+app.use(session({
+    secret: "thisIsMySecret",
+    resave: true,
+    saveUninitialized: true}));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/sayHello', rootRequest);
 

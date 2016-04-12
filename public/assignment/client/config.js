@@ -35,6 +35,8 @@
             })
             .when("/admin", {
                 templateUrl: "views/admin/admin.view.html",
+                controller: "adminController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
                 }
@@ -66,32 +68,51 @@
             });
     }
 
-    function checkLoggedIn(UserService, $q, $location) {
+    function checkLoggedIn(UserService, $q, $location, $http, $rootScope) {
         var deferred = $q.defer();
-        UserService
-            .getLoggedInUser()
-            .then(function (response){
-                var currentUser = response.data;
-                if(currentUser) {
-                    UserService.setCurrentUserA(currentUser);
-                    deferred.resolve();
-                } else {
-                    deferred.reject();
-                    $location.url("/home");
-                }
-            });
+
+        $http.get('/api/assignment/loggedin').success(function(user)
+        {
+           if (user !== '0') {
+               $rootScope.newUser = user;
+               deferred.resolve();
+           } else {
+              deferred.reject();
+               $location.url('/login');
+           }
+        });
+        //UserService
+        //    .getLoggedInUser()
+        //    .then(function (response){
+        //        var currentUser = response.data;
+        //        if(currentUser) {
+        //            UserService.setCurrentUserA(currentUser);
+        //            deferred.resolve();
+        //        } else {
+        //            deferred.reject();
+        //            $location.url("/home");
+        //        }
+        //    });
         return deferred.promise;
     }
 
-    function getLoggedIn(UserService, $q) {
+    function getLoggedIn(UserService, $q, $http, $rootScope) {
         var deferred = $q.defer();
-        UserService
-            .getLoggedInUser()
-            .then(function (response) {
-                var currentUser = response.data;
-                UserService.setCurrentUserA(currentUser);
-                deferred.resolve();
-            });
+        //UserService
+        //    .getLoggedInUser()
+        //    .then(function (response) {
+        //        var currentUser = response.data;
+        //        UserService.setCurrentUserA(currentUser);
+        //        deferred.resolve();
+        //    });
+        $http.get('/api/assignment/loggedin').success(function(user)
+        {
+            if (user !== '0') {
+                $rootScope.newUser = user;
+            }
+            deferred.resolve();
+        });
+
         return deferred.promise;
     }
 

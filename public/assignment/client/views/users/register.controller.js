@@ -39,16 +39,29 @@
             //    .then(callbackFunction);
             user.emails = user.emails.split(',');
             UserService
-                .createUserA(user)
-                .then(registerCallback);
-            console.log(user);
-        }
-
-        function registerCallback (user) {
-            console.log("In RegisterController/ register callback function " + user);
-            console.log(user.data);
-            $rootScope.newUser = user.data;
-            $location.path('/profile');
+                .register(user)
+                .then(
+                    function(response) {
+                        var user = response.data;
+                        if(user != null) {
+                            $rootScope.newUser = user;
+                            $location.url("/profile");
+                        }
+                    },
+                    function (err) {
+                        vm.error = err;
+                    }
+                );
+        //        .createUserA(user)
+        //        .then(registerCallback);
+        //    console.log(user);
+        //}
+        //
+        //function registerCallback (user) {
+        //    console.log("In RegisterController/ register callback function " + user);
+        //    console.log(user.data);
+        //    $rootScope.newUser = user.data;
+        //    $location.path('/profile');
         }
 
         function callbackFunction(user) {
