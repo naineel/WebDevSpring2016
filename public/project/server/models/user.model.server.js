@@ -1,63 +1,150 @@
-var users = require("./user.mock.json");
-module.exports = function() {
+//var users = require("./user.mock.json");
+
+var textSearch = require('mongoose-text-search');
+var q = require("q");
+
+module.exports = function(db, mongoose) {
+    var UserSchema = require("./user.schema.server")(mongoose);
+
+    //UserSchema.plugin(textSearch);
+    //UserSchema.index({username: 'text'});
+
+    var UserModel = mongoose.model('userp', UserSchema);
+
     var api = {
         findUserByCredentialsReal : findUserByCredentialsReal,
-        createUser : createUser,
+        createUserP : createUserP,
         findUserByIdP : findUserByIdP,
-        updateUser : updateUser
+        updateUser : updateUser,
+        findUserByUsernameP : findUserByUsernameP,
+        findAllUsers : findAllUsers,
+        createProjectInProfile : createProjectInProfile,
+        removeProjectFromProfile : removeProjectFromProfile,
+        createExperienceInProfile : createExperienceInProfile,
+        removeExperienceFromProfile : removeExperienceFromProfile,
+        createEducationInProfile : createEducationInProfile,
+        removeEducationFromProfile : removeEducationFromProfile,
+        getMongooseModel : getMongooseModel,
+        searchText : searchText
     };
 
     return api;
 
-    function findUserByCredentialsReal(credentials) {
-        console.log("In server/model/userModel: credentials123= " + credentials.username + " " + credentials.password);
-        var i;
-        for (i = 0; i < users.length; i++) {
-            if (users[i].username === credentials.username) {
-                if (users[i].password === credentials.password) {
-                    console.log("Found User: " + users[i]);
-                    return users[i];
-                }
-            }
-        }
-        console.log("Did not find the user returning NULL");
-        return null;
+    function getMongooseModel() {
+        return UserModel;
     }
 
-    function createUser(userDetails) {
-        console.log("In model/UserModel createUser Function");
-        console.log(userDetails);
-        userDetails._id = (new Date).getTime().toString();
-        users.push(userDetails);
-        console.log(users);
-        return userDetails;
+    function findUserByCredentialsReal(credentials) {
+        console.log("In server/model/userModel: credentials123= " + credentials.username + " " + credentials.password);
+        return UserModel.findOne(
+            {username: credentials.username,
+                password: credentials.password}
+        );
+    }
+
+    function createUserP(userDetails) {
+        return UserModel.create(userDetails);
     }
 
     function findUserByIdP(userId) {
-        var i;
-        for (i = 0; i < users.length; i++) {
-            if (users[i]._id === userId) {
-                console.log("Found User: " + users[i]);
-                return users[i];
-            }
-        }
-        console.log("Couldn't find the user");
-        return null;
+        return UserModel.findById(userId);
     }
 
     function updateUser(userId, user) {
         console.log("update user: " + userId);
-        for (var i = 0; i < users.length; i++) {
-            var original_user = users[i];
-            if (original_user._id == userId) {
-                users[i].username = user.username;
-                users[i].firstName = user.firstName;
-                users[i].lastName = user.lastName;
-                users[i].password = user.password;
-                users[i].email = user.email;
-            }
-        }
-        console.log(users);
-        return user;
+        delete user._id;
+        return UserModel.update({_id: userId}, {$set: user});
     }
+
+    function findUserByUsernameP(username) {
+        return UserModel.findOne(
+            {username: username});
+    }
+
+    function findAllUsers() {
+        return UserModel.find();
+    }
+
+    function createProjectInProfile(userId, project) {
+        return UserModel
+            .findById(userId)
+            .then(function (user) {
+                user.userDetails.projects.push(project);
+                return user.save();
+                //form.fields.id(fieldId).remove();
+                //return form.save();
+            });
+    }
+
+    function removeProjectFromProfile(userId, projectId) {
+        return UserModel
+            .findById(userId)
+            .then(
+                function (user) {
+                    user.userDetails.projects.id(projectId).remove();
+                    return user.save();
+                }
+            );
+    }
+
+    function createExperienceInProfile(userId, exp) {
+        return UserModel
+            .findById(userId)
+            .then(function (user) {
+                user.userDetails.experience.push(exp);
+                return user.save();
+                //form.fields.id(fieldId).remove();
+                //return form.save();
+            });
+    }
+
+    function removeExperienceFromProfile(userId, expId) {
+        return UserModel
+            .findById(userId)
+            .then(
+                function (user) {
+                    user.userDetails.experience.id(expId).remove();
+                    return user.save();
+                }
+            );
+    }
+
+    function createEducationInProfile(userId, edu) {
+        return UserModel
+            .findById(userId)
+            .then(function (user) {
+                user.userDetails.education.push(edu);
+                return user.save();
+                //form.fields.id(fieldId).remove();
+                //return form.save();
+            });
+    }
+
+    function removeEducationFromProfile(userId, eduId) {
+        return UserModel
+            .findById(userId)
+            .then(
+                function (user) {
+                    user.userDetails.education.id(eduId).remove();
+                    return user.save();
+                }
+            );
+    }
+
+    function searchText(searchString) {
+        console.log('xxxxxxxxxx');
+        console.log(searchString);
+        var deferred = q.defer();
+        UserModel
+            .textSearch(searchString, function (err, output) {
+                if (!err) {
+                    console.log(output);
+                    deferred.resolve (output);
+                } else {
+                    deferred.reject (err);
+                }
+            });
+        return deferred.promise;
+    }
+
 };

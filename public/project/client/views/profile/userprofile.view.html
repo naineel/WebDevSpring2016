@@ -1,56 +1,95 @@
-<h2>profile</h2>
-<form class="form-horizontal">
-    <div class="form-group">
-        <label for="username" class="col-md-2 control-label text-left">Username:</label>
-        <div class="col-md-10">
-            <input ng-model="model.profile.username" type="text" class="form-control" id="username" placeholder="Username">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">{{currentUser.userDetails.firstName}} {{currentUser.userDetails.lastName}}</h2>
+    <h4 class="text-center">{{model.profile.userDetails.about}}</h4>
+    <div class="text-center">
+        <a ng-if="model.profile.userDetails.linkedIn_url" href="{{model.profile.userDetails.linkedIn_url}}" target="_blank"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
+        <a ng-if="model.profile.userDetails.github_url" href="{{model.profile.userDetails.github_url}}" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+        <a ng-if="model.profile.userDetails.stack_url" href="{{model.profile.userDetails.github_url}}" target="_blank"><i class="fa fa-stack-overflow fa-2x" aria-hidden="true"></i></a>
+        <a ng-if="model.profile.userDetails.facebook_url" href="{{model.profile.userDetails.facebook_url}}" target="_blank"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            123 Followers  12 Following
+            <button class="btn btn-secondary pull-right">Share</button>
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputPassword3" class="col-md-2 control-label text-left">Password:</label>
-        <div class="col-md-10">
-            <input ng-model="model.profile.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label text-left">First Name:</label>
-        <div class="col-md-10">
-            <input ng-model="model.profile.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="lastname" class="col-md-2 control-label text-left">Last Name:</label>
-        <div class="col-md-10">
-            <input ng-model="model.profile.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputEmail3" class="col-md-2 control-label text-left">Email:</label>
-        <div class="col-md-10">
-            <input ng-model="model.profile.email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputEmail3" class="col-md-2 control-label text-left"></label>
-        <div class="col-md-10">
-            <div class="btn-group btn-group-justified">
-                <a class="btn btn-info" role="button"
-                   ng-click="model.update(model.profile)">Update</a>
+    <div class="panel panel-default">
+        <div class="panel-heading">Projects</div>
+        <div class="panel-body">
+            <div ng-repeat="project in model.profile.userDetails.projects">
+                <div>
+                    <h3>{{project.name}}</h3>
+                    <p>{{project.startDate | amDateFormat:'MM/DD/YYYY' }} - {{project.endDate | amDateFormat:'MM/DD/YYYY'}}</p>
+                    <a href="project.project_url">{{project.project_url}}</a>
+                    <div>
+                        {{project.description}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</form>
-<div ng-if="model.profile.followsStartups.length">
-    <h3>Startups I follow</h3>
-    <div class="panel panel-default jga-movie-panel"
-    ng-repeat="startup in model.profile.followsStartups">
-        <div class="panel-heading">
-            <a href="#/details/{{startup.startupId}}">
-                {{startup.name}}
-            </a></div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Experience</div>
         <div class="panel-body">
-            <img ng-src="{{startup.logo_url}}" width="100px"/>
+            <div ng-repeat="experience in model.profile.userDetails.experience">
+                <div>
+                    <h3>{{experience.employer}}</h3>
+                    <p>{{experience.startDate | amDateFormat:'MM/DD/YYYY' }} - {{experience.endDate | amDateFormat:'MM/DD/YYYY'}}</p>
+                    {{experience.title}}
+                    <div>
+                        {{experience.description}}
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
-</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Education</div>
+        <div class="panel-body">
+            <div ng-repeat="education in model.profile.userDetails.education">
+                <div>
+                    <h3>{{education.university}}</h3>
+                    {{education.major}}
+                    <div>
+                        Graduated in {{education.yearGraduated | amDateFormat:'YYYY'}}
+                    </div>
+                    {{education.achievements}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Achievements</div>
+        <div class="panel-body">{{model.profile.userDetails.achievement}}</div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Startups I follow</div>
+        <div class="panel-body">
+                <div class="row" ng-if="model.startupList.length > 0">
+                    <div class="col-md-4" ng-repeat="startup in model.startupList">
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-center">
+                                <a href="#/details/{{startup.startupId}}">
+                                    {{startup.name}}
+                                </a>
+                                <a class="btn btn-danger pull-right additionStyle" type="button" ng-click="model.unfollow(startup)">
+                                    Unfollow
+                                </a>
+                            </div>
+                            <div class="panel-body text-center sizeclass">
+                                <img class="align-center" ng-src="{{startup.logo_url}}" width="100px"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>

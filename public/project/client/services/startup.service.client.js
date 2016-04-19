@@ -9,18 +9,23 @@
     function StartupService($http) {
         var api = {
             setUserFollowsStartup: setUserFollowsStartup,
-            registerStartup : registerStartup
+            registerStartup : registerStartup,
+            login : login
         };
 
         return api;
 
         function setUserFollowsStartup(userId, startup) {
             console.log([userId, startup]);
-            return $http.post("/api/project/user/" + userId + "/startup/" + startup.id, startup);
+            return $http.post("/api/project/user/" + userId + "/startup/" + startup._id, startup);
         }
 
         function registerStartup(startup) {
             return $http.post("/api/project/startup", startup);
+        }
+
+        function login(credentials) {
+            return $http.post('/api/project/startupLogin', credentials);
         }
 
     }

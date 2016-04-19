@@ -1,4 +1,4 @@
-(function(){
+(function() {
     angular
-        .module("OmdbApp", ["ngRoute", "youtube-embed"]);
+        .module("OmdbApp", ["ngRoute", "ui.bootstrap", "ngTouch", "angular-carousel", "anguvideo", "angularMoment"]);
 })();

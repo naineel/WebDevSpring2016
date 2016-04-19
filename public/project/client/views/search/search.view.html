@@ -1,37 +1,45 @@
-<h1>Search for startups</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Search for startups</h1>
 <div class="row">
-    <div class="col-xs-6">
-        <input ng-model="model.startupName" placeholder="Bitsight Technologies" class="form-control"/>
-        <button ng-click="model.searchStartupReal(model.startupName)" class="btn btn-primary btn-block">
-            Search
-        </button>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Poster</th>
-                <th>Name</th>
-                <th>URL</th>
-                <th>Type</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-click="model.renderDetailsReal(startupName)" ng-repeat="startupName in model.data">
-                <td>
-                    <img height="100px" ng-src="{{startupName.pic}}"/>
-                </td>
-                <td>
-                    <a href="#/details/{{startupName.id}}">
-                        {{startupName.name}}
-                    </a>
-                </td>
-                <td>
-                    {{startupName.url}}
-                </td>
-                <td>
-                    {{startupName.type}}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <hr class="col-xs-6">
+    <input ng-model="model.startupName" placeholder="Bitsight Technologies" class="form-control"/>
+    <button ng-click="model.searchStartupReal(model.startupName)" class="btn btn-primary btn-block">
+        Search
+    </button>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Poster</th>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-click="model.renderDetailsReal(startupName)" ng-repeat="startupName in model.data | pagination: model.curPage * model.pageSize | limitTo: model.pageSize">
+            <td>
+                <img height="100px" ng-src="{{startupName.pic}}"/>
+            </td>
+            <td>
+                <a href="#/details/{{startupName.id}}">
+                    {{startupName.name}}
+                </a>
+            </td>
+            <td>
+                {{startupName.url}}
+            </td>
+            <td>
+                {{startupName.type}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <div class="row" ng-show="model.data.length">
+                <button class="btn btn-primary" type="button" ng-disabled="model.curPage == 0"
+                        ng-click="model.curPage=curPage-1">PREV</button>
+                <span>Page {{model.curPage + 1}} of {{ model.numberOfPages() }}</span>
+                <button class="btn btn-primary" type="button"
+                        ng-disabled="model.curPage >= model.data.length/model.pageSize - 1"
+                        ng-click="model.curPage = model.curPage + 1">NEXT </button>
     </div>
 </div>

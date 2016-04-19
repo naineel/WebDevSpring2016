@@ -24,9 +24,25 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
-            .when("/profile", {
+            .when("/updateProfile", {
+                templateUrl: "views/profile/updateUserprofile.view.html",
+                controller: "UpdateUserProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
+            })
+            .when("/updateStartupProfile", {
+                templateUrl: "views/details/updateStartupprofile.view.html",
+                controller: "UpdateStartupProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn : checkLoggedIn
+                }
+            })
+            .when("/userProfile", {
                 templateUrl: "views/profile/userprofile.view.html",
-                controller: "ProfileController",
+                controller: "userProfileController",
                 controllerAs: "model",
                 resolve: {
                     checkLoggedIn : checkLoggedIn
@@ -47,7 +63,6 @@
             })
             .when("/registerStartup", {
                 templateUrl: "views/register/registerStartup.view.html",
-                //controller: "RegisterController",
                 controller: "RegisterStartupController",
                 controllerAs: "model"
             })
@@ -61,32 +76,30 @@
             });
     }
 
-    function checkLoggedIn(UserService, $q, $location) {
+    function checkLoggedIn($q, $location, $rootScope, $http) {
         var deferred = $q.defer();
-        UserService
-            .getCurrentUser()
-            .then(function (response){
-                var currentUser = response.data;
-                if(currentUser) {
-                    UserService.setCurrentUser(currentUser);
-                    deferred.resolve();
-                } else {
-                    deferred.reject();
-                    $location.url("/home");
-                }
-            });
+        $http.get('/api/project/loggedin').success(function (user)
+        {
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('/login');
+            }
+        });
         return deferred.promise;
     }
 
-    function getLoggedIn(UserService, $q) {
+    function getLoggedIn($q, $http, $rootScope) {
         var deferred = $q.defer();
-        UserService
-            .getCurrentUser()
-            .then(function (response) {
-                var currentUser = response.data;
-                UserService.setCurrentUser(currentUser);
-                deferred.resolve();
-            });
+        $http.get('/api/project/loggedin').success(function(user)
+        {
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+            }
+            deferred.resolve();
+        });
         return deferred.promise;
     }
 

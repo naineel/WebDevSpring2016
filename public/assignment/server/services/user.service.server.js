@@ -1,10 +1,10 @@
 /**
  * Created by naineel on 3/18/16.
  */
-
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
+"use strict";
+//var passport = require('passport');
+//var LocalStrategy = require('passport-local').Strategy;
+//var mongoose = require('mongoose');
 
 module.exports = function(app, userModel) {
     var isAdmin = authorized;
@@ -15,14 +15,14 @@ module.exports = function(app, userModel) {
     app.put("/api/assignment/admin/user/:id", isAdmin, updateUserById);
     app.delete("/api/assignment/admin/user/:id", isAdmin, deleteUserById);
     app.get('/api/assignment/loggedin', getLoggedInUser);
-    app.post('/api/assignment/login', passport.authenticate('local'), login);
+    //app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.post('/api/assignment/logout', logout);
     app.post('/api/assignment/register', register);
 
 
-    passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    //passport.use(new LocalStrategy(localStrategy));
+    //passport.serializeUser(serializeUser);
+    //passport.deserializeUser(deserializeUser);
 
     function authorized (req, res, next) {
         var user = req.user;

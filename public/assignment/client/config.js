@@ -71,7 +71,7 @@
     function checkLoggedIn(UserService, $q, $location, $http, $rootScope) {
         var deferred = $q.defer();
 
-        $http.get('/api/assignment/loggedin').success(function(user)
+        $http.get('/api/assignment/loggedin').success(function (user)
         {
            if (user !== '0') {
                $rootScope.newUser = user;

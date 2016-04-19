@@ -1,11 +1,23 @@
 (function(){
     angular
         .module("OmdbApp")
+        .filter('pagination', function() {
+            return function (input, start) {
+                if (input) {
+                    start = +start;
+                    return input.slice(start);
+                }
+            };
+        })
         .controller("SearchControllerReal", SearchControllerReal);
 
-    function SearchControllerReal(AngelListService) {
+    function SearchControllerReal(AngelListService, StartupService, UserService) {
         var vm = this;
         vm.searchStartupReal = searchStartupReal;
+
+        vm.numberOfPages = numberOfPages;
+        vm.curPage = 0;
+        vm.pageSize = 8;
 
         function init() {
 
@@ -19,8 +31,30 @@
                 .searchStartupReal(startupName)
                 .then(function(json) {
                     console.log(json.data);
-                    vm.data = json.data;
+                    var startupList = json.data;
+                    UserService
+                        .search(startupName)
+                        .then(function (json) {
+                            console.log('search results');
+                            console.log(json.data);
+                        });
+                    console.log(vm.data);
+                    //StartupService
+                    //    .registerStartup(vm.data)
+                        //.then(function (response) {
+                        //    var currentStartup = response.data;
+                        //    if (currentStartup != null) {
+                        //        UserService.setCurrentUser(currentStartup);
+                        //        $location.url("/startupProfile");
+                        //    }
+                        //})
+
                 });
+        }
+
+        function numberOfPages() {
+            if (!vm.data) { return; }
+            return Math.ceil(vm.data.length / vm.pageSize);
         }
 
     }

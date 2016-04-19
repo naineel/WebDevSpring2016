@@ -7,14 +7,9 @@ module.exports = function(app, startupModel, userModel) {
 
     function userFollowsStartup(req, res) {
         console.log("In userFollowsStartup Function");
-        var startupOriginal = req.body;
+        var startup = req.body;
         var userId = req.params.userId;
         var startupId = req.params.startupId;
-        var startup = startupModel.findStartupByStartupId(startupId);
-        if (!startup) {
-            console.log("Startup does not exist, creating one!");
-            startup = startupModel.createStartup(startupOriginal);
-        }
         if (!startup.follows) {
             startup.follows = [];
         }
@@ -38,9 +33,42 @@ module.exports = function(app, startupModel, userModel) {
 
     function createStartup(req, res) {
         console.log("create Startup");
-        var newStartup = startupModel.createStartup(req.body);
-        req.session.currentUser = newStartup;
-        res.json(newStartup);
+        var newStartup = req.body;
+        console.log(newStartup);
+        //startupModel.createStartup(req.body);
+        //req.session.currentUser = newStartup;
+        //res.json(newStartup);
+
+        startupModel
+            .findStartupsByName(newStartup.name)
+            .then(
+                function (startup) {
+                    if (startup) {
+                        res.json(null);
+                    } else {
+                        return startupModel.createStartup(newStartup);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (startup) {
+                    if (startup) {
+                        req.login(startup, function (err) {
+                           if (err) {
+                               res.status(400).send(err);
+                           } else {
+                               res.json(startup);
+                           }
+                        });
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
 };

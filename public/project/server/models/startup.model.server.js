@@ -1,39 +1,38 @@
 /**
  * Created by naineel on 3/25/16.
  */
-module.exports = function() {
-    var startups = [];
+var q = require('q');
+
+
+
+module.exports = function(app, mongoose) {
+    var StartupSchema = require("./startup.schema.server.js")(mongoose);
+
+    var StartupModel = mongoose.model('startup', StartupSchema);
+
     var api = {
         findStartupByStartupId : findStartupByStartupId,
         createStartup : createStartup,
-        findStartupsByStartupIds : findStartupsByStartupIds
+        findStartupsByStartupIds : findStartupsByStartupIds,
+        findStartupsByName : findStartupsByName,
+        findStartupByCredentials : findStartupByCredentials,
+        getMongooseModel : getMongooseModel
     };
 
     return api;
 
+    function getMongooseModel() {
+        return StartupModel;
+    }
+
     function findStartupByStartupId(startupId) {
-        for (var i = 0; i < startups.length; i++) {
-            //Stupid bug cant compare string with number
-            if (startups[i].startupId === Number(startupId)) {
-                return startups[i];
-            }
-        }
-        return null;
+        return StartupModel.findById(startupId);
     }
 
     function createStartup(startup) {
-        var cacheStartup = {
-            id: (new Date()).getTime(),
-            name: startup.name,
-            description: startup.product_desc,
-            company_url: startup.company_url,
-            logo_url: startup.logo_url,
-            startupId : startup.id
-        };
-        startups.push(cacheStartup);
-        console.log("List of startups follows: ");
-        console.log(startups);
-        return cacheStartup;
+        console.log("Model");
+        console.log(startup);
+        return StartupModel.create(startup);
     }
 
     function findStartupsByStartupIds(startupIds) {
@@ -50,5 +49,29 @@ module.exports = function() {
         }
 
         return finalStartups;
+    }
+
+    function findStartupsByName(startupName) {
+        return StartupModel.findOne({name: startupName});
+    }
+
+    function findStartupByCredentials(credentials) {
+        //var deferred = q.defer();
+        //console.log("crednetial name: " + credentials.name);
+        //console.log("crednetial password: " + credentials.password);
+        // StartupModel.find(
+        //    {name: String(credentials.name),
+        //        password: String(credentials.password)}
+        //    ).then(function(err, startup) {
+        //        if (!err) {
+        //            deferred.resolve(startup);
+        //        } else {
+        //            deferred.reject(err);
+        //        }
+        //
+        //    });
+        //return deferred.promise;
+        return StartupModel.findOne({name: String(credentials.name),
+                    password: String(credentials.password)});
     }
 };

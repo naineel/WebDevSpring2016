@@ -20,3 +20,36 @@
 .nowrap{
     white-space: nowrap;
 }
+
+.theCarousel{
+    height: 400px;
+    text-align: center;
+    /*width: 550px;*/
+    /*background-size: auto 100%;*/
+    width: auto;
+    /*max-height: 400px;*/
+    /*display:block;*/
+    /*margin-left:auto; margin-right:auto;*/
+    /*height:100%*/
+}
+
+.additionStyle{
+    position: relative;
+    top: -7px;
+}
+
+.fontAwesome{
+    color:#2e6da4;
+}
+
+.sizeclass {
+    min-height: 130px;
+    max-height: 130px;
+}
+
+.widthForTextArea {
+    width: 100%;
+    -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+    -moz-box-sizing: border-box; /* FF1+ */
+    box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+}

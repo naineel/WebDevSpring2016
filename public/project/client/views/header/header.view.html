@@ -9,13 +9,21 @@
             ng-hide="currentUser">
             <a href="#/login">Login</a>
         </li>
-        <li ng-show="currentUser">
-            <a ng-click="model.logout()">Logout</a>
-        </li>
         <li ng-class="{'active': model.$location.url() == '/search'}"><a href="#/search">Search</a></li>
-        <li ng-class="{'active': model.$location.url() == '/profile'}"
+        <li ng-class="{'active': model.$location.url() == '/profile' || model.$location.url() == '/updatePofile'}"
             ng-show="currentUser">
-            <a href="#/profile">Profile</a>
+            <div class="btn-group">
+                <a ng-show="currentUser && (currentUser.type === 'user')" type="button" class="btn btn-primary" href="#/userProfile">Profile</a>
+                <a ng-hide="currentUser && (currentUser.type === 'user')" type="button" class="btn btn-primary" ng-href="#/details/{{currentUser._id}}">Profile</a>
+                <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a ng-show="currentUser && (currentUser.type === 'user')" href="#/updateProfile">Update Profile</a></li>
+                    <li><a ng-hide="currentUser && (currentUser.type === 'user')" href="#/updateStartupProfile">Update Profile</a></li>
+                    <li><a ng-click="model.logout()">Logout</a></li>
+                </ul>
+            </div>
         </li>
         <li ng-class="{'active': $location.url().indexOf('/details')>=0}"
             ng-show="$location.url().indexOf('/details')>=0"><a>Details</a></li>

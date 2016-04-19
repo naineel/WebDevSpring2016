@@ -3,34 +3,34 @@
         .module("OmdbApp")
         .controller('LoginController', loginController);
 
-    function loginController(UserService, $location) {
+    function loginController(UserService, $location, $rootScope) {
         var vm = this;
 
         vm.loginFunc = loginFunc;
 
         function init() {
-
         }
 
         init();
 
         function loginFunc(user) {
-            if (!user) {
-                return;
-            }
-            console.log("In client/loginController: username=" + user.username);
             UserService
-                .findUserByCredentials({
-                    username: user.username,
-                    password: user.password
-                })
-                .then(function(response){
-                    console.log(response.data);
-                    if (response.data) {
-                        UserService.setCurrentUser(response.data);
-                        $location.url("/profile");
+                .login(user)
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = response.data;
+                        var user = $rootScope.currentUser;
+                        if (user.type === 'user') {
+                            $location.path('/userProfile');
+                        } else {
+                            $rootScope.registeredUser = true;
+                            $location.path('/details/' + user._id);
+                        }
+                    },
+                    function (err) {
+                        vm.error = err;
                     }
-                });
+                );
         }
 
 

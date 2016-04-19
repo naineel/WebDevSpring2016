@@ -3,7 +3,7 @@
         .module("OmdbApp")
         .controller('NavigationController', navigationController);
 
-    function navigationController($location, UserService) {
+    function navigationController($location, UserService, $rootScope) {
         var vm = this;
         vm.logout = logout;
 

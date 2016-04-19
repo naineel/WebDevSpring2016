@@ -1,0 +1,286 @@
+<div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
+<h2>Update profile</h2>
+<a class="btn btn-info pull-right" role="button"
+   ng-click="model.update(model.profile)">Update</a>
+<!-- Single button -->
+<br>
+<br>
+<div class="row">
+    <form class="form-horizontal" role="form">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="username" class="col-md-2 control-label text-left">Username:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.username" type="text" class="form-control" id="username" placeholder="Username">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-md-2 control-label text-left">Password:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="firstname" class="col-md-2 control-label text-left">First Name:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="col-md-2 control-label text-left">Last Name:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-md-2 control-label text-left">Email:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="role" class="col-md-2 control-label text-left">Role:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.role" type="email" class="form-control" id="role">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resume" class="col-md-2 control-label text-left">About yourself:</label>
+                <div class="col-md-10">
+                <textarea ng-model="model.profile.userDetails.about" class="form-control" id="resume"
+                          rows="4" cols="25"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="linkedin" class="col-md-2 control-label text-left">Linkedin:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.linkedIn_url" type="text" class="form-control" id="linkedin">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="facebook" class="col-md-2 control-label text-left">Facebook:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.facebook_url" type="text" class="form-control" id="facebook">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="github" class="col-md-2 control-label text-left">Github:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.github_url" type="text" class="form-control" id="github">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="stack" class="col-md-2 control-label text-left">Stack Overflow:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.stack_url" id="stack" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="websiteUrl" class="col-md-2 control-label text-left">Website:</label>
+                <div class="col-md-10">
+                    <input ng-model="model.profile.userDetails.website_url" type="text" class="form-control" id="websiteUrl">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="my-file-selector" class="col-md-2 control-label text-left">Upload:</label>
+                <div class="col-md-10">
+                    <input id="my-file-selector" ng-model="model.profile.userDetails.photo_url" type="image">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="bday" class="col-md-2 control-label text-left">Birthday:</label>
+                <div class="col-md-10">
+                    <input id="bday" ng-model="model.profile.userDetails.birthday" type="date">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Projects
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse3" target="_self">ADD A PROJECT</a>
+                                <a class="pull-right additionStyle" ng-click="model.addProject(model.profile, model.userDetails.project)"><i class="fa fa-plus-square fa-2x fontAwesome" aria-hidden="true"></i></a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input ng-model="model.userDetails.project.name" type="text" class="form-control" placeholder="Add Project Title">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input  ng-model="model.userDetails.project.project_url" type="text" class="form-control" placeholder="Project Link">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <textarea ng-model="model.userDetails.project.description" class="form-control" placeholder="Short description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input ng-model="model.userDetails.project.startDate" type="date" class="form-control" placeholder="Add Start Date">
+                                </div>
+                                <div class="col-md-3">
+                                    <input  ng-model="model.userDetails.project.endDate" type="date" class="form-control" placeholder="Add end Date">
+                                </div>
+                                <div class="col-md-3">
+                                    <input ng-model="model.userDetails.project.technologies" class="form-control" placeholder="Add the technologies you used eg. Angular, MongodDB">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="project in model.profile.userDetails.projects">
+                    <div>
+                        <h3>{{project.name}}</h3>
+                        <p>{{project.startDate | amDateFormat:'MM/DD/YYYY' }} - {{project.endDate | amDateFormat:'MM/DD/YYYY'}}</p>
+                        <a href="project.project_url">{{project.project_url}}</a>
+                        <a class="pull-right" ng-click="model.removeProject(model.profile, project)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                        <div>
+                            {{project.description}}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Experiences
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse2" target="_self">ADD AN EXPERIENCE</a>
+                                <a class="pull-right additionStyle" ng-click="model.addExperience(model.profile, model.userDetails.experience)"><i class="fa fa-plus-square fa-2x fontAwesome" aria-hidden="true"></i></a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input ng-model="model.userDetails.experience.employer" type="text" class="form-control" placeholder="Company">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input ng-model="model.userDetails.experience.title" type="text" class="form-control" placeholder="Position">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-3">
+                                        <textarea ng-model="model.userDetails.experience.description" type="text" class="form-control" placeholder="What did you do here?"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input ng-model="model.userDetails.experience.startDate" type="date" class="form-control" placeholder="Add Start Date">
+                                </div>
+                                <div class="col-md-3">
+                                    <input  ng-model="model.userDetails.experience.endDate" type="date" class="form-control" placeholder="Add end Date">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="experience in model.profile.userDetails.experience">
+                    <div>
+                        <h3>{{experience.employer}}</h3>
+                        <p>{{experience.startDate | amDateFormat:'MM/DD/YYYY' }} - {{experience.endDate | amDateFormat:'MM/DD/YYYY'}}</p>
+                        {{experience.title}}
+                        <a class="pull-right" ng-click="model.removeExperience(model.profile, experience)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                        <div>
+                            {{experience.description}}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Education
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1" target="_self">ADD AN EDUCATION</a>
+                                <a class="pull-right additionStyle" ng-click="model.addEducation(model.profile, model.userDetails.education)"><i class="fa fa-plus-square fa-2x fontAwesome" aria-hidden="true"></i></a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="text" ng-model="model.userDetails.education.university" class="form-control" placeholder="University">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ng-model="model.userDetails.education.major" class="form-control" placeholder="Major">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="date" ng-model="model.userDetails.education.yearGraduated" class="form-control" placeholder="Graduated?">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" ng-model="model.userDetails.education.degree" class="form-control" placeholder="Degree">
+                                </div>
+                                <div class="col-md-3">
+                            <textarea ng-model="model.userDetails.education.achievements" class="form-control" placeholder="Anything that stoodout during your time there">
+                            </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="education in model.profile.userDetails.education">
+                    <div>
+                        <h3>{{education.university}}</h3>
+                        {{education.major}}
+                        <a class="pull-right" ng-click="model.removeEducation(model.profile, education)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                        <div>
+                            Graduated in {{education.yearGraduated | amDateFormat:'YYYY'}}
+                        </div>
+                        {{education.achievements}}
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">ABOUT</div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="control-group">
+                    <div class="row">
+                    <label for="achievement" class="control-label">
+                        ACHIEVEMENT
+                    </label>
+                        <textarea ng-model="model.profile.userDetails.achievement" id="achievement" class="form-control" rows="4" cols="25">
+                        </textarea>
+                    </div>
+                    <div class="row">
+                        <label class="control-label">
+                            Locations
+                        </label>
+                        <input ng-model="model.profile.locations" class="form-control" placeholder="Add Locations">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

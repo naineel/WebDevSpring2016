@@ -1,9 +1,9 @@
 (function(){
     angular
         .module('OmdbApp')
-        .controller("RegisterController", registerController);
+        .controller("RegisterController", RegisterController);
 
-    function registerController(UserService, $location) {
+    function RegisterController(UserService, $location) {
         var vm = this;
 
         vm.registerUser = registerUser;
@@ -15,13 +15,14 @@
         init();
 
         function registerUser(user) {
+            user.type = 'user';
             UserService
                 .registerUser(user)
-                .then(function(response){
+                .then(function (response){
                    var currentUser = response.data;
                    if (currentUser != null) {
                        UserService.setCurrentUser(currentUser);
-                       $location.url("/profile");
+                       $location.url("/userProfile");
                    }
                 });
         }

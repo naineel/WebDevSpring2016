@@ -11,6 +11,7 @@ var passport = require('passport');
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs5610';
 
+//var projectConnectionString = 'mongodb://127.0.0.1:27017/project';
 
 app.use(express.static(__dirname + '/public'));
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
@@ -23,9 +24,11 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_MONGODB_DB_HOST + ":" +
         process.env.OPENSHIFT_MONGODB_DB_PORT + "/" +
         process.env.OPENSHIFT_APP_NAME;
+    //projectConnectionString = connectionString;
 }
 
 var db = mongoose.connect(connectionString);
+//var projectDb = mongoose.connect(projectConnectionString);
 ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 app.use(bodyParser.json());
