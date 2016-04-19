@@ -11,7 +11,7 @@
         })
         .controller("SearchControllerReal", SearchControllerReal);
 
-    function SearchControllerReal(AngelListService, StartupService, UserService) {
+    function SearchControllerReal(AngelListService, StartupService) {
         var vm = this;
         vm.searchStartupReal = searchStartupReal;
 
@@ -31,16 +31,9 @@
                 .searchStartupReal(startupName)
                 .then(function(json) {
                     console.log(json.data);
-                    var startupList = json.data;
-                    UserService
-                        .search(startupName)
-                        .then(function (json) {
-                            console.log('search results');
-                            console.log(json.data);
-                        });
-                    console.log(vm.data);
-                    //StartupService
-                    //    .registerStartup(vm.data)
+                    vm.data = json.data;
+                    StartupService
+                        .registerStartup(vm.data)
                         //.then(function (response) {
                         //    var currentStartup = response.data;
                         //    if (currentStartup != null) {
@@ -48,7 +41,7 @@
                         //        $location.url("/startupProfile");
                         //    }
                         //})
-
+                     ;
                 });
         }
 
