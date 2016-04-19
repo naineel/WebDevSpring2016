@@ -13,6 +13,7 @@
         vm.removeExperience = removeExperience;
         vm.addEducation = addEducation;
         vm.removeEducation = removeEducation;
+        vm.updateProfilePic = updateProfilePic;
 
 
         var username = $routeParams.username;
@@ -133,6 +134,15 @@
                         vm.message = "Unable to remove the Education";
                     }
                 });
+        }
+
+        function updateProfilePic() {
+            UserService
+                .updateProfilePicture($rootScope.currentUser._id, vm.fileModel)
+                .then(function successCallback(response) {
+                vm.profile.userDetails.profilePicUrl = response.data;
+                vm.showProfilePicSuccessAlert = true;
+            });
         }
 
     }

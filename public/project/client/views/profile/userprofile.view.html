@@ -6,7 +6,12 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="text-center">{{currentUser.userDetails.firstName}} {{currentUser.userDetails.lastName}}</h2>
+    <img ng-show="model.profile.userDetails.profilePicUrl"
+         src="{{model.profile.userDetails.profilePicUrl}}"
+         alt="User Profile Picture" class="img-circle usr-img">
+    <h2 class="text-center">
+        {{currentUser.userDetails.firstName}} {{currentUser.userDetails.lastName}}
+    </h2>
     <h4 class="text-center">{{model.profile.userDetails.about}}</h4>
     <div class="text-center">
         <a ng-if="model.profile.userDetails.linkedIn_url" href="{{model.profile.userDetails.linkedIn_url}}" target="_blank"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>

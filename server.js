@@ -42,6 +42,19 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*Multer Storage Config*/
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/uploads/')
+        },
+    filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            cb(null, datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    }
+});
+
+var upload = multer({storage: storage});
+
 app.get('/sayHello', rootRequest);
 
 function rootRequest(req, res){
@@ -49,6 +62,6 @@ function rootRequest(req, res){
 }
 
 require("./public/assignment/server/app.js")(app, uuid, db, mongoose);
-require("./public/project/server/app.js")(app, db, mongoose);
+require("./public/project/server/app.js")(app, db, mongoose, upload);
 
 app.listen(port, ipaddress);

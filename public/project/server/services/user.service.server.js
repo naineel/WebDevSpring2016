@@ -2,8 +2,9 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
+var _ = require('lodash');
 
-module.exports = function(app, userModel, startupModel) {
+module.exports = function(app, userModel, startupModel, upload) {
   app.post("/api/project/login", passport.authenticate('local'), login);
   app.get("/api/project/loggedin", loggedin);
   app.post("/api/project/logout", logout);
@@ -18,6 +19,8 @@ module.exports = function(app, userModel, startupModel) {
   app.put("/api/project/profile/:userId/education", addEducation);
   app.delete("/api/project/profile/:userId/education/:eduId", removeEducation);
   app.get("/api/project/search/:search", search);
+    app.post('/api/project/user/profilePic/:id', upload.single('file'), updateProfilePic);
+
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -141,6 +144,9 @@ module.exports = function(app, userModel, startupModel) {
     function updateProfile(req, res) {
         var id = req.params.userId;
         var user = req.body;
+        _.extend(user, {
+            profilePicUrl: req.file.path
+        });
         userModel.updateUser(id, user)
                  .then(
                      function (user) {
@@ -307,6 +313,19 @@ module.exports = function(app, userModel, startupModel) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function updateProfilePic(req, res) {
+        var profilePic = req.file.path;
+        userModel.updateProfilePic(req.params.id, profilePic.replace('public\/', '\/'))
+            .then(
+                function(user) {
+                    res.json(profilePic.replace('public\/', '\/'));
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
     }
 
 };

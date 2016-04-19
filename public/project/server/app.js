@@ -1,10 +1,10 @@
-module.exports = function(app, db, mongoose) {
+module.exports = function(app, db, mongoose, upload) {
     var userModel = require("./models/user.model.server.js")(db, mongoose);
 
 
     var startupModel = require("./models/startup.model.server.js")(db, mongoose);
 
-    var userService = require("./services/user.service.server.js")(app, userModel, startupModel);
+    var userService = require("./services/user.service.server.js")(app, userModel, startupModel, upload);
     var startupService = require("./services/startup.service.server.js")(app, startupModel, userModel);
 
     var CommentModel = require("./models/comment.model.server.js")(mongoose);

@@ -32,8 +32,6 @@
                 .then(function(json) {
                     console.log(json.data);
                     vm.data = json.data;
-                    StartupService
-                        .registerStartup(vm.data)
                         //.then(function (response) {
                         //    var currentStartup = response.data;
                         //    if (currentStartup != null) {

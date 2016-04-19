@@ -21,7 +21,8 @@
             addEducationToUser : addEducationToUser,
             removeEducationFromUser : removeEducationFromUser,
             findUserById : findUserById,
-            search : search
+            search : search,
+            updateProfilePicture: updateProfilePicture
         };
         return api;
 
@@ -95,6 +96,15 @@
 
         function search(searchText) {
             return $http.get("/api/project/search/" + searchText);
+        }
+
+        function updateProfilePicture(userId, file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            return $http.post('/api/project/user/profilePic/' + userId, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            });
         }
     }
 

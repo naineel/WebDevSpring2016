@@ -31,6 +31,10 @@ module.exports = function (mongoose) {
         facebook:   {
             id:    String,
             token: String
+        },
+        profilePicUrl: {
+            type: String,
+            default: '/img/empty-profile.png'
         }
     }, {
         collection: 'userDetail'

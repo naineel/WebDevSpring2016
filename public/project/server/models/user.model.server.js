@@ -25,7 +25,8 @@ module.exports = function(db, mongoose) {
         createEducationInProfile : createEducationInProfile,
         removeEducationFromProfile : removeEducationFromProfile,
         getMongooseModel : getMongooseModel,
-        searchText : searchText
+        searchText : searchText,
+        updateProfilePic : updateProfilePic
     };
 
     return api;
@@ -144,6 +145,24 @@ module.exports = function(db, mongoose) {
                     deferred.reject (err);
                 }
             });
+        return deferred.promise;
+    }
+
+    function updateProfilePic(id, profilePic) {
+        var deferred = q.defer();
+        UserModel.update(
+            {_id: id},
+            {$set: {
+                "userDetails.profilePicUrl" : profilePic
+            }},
+            function (err, stats) {
+                if (!err) {
+                    deferred.resolve(stats);
+                } else {
+                    deferred.reject(err);
+                }
+            }
+        );
         return deferred.promise;
     }
 
