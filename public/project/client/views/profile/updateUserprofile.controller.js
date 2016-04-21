@@ -47,7 +47,6 @@
         }
 
         function addProject(user, project) {
-            vm.project = null;
             UserService
                 .addProjectToUser(user._id, project)
                 .then(function updatedProfileCallback(response) {
@@ -59,6 +58,7 @@
                         vm.message = "Unable to add the project";
                     }
                 });
+            vm.userDetails.project = null;
         }
 
         function removeProject(user, project) {
@@ -77,7 +77,6 @@
         }
 
         function addExperience(user, experience) {
-            vm.experience = null;
             UserService
                 .addExperienceToUser(user._id, experience)
                 .then(function updatedProfileCallback(response) {
@@ -91,6 +90,7 @@
                         vm.message = "Unable to add the project";
                     }
                 });
+            vm.userDetails.experience = null;
         }
 
         function removeExperience(user, experience) {
@@ -108,7 +108,6 @@
         }
 
         function addEducation(user, education) {
-            vm.education = null;
             UserService
                 .addEducationToUser(user._id, education)
                 .then(function updatedProfileCallback(response) {
@@ -120,6 +119,7 @@
                         vm.message = "Unable to add the Education";
                     }
                 });
+            vm.userDetails.education = null;
         }
 
         function removeEducation(user, education) {
