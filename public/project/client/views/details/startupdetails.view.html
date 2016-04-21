@@ -23,7 +23,7 @@
                     <h1 ng-show="model.startup.name" class="page-header text-uppercase">{{model.startup.name}}</h1>
                 <p class="text-center">{{model.startup.high_concept}}</p>
                 <ul class="list-inline text-center">
-                    <li ng-repeat="location in model.startup.locations">{{location.display_name}}</li>
+                    <li ng-repeat="location in model.startup.locations">{{location.name}}</li>
                 </ul>
                 <div class="text-center"><a href="{{model.startup.company_url}}" target="_blank">{{model.startup.company_url}}</a></div>
                 <div class="text-center">Followers: {{model.noOfFollowers}}</a></div>

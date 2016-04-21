@@ -64,32 +64,39 @@
         }
 
         function addPerson(startup, person) {
-            console.log(startup);
-            console.log(person);
-            person.startupId = startup._id;
-            RolesService
-                .addRoleToStartup(person)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        //UserService.setCurrentUser(user);
-                        //vm.profile = response.data;
-                        console.log(response);
-                        RolesService.getRolesByStartupId(startup._id)
-                            .then(function (response) {
-                                vm.startupRolesAll = response.data;
-                            }, function (err) {
-                                console.log(err);
-                            });
-                        vm.message = "Person added successfully";
-                    } else {
-                        vm.message = "Unable to add the project";
-                    }
-                });
-            vm.startupRoles.person = null;
+            if ((person != null) && (person.tagged.name && person.role && person.title)) {
+                console.log(startup);
+                console.log(person);
+                person.startupId = startup._id;
+                RolesService
+                    .addRoleToStartup(person)
+                    .then(function updatedProfileCallback(response) {
+                        if (response.status == 200) {
+                            //UserService.setCurrentUser(user);
+                            //vm.profile = response.data;
+                            console.log(response);
+                            RolesService.getRolesByStartupId(startup._id)
+                                .then(function (response) {
+                                    vm.startupRolesAll = response.data;
+                                }, function (err) {
+                                    console.log(err);
+                                });
+                            vm.personMessage = "Person added successfully";
+                            vm.startupRoles.person = null;
+                        } else {
+                            vm.personMessage = "Unable to add the project";
+                            vm.startupRoles.person = null;
+                        }
+                    });
+            } else {
+                vm.personMessage = "Add some information to add the person.";
+            }
+
         }
 
 
         function addJob(startup, job) {
+            if (job != null) {
             job.startupId = startup._id;
             JobService
                 .addJobToStartup(job)
@@ -101,12 +108,16 @@
                             }, function (err) {
                                 console.log(err);
                             });
-                        vm.message = "Job added successfully";
+                        vm.jobMessage = "Job added successfully";
                     } else {
-                        vm.message ="Unable to add job";
+                        vm.jobMessage ="Unable to add job";
                     }
                 });
+
             vm.job = null;
+            } else {
+                vm.jobMessage = "Add information to add a job."
+            }
         }
 
         function removePerson(startup, person) {

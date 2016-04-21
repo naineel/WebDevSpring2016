@@ -74,7 +74,10 @@
             .when("/jobs", {
                 templateUrl: "views/jobs/job.view.html",
                 controller: "JobController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    getLoggedIn : getLoggedIn
+                }
             })
             .otherwise({
                 redirectTo: "/home"

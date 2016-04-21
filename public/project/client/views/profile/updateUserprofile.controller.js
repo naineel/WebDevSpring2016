@@ -47,18 +47,22 @@
         }
 
         function addProject(user, project) {
+            if (project != null) {
             UserService
                 .addProjectToUser(user._id, project)
                 .then(function updatedProfileCallback(response) {
                     if (response.status == 200) {
                         UserService.setCurrentUser(user);
                         vm.profile = response.data;
-                        vm.message = "Project added successfully";
+                        vm.projectMessage = "Project added successfully";
                     } else {
-                        vm.message = "Unable to add the project";
+                        vm.projectMessage = "Unable to add the project";
                     }
                 });
             vm.userDetails.project = null;
+            } else {
+                vm.projectMessage = "Add info. to add as a project.";
+            }
         }
 
         function removeProject(user, project) {
@@ -69,28 +73,32 @@
                         UserService.setCurrentUser(user);
                         vm.profile = response.data;
                         //vm.user.proj
-                        vm.message = "Project removed successfully";
+                        vm.projectMessage = "Project removed successfully";
                     } else {
-                        vm.message = "Unable to remove the project";
+                        vm.projectMessage = "Unable to remove the project";
                     }
                 });
         }
 
         function addExperience(user, experience) {
-            UserService
-                .addExperienceToUser(user._id, experience)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        console.log("updated project");
-                        console.log(vm.profile);
-                        vm.message = "Project added successfully";
-                    } else {
-                        vm.message = "Unable to add the project";
-                    }
-                });
-            vm.userDetails.experience = null;
+            if (experience != null) {
+                UserService
+                    .addExperienceToUser(user._id, experience)
+                    .then(function updatedProfileCallback(response) {
+                        if (response.status == 200) {
+                            UserService.setCurrentUser(user);
+                            vm.profile = response.data;
+                            console.log("updated project");
+                            console.log(vm.profile);
+                            vm.expMessage = "Project added successfully";
+                        } else {
+                            vm.expMessage = "Unable to add the project";
+                        }
+                    });
+                vm.userDetails.experience = null;
+            } else {
+                vm.expMessage = "Add info to add as an experience";
+            }
         }
 
         function removeExperience(user, experience) {
@@ -100,26 +108,30 @@
                     if (response.status == 200) {
                         UserService.setCurrentUser(user);
                         vm.profile = response.data;
-                        vm.message = "Experience removed successfully";
+                        vm.expMessage = "Experience removed successfully";
                     } else {
-                        vm.message = "Unable to remove the Experience";
+                        vm.expMessage = "Unable to remove the Experience";
                     }
                 });
         }
 
         function addEducation(user, education) {
-            UserService
-                .addEducationToUser(user._id, education)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        vm.message = "Education added successfully";
-                    } else {
-                        vm.message = "Unable to add the Education";
-                    }
-                });
-            vm.userDetails.education = null;
+            if (education != null) {
+                UserService
+                    .addEducationToUser(user._id, education)
+                    .then(function updatedProfileCallback(response) {
+                        if (response.status == 200) {
+                            UserService.setCurrentUser(user);
+                            vm.profile = response.data;
+                            vm.eduMessage = "Education added successfully";
+                        } else {
+                            vm.eduMessage = "Unable to add the Education";
+                        }
+                    });
+                vm.userDetails.education = null;
+            } else {
+                vm.eduMessage = "Add info to add as an education.";
+            }
         }
 
         function removeEducation(user, education) {
@@ -129,9 +141,9 @@
                     if (response.status == 200) {
                         UserService.setCurrentUser(user);
                         vm.profile = response.data;
-                        vm.message = "Education removed successfully";
+                        vm.eduMessage = "Education removed successfully";
                     } else {
-                        vm.message = "Unable to remove the Education";
+                        vm.eduMessage = "Unable to remove the Education";
                     }
                 });
         }

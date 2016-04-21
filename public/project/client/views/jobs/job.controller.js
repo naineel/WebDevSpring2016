@@ -9,8 +9,6 @@
     function JobController(JobService, UserService) {
         var vm = this;
 
-
-
         function init() {
             console.log('INIT FUNCTION OF JOB');
             JobService.getAllJobs()

@@ -126,6 +126,7 @@
             </div>
         </div>
     </div>
+    <div ng-show="model.projectMessage" class="alert alert-danger" role="alert">{{model.projectMessage}}</div>
     <div class="panel panel-default">
         <div class="panel-heading">
             Projects
@@ -180,6 +181,7 @@
             </fieldset>
         </div>
     </div>
+    <div ng-show="model.expMessage" class="alert alert-danger" role="alert">{{model.expMessage}}</div>
     <div class="panel panel-default">
         <div class="panel-heading">
             Experiences
@@ -233,6 +235,7 @@
             </fieldset>
         </div>
     </div>
+    <div ng-show="model.eduMessage" class="alert alert-danger" role="alert">{{model.eduMessage}}</div>
     <div class="panel panel-default">
         <div class="panel-heading">
             Education
@@ -302,7 +305,7 @@
                         <label class="control-label">
                             Locations Interested in:
                         </label>
-                        <input ng-model="model.profile.userDetails.locations" class="form-control" placeholder="Add Locations">
+                        <input ng-model="model.profile.userDetails.location" class="form-control" placeholder="Add Locations">
                     </div>
                 </div>
             </fieldset>

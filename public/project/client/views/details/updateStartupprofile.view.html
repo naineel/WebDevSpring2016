@@ -37,7 +37,7 @@
             <div class="form-group">
                 <label for="location" class="col-md-3 control-label text-left">Locations:</label>
                 <div class="col-md-9">
-                    <input ng-model="model.profile.startupDetails.locations.display_name" type="text" class="form-control" id="location">
+                    <input ng-model="model.profile.startupDetails.locations" type="text" class="form-control" id="location">
                 </div>
             </div>
             <div class="form-group">
@@ -104,9 +104,11 @@
             </div>
         </div>
     </div>
+    <div ng-show="model.personMessage" class="alert alert-danger" role="alert">{{model.personMessage}}</div>
     <div class="panel panel-default">
         <div class="panel-heading">
             PEOPLE
+
         </div>
         <div class="panel-body">
             <fieldset>
@@ -158,6 +160,7 @@
     </div>
 </div>
 <div>
+    <div ng-show="model.jobMessage" class="alert alert-danger" role="alert">{{model.jobMessage}}</div>
     <div class="panel panel-default">
         <div class="panel-heading">
             JOBS
