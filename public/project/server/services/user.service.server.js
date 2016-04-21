@@ -87,7 +87,7 @@ module.exports = function(app, userModel, startupModel, upload) {
         console.log("Creating new user");
         var newUser = req.body;
         userModel
-            .findUserByUsername(newUser.username)
+            .findUserByUsernameP(newUser.username)
             .then(
                 function (user) {
                     // if the user does not already exist
