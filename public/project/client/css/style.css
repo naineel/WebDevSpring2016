@@ -85,3 +85,7 @@ a {
     height: 200px;
     width: 200px;
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: transparent;
+}
