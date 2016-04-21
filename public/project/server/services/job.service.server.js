@@ -25,7 +25,6 @@ module.exports = function(app, jobModel) {
     }
 
     function getJobsByStartupId(req, res) {
-        console.log('Its hitting this dumbass');
         var startupId = req.params.startupId;
         jobModel.getJobsForStartupId(startupId)
             .then(
