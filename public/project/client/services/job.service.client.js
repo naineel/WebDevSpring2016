@@ -11,7 +11,8 @@
         var api = {
             addJobToStartup: addJobToStartup,
             getJobsByStartupId : getJobsByStartupId,
-            removeJobFromStartup : removeJobFromStartup
+            removeJobFromStartup : removeJobFromStartup,
+            getAllJobs : getAllJobs
         };
 
         return api;
@@ -26,6 +27,10 @@
 
         function removeJobFromStartup(job) {
             return $http.delete('/api/project/jobs/' + job._id);
+        }
+
+        function getAllJobs() {
+            return $http.get('/api/project/jobsUnique/all');
         }
     }
 })();

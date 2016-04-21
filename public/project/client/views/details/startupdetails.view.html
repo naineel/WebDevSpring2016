@@ -6,7 +6,7 @@
         <div class="media">
             <div class="media-middle col-xs-12 col-sm-3">
                 <a href="#">
-                    <img class="media-object" src="{{model.startup.logo_url}}" alt="...">
+                    <img class="media-object sizeFix" src="{{model.startup.logo_url}}" alt="...">
                 </a>
             </div>
             <div class="media-body">
@@ -25,7 +25,7 @@
                 <ul class="list-inline text-center">
                     <li ng-repeat="location in model.startup.locations">{{location.display_name}}</li>
                 </ul>
-                <div class="text-center"><a href="model.startup.company_url">{{model.startup.company_url}}</a></div>
+                <div class="text-center"><a href="{{model.startup.company_url}}" target="_blank">{{model.startup.company_url}}</a></div>
                 <div class="text-center">Followers: {{model.noOfFollowers}}</a></div>
             </div>
         </div>
@@ -97,6 +97,10 @@
             </div>
         </div>
     </div>
+    <div class="panel-footer">
+        <button class="btn btn-success pull-right">Apply</button>
+        <div class="clearfix"></div>
+    </div>
 </div>
 
 <h2>Comments</h2>
@@ -127,9 +131,10 @@
                 placeholder="Add comment"/>
     </div>
     <div class="panel panel-footer">
-        <button class="btn btn-success pull-right additionStyle"
+        <button class="btn btn-success pull-right"
                 ng-click="model.addComment(model.comment)">Add Comment
         </button>
+        <div class="clearfix"></div>
     </div>
 </div>
 </div>

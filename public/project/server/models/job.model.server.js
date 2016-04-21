@@ -13,7 +13,8 @@ module.exports = function(mongoose) {
     var api = {
         addJobToStartup : addJobToStartup,
         deleteJobFromStartup : deleteJobFromStartup,
-        getJobsForStartupId : getJobsForStartupId
+        getJobsForStartupId : getJobsForStartupId,
+        getAllJobs : getAllJobs
     };
 
     return api;
@@ -28,6 +29,11 @@ module.exports = function(mongoose) {
 
     function getJobsForStartupId(startupId) {
         return JobModel.find({startupId: startupId});
+    }
+
+    function getAllJobs() {
+        console.log("Trying to find all jobs");
+        return JobModel.find();
     }
 
 };

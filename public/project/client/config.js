@@ -71,6 +71,11 @@
                 controller: "RegisterController",
                 controllerAs: "model"
             })
+            .when("/jobs", {
+                templateUrl: "views/jobs/job.view.html",
+                controller: "JobController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/home"
             });

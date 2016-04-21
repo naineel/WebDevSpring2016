@@ -2,7 +2,6 @@
     padding: 0;
 }
 
-
 a {
     color: #0000FF
 }
@@ -80,4 +79,9 @@ a {
 
 .colorBlack {
     color: black !important;
+}
+
+.sizeFix {
+    height: 200px;
+    width: 200px;
 }

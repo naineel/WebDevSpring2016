@@ -22,7 +22,8 @@
             removeEducationFromUser : removeEducationFromUser,
             findUserById : findUserById,
             search : search,
-            updateProfilePicture: updateProfilePicture
+            updateProfilePicture : updateProfilePicture,
+            updateStartupLogo : updateStartupLogo
         };
         return api;
 
@@ -102,6 +103,15 @@
             var fd = new FormData();
             fd.append('file', file);
             return $http.post('/api/project/user/profilePic/' + userId, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            });
+        }
+
+        function updateStartupLogo(userId, file) {
+            var fd = new FormData();
+            fd.append('file', file);
+            return $http.post('/api/project/user/logo/' + userId, fd, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });

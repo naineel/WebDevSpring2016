@@ -1,0 +1,33 @@
+<h1>All jobs</h1>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            All Jobs
+        </div>
+        <div class="panel-body">
+            <div class="panel-group">
+                <div class="panel panel-default" ng-repeat="job in model.properJobs">
+                    <div class="panel-heading"><h3 class="text-uppercase"><a href="#/details/{{job.startupId}}">{{job.startupName}}</a> is hiring for a {{job.position}}</h3></div>
+                    <div class="panel-body">
+                        <div>Job Description: </div>
+                        {{job.description}}
+                        <div>
+                            <h3>Required skills</h3>
+                            <ol>
+                                <div ng-repeat="skill in job.skills">
+                                    <li ng-repeat="sk in skill.split(',')">
+                                        {{sk}}
+                                    </li>
+                                </div>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-success pull-right">Apply</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

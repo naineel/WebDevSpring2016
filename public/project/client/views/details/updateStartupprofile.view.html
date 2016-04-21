@@ -17,58 +17,52 @@
     <form class="form-horizontal" role="form">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="username" class="col-md-2 control-label text-left">Username:</label>
-                <div class="col-md-10">
+                <label for="username" class="col-md-3 control-label text-left">Username:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.username" type="text" class="form-control" id="username" placeholder="Username">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-md-2 control-label text-left">Password:</label>
-                <div class="col-md-10">
+                <label for="inputPassword3" class="col-md-3 control-label text-left">Password:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
                 </div>
             </div>
             <div class="form-group">
-                <label for="displayname" class="col-md-2 control-label text-left">Display Name:</label>
-                <div class="col-md-10">
+                <label for="displayname" class="col-md-3 control-label text-left">Display Name:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.startupDetails.name" type="text" class="form-control" id="displayname" placeholder="Email">
                 </div>
             </div>
             <div class="form-group">
-                <label for="location" class="col-md-2 control-label text-left">Locations:</label>
-                <div class="col-md-10">
+                <label for="location" class="col-md-3 control-label text-left">Locations:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.startupDetails.locations.display_name" type="text" class="form-control" id="location">
                 </div>
             </div>
             <div class="form-group">
-                <label for="concept" class="col-md-2 control-label text-left">High concept:</label>
-                <div class="col-md-10">
+                <label for="concept" class="col-md-3 control-label text-left">High concept:</label>
+                <div class="col-md-9">
                 <input ng-model="model.profile.startupDetails.high_concept" class="form-control" id="concept"/>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="websiteUrl" class="col-md-2 control-label text-left">Website:</label>
-                <div class="col-md-10">
+                <label for="websiteUrl" class="col-md-3 control-label text-left">Website:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.startupDetails.company_url" type="text" class="form-control" id="websiteUrl">
                 </div>
             </div>
             <div class="form-group">
-                <label for="VideoUrl" class="col-md-2 control-label text-left">Your video Link:</label>
-                <div class="col-md-10">
+                <label for="VideoUrl" class="col-md-3 control-label text-left">Your video Link:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.startupDetails.video_url" type="text" class="form-control" id="VideoUrl">
                 </div>
             </div>
             <div class="form-group">
-                <label for="my-file-selector" class="col-md-2 control-label text-left">Upload logo:</label>
-                <div class="col-md-10">
-                    <input id="my-file-selector" ng-model="model.profile.startupDetails.logo_url" type="image">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="produc_desc" class="col-md-2 control-label text-left">Product Description:</label>
-                <div class="col-md-10">
+                <label for="produc_desc" class="col-md-3 control-label text-left">Product Description:</label>
+                <div class="col-md-9">
                     <textarea class="widthForTextArea" id="produc_desc" ng-model="model.profile.startupDetails.product_desc" rows="4">
                         Add Product Description
                     </textarea>
@@ -80,6 +74,36 @@
 <br>
 <br>
 <div>
+    <div id="profilePicPanel" class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-user"></i> Profile Picture
+        </div>
+        <div class="panel-body">
+            <img ng-show="model.profile.startupDetails.logo_url" src="{{model.profile.startupDetails.logo_url}}" alt="User Profile Picture" class="img-thumbnail profile-img">
+            <br>
+            <br>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="profilePic" class="col-sm-2 control-label">Logo: </label>
+                    <div class="col-sm-10">
+                        <input type="file" file-model="model.fileModel" id="profilePic">
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-2">
+                    <button ng-click="model.updateLogo()" class="btn btn-primary col-xs-12"> Update </button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="alert alert-success col-xs-12 col-sm-10 col-sm-offset-2" ng-show="model.showLogoSuccessAlert">
+                    <strong>Updated!</strong>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             PEOPLE

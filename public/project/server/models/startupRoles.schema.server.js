@@ -4,7 +4,10 @@
 module.exports = function (mongoose) {
     var RolesSchema = mongoose.Schema({
         tagged: {
-            image: String,
+            image: {
+                type: String,
+                default: '/img/empty-profile.png'
+            },
             name: String
         },
         role: String,

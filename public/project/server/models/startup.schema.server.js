@@ -4,11 +4,15 @@
 module.exports = function (mongoose) {
     var JobSchema = require("./job.schema.server.js")(mongoose);
     var StartupSchema = mongoose.Schema({
+        logo_url: {
+            type: String,
+            default: '/img/empty-profile.png'
+        },
         video_url: String,
         high_concept: String,
         company_url: String,
         product_desc: String,
-        locations: [String],
+        locations: String,
         markets: [String],
         jobs: [JobSchema],
         name: String,

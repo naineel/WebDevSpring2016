@@ -26,7 +26,8 @@ module.exports = function(db, mongoose) {
         removeEducationFromProfile : removeEducationFromProfile,
         getMongooseModel : getMongooseModel,
         searchText : searchText,
-        updateProfilePic : updateProfilePic
+        updateProfilePic : updateProfilePic,
+        updateLogo : updateLogo
     };
 
     return api;
@@ -154,6 +155,24 @@ module.exports = function(db, mongoose) {
             {_id: id},
             {$set: {
                 "userDetails.profilePicUrl" : profilePic
+            }},
+            function (err, stats) {
+                if (!err) {
+                    deferred.resolve(stats);
+                } else {
+                    deferred.reject(err);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
+    function updateLogo(id, logoPic) {
+        var deferred = q.defer();
+        UserModel.update(
+            {_id: id},
+            {$set: {
+                "startupDetails.logo_url" : logoPic
             }},
             function (err, stats) {
                 if (!err) {

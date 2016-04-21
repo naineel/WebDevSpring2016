@@ -5,16 +5,23 @@
     <h2 class="text-center">
         {{currentUser.userDetails.firstName}} {{currentUser.userDetails.lastName}}
     </h2>
-    <h4 class="text-center">{{model.profile.userDetails.about}}</h4>
+    <div>
+        <h5 class="text-center">{{model.profile.userDetails.role}}</h5>
+    </div>
     <div class="text-center">
         <a ng-if="model.profile.userDetails.linkedIn_url" href="{{model.profile.userDetails.linkedIn_url}}" target="_blank"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
         <a ng-if="model.profile.userDetails.github_url" href="{{model.profile.userDetails.github_url}}" target="_blank"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
         <a ng-if="model.profile.userDetails.stack_url" href="{{model.profile.userDetails.github_url}}" target="_blank"><i class="fa fa-stack-overflow fa-2x" aria-hidden="true"></i></a>
         <a ng-if="model.profile.userDetails.facebook_url" href="{{model.profile.userDetails.facebook_url}}" target="_blank"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+        <a ng-if="model.profile.userDetails.website_url" href="{{model.profile.userDetails.website_url}}" target="_blank">{{model.profile.userDetails.website_url}}</a>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            123 Followers  12 Following
+            <div class="col-lg-10">
+                <div class="col-lg-10">
+            <h5 class="text-left">{{model.profile.userDetails.about}}</h5>
+                    </div>
+            </div>
             <button class="btn btn-secondary pull-right">Share</button>
         </div>
     </div>

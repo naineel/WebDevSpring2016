@@ -8,6 +8,7 @@ module.exports = function(app, jobModel) {
     app.post('/api/project/jobs', addJobToStartup);
     app.get('/api/project/jobs/:startupId', getJobsByStartupId);
     app.delete('/api/project/jobs/:jobId', deleteJobFromStartup);
+    app.get('/api/project/jobsUnique/all', getAllJobs);
 
     function addJobToStartup(req, res) {
         var job = req.body;
@@ -24,6 +25,7 @@ module.exports = function(app, jobModel) {
     }
 
     function getJobsByStartupId(req, res) {
+        console.log('Its hitting this dumbass');
         var startupId = req.params.startupId;
         jobModel.getJobsForStartupId(startupId)
             .then(
@@ -39,6 +41,18 @@ module.exports = function(app, jobModel) {
     function deleteJobFromStartup(req, res) {
         var jobId = req.params.jobId;
         jobModel.deleteJobFromStartup(jobId)
+            .then(
+                function (job) {
+                    res.json(job);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function getAllJobs(req, res) {
+        jobModel.getAllJobs()
             .then(
                 function (job) {
                     res.json(job);

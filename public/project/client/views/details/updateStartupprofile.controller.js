@@ -14,6 +14,7 @@
         vm.removePerson = removePerson;
         vm.addJob = addJob;
         vm.removeJob = removeJob;
+        vm.updateLogo = updateLogo;
         //vm.addEducation = addEducation;
         //vm.removeEducation = removeEducation;
 
@@ -144,79 +145,12 @@
                 });
         }
 
-
-        function removeProject(user, project) {
+        function updateLogo() {
             UserService
-                .removeProjectFromUser(user._id, project._id)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        //vm.user.proj
-                        vm.message = "Project removed successfully";
-                    } else {
-                        vm.message = "Unable to remove the project";
-                    }
-                });
-        }
-
-        function addExperience(user, experience) {
-            vm.experience = null;
-            UserService
-                .addExperienceToUser(user._id, experience)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        console.log("updated project");
-                        console.log(vm.profile);
-                        vm.message = "Project added successfully";
-                    } else {
-                        vm.message = "Unable to add the project";
-                    }
-                });
-        }
-
-        function removeExperience(user, experience) {
-            UserService
-                .removeExperienceFromUser(user._id, experience._id)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        vm.message = "Experience removed successfully";
-                    } else {
-                        vm.message = "Unable to remove the Experience";
-                    }
-                });
-        }
-
-        function addEducation(user, education) {
-            vm.education = null;
-            UserService
-                .addEducationToUser(user._id, education)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        vm.message = "Education added successfully";
-                    } else {
-                        vm.message = "Unable to add the Education";
-                    }
-                });
-        }
-
-        function removeEducation(user, education) {
-            UserService
-                .removeEducationFromUser(user._id, education._id)
-                .then(function updatedProfileCallback(response) {
-                    if (response.status == 200) {
-                        UserService.setCurrentUser(user);
-                        vm.profile = response.data;
-                        vm.message = "Education removed successfully";
-                    } else {
-                        vm.message = "Unable to remove the Education";
-                    }
+                .updateStartupLogo($rootScope.currentUser._id, vm.fileModel)
+                .then(function successCallback(response) {
+                    vm.profile.startupDetails.logo_url = response.data;
+                    vm.showLogoSuccessAlert = true;
                 });
         }
 

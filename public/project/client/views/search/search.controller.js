@@ -11,7 +11,7 @@
         })
         .controller("SearchControllerReal", SearchControllerReal);
 
-    function SearchControllerReal(AngelListService, StartupService) {
+    function SearchControllerReal(AngelListService) {
         var vm = this;
         vm.searchStartupReal = searchStartupReal;
 
@@ -29,17 +29,9 @@
             console.log("Startup search in client/view/search: startupName = " + startupName);
             AngelListService
                 .searchStartupReal(startupName)
-                .then(function(json) {
+                .then(function (json) {
                     console.log(json.data);
                     vm.data = json.data;
-                        //.then(function (response) {
-                        //    var currentStartup = response.data;
-                        //    if (currentStartup != null) {
-                        //        UserService.setCurrentUser(currentStartup);
-                        //        $location.url("/startupProfile");
-                        //    }
-                        //})
-                     ;
                 });
         }
 

@@ -20,6 +20,7 @@ module.exports = function(app, userModel, startupModel, upload) {
   app.delete("/api/project/profile/:userId/education/:eduId", removeEducation);
   app.get("/api/project/search/:search", search);
     app.post('/api/project/user/profilePic/:id', upload.single('file'), updateProfilePic);
+    app.post('/api/project/user/logo/:id', upload.single('file'), updateLogo);
 
 
     passport.use(new LocalStrategy(localStrategy));
@@ -144,9 +145,19 @@ module.exports = function(app, userModel, startupModel, upload) {
     function updateProfile(req, res) {
         var id = req.params.userId;
         var user = req.body;
-        _.extend(user, {
-            profilePicUrl: req.file.path
-        });
+        if (user.type == 'user') {
+            if (req.file) {
+                _.extend(user, {
+                    profilePicUrl: req.file.path
+                });
+            }
+        } else {
+            if (req.file) {
+                _.extend(user, {
+                    logo_url: req.file.path
+                });
+            }
+        }
         userModel.updateUser(id, user)
                  .then(
                      function (user) {
@@ -321,6 +332,19 @@ module.exports = function(app, userModel, startupModel, upload) {
             .then(
                 function(user) {
                     res.json(profilePic.replace('public\/', '\/'));
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+    }
+
+    function updateLogo(req, res) {
+        var logo = req.file.path;
+        userModel.updateLogo(req.params.id, logo.replace('public\/', '\/'))
+            .then(
+                function(user) {
+                    res.json(logo.replace('public\/', '\/'));
                 },
                 function(err) {
                     res.status(400).send(err);

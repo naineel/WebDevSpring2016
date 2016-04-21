@@ -1,3 +1,10 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({
+            placement : 'top'
+        });
+    });
+</script>
 <div class="container">
 <div ng-show="model.message" class="alert alert-success" role="alert">{{model.message}}</div>
 <h2>Update profile</h2>
@@ -10,97 +17,85 @@
     <form class="form-horizontal" role="form">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="username" class="col-md-2 control-label text-left">Username:</label>
-                <div class="col-md-10">
+                <label for="username" class="col-md-3 control-label text-left">Username:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.username" type="text" class="form-control" id="username" placeholder="Username">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-md-2 control-label text-left">Password:</label>
-                <div class="col-md-10">
+                <label for="inputPassword3" class="col-md-3 control-label text-left">Password:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
                 </div>
             </div>
             <div class="form-group">
-                <label for="firstname" class="col-md-2 control-label text-left">First Name:</label>
-                <div class="col-md-10">
+                <label for="firstname" class="col-md-3 control-label text-left">First Name:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.firstName" type="text" class="form-control" id="firstname" placeholder="First Name">
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastname" class="col-md-2 control-label text-left">Last Name:</label>
-                <div class="col-md-10">
+                <label for="lastname" class="col-md-3 control-label text-left">Last Name:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.lastName" type="text" class="form-control" id="lastname" placeholder="Last Name">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail3" class="col-md-2 control-label text-left">Email:</label>
-                <div class="col-md-10">
+                <label for="inputEmail3" class="col-md-3 control-label text-left">Email:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.email" type="email" class="form-control" id="inputEmail3" placeholder="Email">
                 </div>
             </div>
             <div class="form-group">
-                <label for="role" class="col-md-2 control-label text-left">Role:</label>
-                <div class="col-md-10">
-                    <input ng-model="model.profile.userDetails.role" type="email" class="form-control" id="role">
+                <label for="role" class="col-md-3 control-label text-left">Roles interested in:</label>
+                <div class="col-md-9">
+                    <input ng-model="model.profile.userDetails.role" type="text" class="form-control" id="role">
                 </div>
             </div>
             <div class="form-group">
-                <label for="resume" class="col-md-2 control-label text-left">About yourself:</label>
-                <div class="col-md-10">
-                <textarea ng-model="model.profile.userDetails.about" class="form-control" id="resume"
+                <label for="resume" class="col-md-3 control-label text-left">About yourself:</label>
+                <div class="col-md-9">
+                <textarea class="form-control" ng-model="model.profile.userDetails.about" id="resume"
                           rows="4" cols="25"></textarea>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="linkedin" class="col-md-2 control-label text-left">Linkedin:</label>
-                <div class="col-md-10">
+                <label for="linkedin" class="col-md-3 control-label text-left">Linkedin:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.linkedIn_url" type="text" class="form-control" id="linkedin">
                 </div>
             </div>
             <div class="form-group">
-                <label for="facebook" class="col-md-2 control-label text-left">Facebook:</label>
-                <div class="col-md-10">
+                <label for="facebook" class="col-md-3 control-label text-left">Facebook:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.facebook_url" type="text" class="form-control" id="facebook">
                 </div>
             </div>
             <div class="form-group">
-                <label for="github" class="col-md-2 control-label text-left">Github:</label>
-                <div class="col-md-10">
+                <label for="github" class="col-md-3 control-label text-left">Github:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.github_url" type="text" class="form-control" id="github">
                 </div>
             </div>
             <div class="form-group">
-                <label for="stack" class="col-md-2 control-label text-left">Stack Overflow:</label>
-                <div class="col-md-10">
+                <label for="stack" class="col-md-3 control-label text-left">Stack Overflow:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.stack_url" id="stack" type="text" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="websiteUrl" class="col-md-2 control-label text-left">Website:</label>
-                <div class="col-md-10">
+                <label for="websiteUrl" class="col-md-3 control-label text-left">Website:</label>
+                <div class="col-md-9">
                     <input ng-model="model.profile.userDetails.website_url" type="text" class="form-control" id="websiteUrl">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="my-file-selector" class="col-md-2 control-label text-left">Upload:</label>
-                <div class="col-md-10">
-                    <input id="my-file-selector" ng-model="model.profile.userDetails.photo_url" type="image">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="bday" class="col-md-2 control-label text-left">Birthday:</label>
-                <div class="col-md-10">
-                    <input id="bday" ng-model="model.profile.userDetails.birthday" type="date">
                 </div>
             </div>
         </div>
     </form>
 </div>
 <br>
-<div class="col-lg-6">
+<div>
     <div id="profilePicPanel" class="panel panel-default">
         <div class="panel-heading">
             <i class="fa fa-user"></i> Profile Picture
@@ -123,9 +118,7 @@
                     <button ng-click="model.updateProfilePic()" class="btn btn-primary col-xs-12"> Update </button>
                 </div>
             </div>
-
             <br>
-
             <div class="row">
                 <div class="alert alert-success col-xs-12 col-sm-10 col-sm-offset-2" ng-show="model.showProfilePicSuccessAlert">
                     <strong>Updated!</strong>
@@ -133,9 +126,6 @@
             </div>
         </div>
     </div>
-</div>
-<br>
-<div>
     <div class="panel panel-default">
         <div class="panel-heading">
             Projects
@@ -164,10 +154,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input ng-model="model.userDetails.project.startDate" type="date" class="form-control" placeholder="Add Start Date">
+                                    <input ng-model="model.userDetails.project.startDate" type="date" class="form-control" data-toggle="tooltip" title="Start Date"/>
                                 </div>
                                 <div class="col-md-3">
-                                    <input  ng-model="model.userDetails.project.endDate" type="date" class="form-control" placeholder="Add end Date">
+                                    <input  ng-model="model.userDetails.project.endDate" type="date" class="form-control" data-toggle="tooltip" title="End Date" />
                                 </div>
                                 <div class="col-md-3">
                                     <input ng-model="model.userDetails.project.technologies" class="form-control" placeholder="Add the technologies you used eg. Angular, MongodDB">
@@ -220,10 +210,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <input ng-model="model.userDetails.experience.startDate" type="date" class="form-control" placeholder="Add Start Date">
+                                    <input ng-model="model.userDetails.experience.startDate" type="date" class="form-control" data-toggle="tooltip" title="Start Date" />
                                 </div>
                                 <div class="col-md-3">
-                                    <input  ng-model="model.userDetails.experience.endDate" type="date" class="form-control" placeholder="Add end Date">
+                                    <input  ng-model="model.userDetails.experience.endDate" type="date" class="form-control" data-toggle="tooltip" title="End Date" />
                                 </div>
                             </div>
                         </div>
@@ -267,7 +257,7 @@
                                         <input type="text" ng-model="model.userDetails.education.major" class="form-control" placeholder="Major">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="date" ng-model="model.userDetails.education.yearGraduated" class="form-control" placeholder="Graduated?">
+                                        <input type="date" ng-model="model.userDetails.education.yearGraduated" class="form-control" data-toggle="tooltip" title="Graduation Date">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -310,9 +300,9 @@
                     </div>
                     <div class="row">
                         <label class="control-label">
-                            Locations
+                            Locations Interested in:
                         </label>
-                        <input ng-model="model.profile.locations" class="form-control" placeholder="Add Locations">
+                        <input ng-model="model.profile.userDetails.locations" class="form-control" placeholder="Add Locations">
                     </div>
                 </div>
             </fieldset>
