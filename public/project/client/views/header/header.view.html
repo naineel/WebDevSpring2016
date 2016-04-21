@@ -1,31 +1,47 @@
-<nav ng-controller="NavigationController as model">
-    <ul class="nav nav-pills">
-        <li ng-class="{'active': model.$location.url() == '/home'}"><a href="#/home">Home</a></li>
-        <li ng-class="{'active': model.$location.url() == '/register'}"
-            ng-hide="currentUser">
-            <a href="#/register">Register</a>
-        </li>
-        <li ng-class="{'active': model.$location.url() == '/login'}"
-            ng-hide="currentUser">
-            <a href="#/login">Login</a>
-        </li>
-        <li ng-class="{'active': model.$location.url() == '/search'}"><a href="#/search">Search</a></li>
-        <li ng-class="{'active': model.$location.url() == '/profile' || model.$location.url() == '/updatePofile'}"
-            ng-show="currentUser">
-            <div class="btn-group">
-                <a ng-show="currentUser && (currentUser.type === 'user')" type="button" class="btn btn-primary" href="#/userProfile">Profile</a>
-                <a ng-hide="currentUser && (currentUser.type === 'user')" type="button" class="btn btn-primary" ng-href="#/details/{{currentUser._id}}">Profile</a>
-                <a type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a ng-show="currentUser && (currentUser.type === 'user')" href="#/updateProfile">Update Profile</a></li>
-                    <li><a ng-hide="currentUser && (currentUser.type === 'user')" href="#/updateStartupProfile">Update Profile</a></li>
-                    <li><a ng-click="model.logout()">Logout</a></li>
-                </ul>
-            </div>
-        </li>
-        <li ng-class="{'active': $location.url().indexOf('/details')>=0}"
-            ng-show="$location.url().indexOf('/details')>=0"><a>Details</a></li>
-    </ul>
+<nav ng-controller="NavigationController as model" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#/home">Start-Up</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{'active': model.$location.url() == '/home'}"><a class="page-scroll colorBlack" href="#/home">Home</a></li>
+                <li ng-class="{'active': model.$location.url() == '/register'}"
+                    ng-hide="currentUser">
+                    <a class="page-scroll colorBlack" href="#/register">Register</a>
+                </li>
+                <li ng-class="{'active': model.$location.url() == '/login'}"
+                    ng-hide="currentUser">
+                    <a class="page-scroll colorBlack" href="#/login">Login</a>
+                </li>
+                <li ng-class="{'active': model.$location.url() == '/search'}"><a class="page-scroll colorBlack"  href="#/search">Search</a></li>
+                <li ng-class="{'active': model.$location.url() == '/profile' || model.$location.url() == '/updatePofile'}"
+                    ng-show="currentUser">
+                    <div class="btn-group">
+                        <a ng-show="currentUser && (currentUser.type === 'user')" type="button" class="btn btn-primary page-scroll colorBlack" href="#/userProfile">Profile</a>
+                        <a ng-hide="currentUser && (currentUser.type === 'user')" type="button" class="btn btn-primary page-scroll colorBlack" ng-href="#/details/{{currentUser._id}}">Profile</a>
+                        <a type="button" class="btn btn-primary dropdown-toggle page-scroll" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a class="page-scroll colorBlack" ng-show="currentUser && (currentUser.type === 'user')" href="#/updateProfile">Update Profile</a></li>
+                            <li><a class="page-scroll colorBlack" ng-hide="currentUser && (currentUser.type === 'user')" href="#/updateStartupProfile">Update Profile</a></li>
+                            <li><a class="page-scroll colorBlack" ng-click="model.logout()">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li ng-class="{'active': $location.url().indexOf('/details')>=0}"
+                    ng-show="model.$location.url().indexOf('/details')>=0"><a class="page-scroll colorBlack">Details</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>

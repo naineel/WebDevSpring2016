@@ -39,6 +39,7 @@
     <script src="services/job.service.client.js"></script>
 
     <link rel="stylesheet" href="css/dashboard.css">
+    <link href="css/agency.css" rel="stylesheet"><!--Adding for theme-->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-carousel/1.0.1/angular-carousel.css">
 
@@ -48,6 +49,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-carousel/1.0.1/angular-carousel.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <!--Adding for the theme only-->
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!--End of adding for theme only-->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-carousel/1.0.1/angular-carousel.min.js"></script>
     <!--<script src="views/search/search.filter.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
@@ -56,11 +66,22 @@
     <script src="js/angular-file-model.js"></script>
     <title>Start-Up</title>
 </head>
-<body>
-<div class="container">
-    <h1>Start-Up</h1>
-    <div ng-include="'views/header/header.view.html'"></div>
-    <div ng-view></div>
-</div>
+<body id="page-top" class="index">
+<div ng-include="'views/header/header.view.html'"></div>
+<div ng-view></div>
+<div ng-include="'views/footer/footer.view.html'"></div>
+
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.js"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/agency.js"></script>
+
 </body>
 </html>

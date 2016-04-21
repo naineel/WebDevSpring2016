@@ -1,3 +1,4 @@
+<div class="container">
 <div class="panel panel-default">
     <div ng-if="model.followError" class="alert alert-danger" role="alert">
         <a href="#/login" class="alert-link">{{model.followError}}</a></div>
@@ -18,7 +19,8 @@
                         ng-click="model.unfollow(model.startup)">
                     Unfollow
                 </button>
-                <div class="text-center"><h1 ng-show="model.startup.name" class="page-header text-uppercase">{{model.startup.name}}</h1>
+                <div class="text-center">
+                    <h1 ng-show="model.startup.name" class="page-header text-uppercase">{{model.startup.name}}</h1>
                 <p class="text-center">{{model.startup.high_concept}}</p>
                 <ul class="list-inline text-center">
                     <li ng-repeat="location in model.startup.locations">{{location.display_name}}</li>
@@ -107,12 +109,14 @@
         <div class="panel panel-default" ng-repeat="singleComment in model.comments">
             <div class="panel-body">
             <h4>{{singleComment.comment}}
-                <a ng-show="(singleComment.username && (singleComment.username === model.currentUser.username))" class="pull-right" ng-click="model.removeComment(singleComment)">
+                <a ng-show="(singleComment.username && (singleComment.username === model.currentUser.username))"
+                   class="pull-right" ng-click="model.removeComment(singleComment)">
                     <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
                 </a></h4>
             </div>
             <div class="panel-footer">
-                {{singleComment.username}} <div class="pull-right">{{singleComment.timestamp | amDateFormat:'YYYY.MM.DD HH:mm:ss'}}</div>
+                {{singleComment.username}}
+                <div class="pull-right">{{singleComment.timestamp | amDateFormat:'YYYY.MM.DD HH:mm:ss'}}</div>
             </div>
         </div>
     </div>
@@ -127,4 +131,5 @@
                 ng-click="model.addComment(model.comment)">Add Comment
         </button>
     </div>
+</div>
 </div>
