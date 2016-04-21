@@ -1,5 +1,6 @@
 <div class="container">
 <h2>Register</h2>
+    <div ng-show="model.message" class="alert alert-danger" role="alert">{{model.message}}</div>
 <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="#/registerUser">User</a></li>
     <li role="presentation"><a href="#/registerStartup">Startup</a></li>
@@ -8,27 +9,27 @@
        type="text"
        class="form-control"
        id="username"
-       placeholder="Username"/>
+       placeholder="Username" required/>
 <input ng-model="model.user.userDetails.firstName"
        type="text"
        class="form-control"
        id="firstname"
-       placeholder="First Name"/>
+       placeholder="First Name" required/>
 <input ng-model="model.user.userDetails.lastName"
        type="text"
        class="form-control"
        id="lastname"
-       placeholder="Last Name"/>
+       placeholder="Last Name" required/>
 <input ng-model="model.user.password"
        type="password"
        class="form-control"
        id="inputPassword3"
-       placeholder="Password"/>
+       placeholder="Password" required/>
 <input ng-model="model.user.password2"
        type="password"
        class="form-control"
        id="verify"
-       placeholder="Verify Password"/>
+       placeholder="Verify Password" required/>
 <input ng-model="model.user.userDetails.email"
        type="email"
        class="form-control"

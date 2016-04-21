@@ -1,5 +1,6 @@
 <div class="container">
 <h2>Register</h2>
+    <div ng-show="model.message" class="alert alert-danger" role="alert">{{model.message}}</div>
 <ul class="nav nav-tabs">
     <li role="presentation"><a href="#/registerUser">User</a></li>
     <li role="presentation" class="active"><a href="#/registerStartup">Startup</a></li>
@@ -8,18 +9,10 @@
        type="text"
        class="form-control"
        placeholder="Company Name"/>
-<label>Logo:</label>
-<input ng-model="model.company.startupDetails.logo_url"
-       type="file"
-       class="form-control"
-       name="pic"
-       accept="image/*"
-       placeholder="Company Logo"/>
-<label>Video URL:</label>
 <input ng-model="model.company.startupDetails.video_url"
        type="text"
        class="form-control"
-       placeholder="Video url"/>
+       placeholder="Video URL(can be youtube or Vimeo)"/>
 <input ng-model="model.company.startupDetails.high_concept"
        type="text"
        class="form-control"
@@ -37,10 +30,6 @@
        type="text"
        class="form-control"
        placeholder="Add Locations"/>
-<input ng-model="model.company.startupDetails.markets"
-       type="text"
-       class="form-control"
-       placeholder="Add Markets"/>
 <input ng-model="model.company.password"
        type="password"
        class="form-control"
