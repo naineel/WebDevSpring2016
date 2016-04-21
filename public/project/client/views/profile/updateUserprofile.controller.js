@@ -90,7 +90,7 @@
                             vm.profile = response.data;
                             console.log("updated project");
                             console.log(vm.profile);
-                            vm.expMessage = "Project added successfully";
+                            vm.expMessage = "Education added successfully";
                         } else {
                             vm.expMessage = "Unable to add the project";
                         }

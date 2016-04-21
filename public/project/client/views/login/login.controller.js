@@ -29,6 +29,7 @@
                     },
                     function (err) {
                         vm.error = err;
+                        vm.message = "The credentials do not exist or they do not match..Please try again";
                     }
                 );
         }
