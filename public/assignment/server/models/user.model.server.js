@@ -51,77 +51,85 @@ module.exports = function (db, mongoose) {
 
     function findAllUsers()
     {
-        //var deferred  = q.defer();
-        //UserModel.find(
-        //    function (err, doc) {
-        //        console.log("UserModel findAllUsers");
-        //        console.log(doc);
-        //        if (err) {
-        //            deferred.reject(err);
-        //        } else {
-        //            deferred.resolve(doc);
-        //        }
-        //    });
-        //return deferred.promise;
-        return UserModel.find();
+        var deferred  = q.defer();
+        UserModel.find(
+            function (err, doc) {
+                console.log("UserModel findAllUsers");
+                console.log(doc);
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+            });
+        return deferred.promise;
+        //return UserModel.find();
     }
 
     function createUser(user)
     {
-        //var deferred  = q.defer();
-        //UserModel.create(user,
-        //    function(err, doc) {
-        //    console.log("UserModel create");
-        //    console.log(doc);
-        //    if(err) {
-        //        deferred.reject(err);
-        //    } else {
-        //        deferred.resolve(doc);
-        //    }
-        //});
-        //
-        //return deferred.promise;
-        return UserModel.create(user);
+        var deferred  = q.defer();
+        UserModel.create(user,
+            function(err, doc) {
+            console.log("UserModel create");
+            console.log(doc);
+            if(err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+        //return UserModel.create(user);
     }
 
     function deleteUserById(userId) {
-        //var deferred = q.defer();
-        //UserModel
-        //    .findByIdAndRemove(
-        //        userid,
-        //        function (err, users) {
-        //            if (!err) {
-        //                deferred.resolve(users);
-        //            } else {
-        //                deferred.reject(err);
-        //            }
-        //        }
-        //    );
-        //return deferred.promise;
-        return UserModel.remove({_id: userId});
+        var deferred = q.defer();
+        UserModel
+            .findByIdAndRemove(
+                {_id: userId},
+                function (err, users) {
+                    if (!err) {
+                        deferred.resolve(users);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+        //return UserModel.remove({_id: userId});
     }
 
     function updateUserA(userId, user)
     {   console.log("update user: " + userId);
 
-        //var deferred = q.defer();
+        var deferred = q.defer();
         delete user._id;
-        return UserModel.update({_id: userId}, {$set: user});
+        UserModel.update({_id: userId}, {$set: user},
+            function (err, stats) {
+                if (!err) {
+                    deferred.resolve(stats);
+                } else {
+                    deferred.reject(err);
+                }
+            });
+        return deferred.promise;
     }
 
     function findUserById(userId) {
 
-        //var deferred = q.defer();
-        return UserModel.findById(userId);
-        //    , function(err, doc) {
-        //   if (err) {
-        //       deferred.reject(err);
-        //   } else {
-        //       deferred.resolve(doc);
-        //   }
-        //});
-        //
-        //return deferred.promise;
+        var deferred = q.defer();
+        UserModel.findById(userId
+             ,function(err, doc) {
+           if (err) {
+               deferred.reject(err);
+           } else {
+               deferred.resolve(doc);
+           }
+        });
+
+        return deferred.promise;
     }
 
 };

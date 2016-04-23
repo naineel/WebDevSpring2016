@@ -26,7 +26,7 @@
             vm.error = null;
             vm.message = null;
             UserService
-                .updateUserA(user._id, user)
+                .updateUser(user._id, user)
                 .then(function updatedProfileCallback(response) {
                     if (response.status == 200) {
                         UserService.setCurrentUserA(user);

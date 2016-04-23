@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var _  = require('lodash');
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs5610';
 

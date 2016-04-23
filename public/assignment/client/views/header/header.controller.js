@@ -15,7 +15,8 @@
         function logout() {
             //$rootScope.newUser = null;
             UserService.setCurrentUserA(null);
-            UserService.deleteSession();
+            //UserService.deleteSession();
+            UserService.logout();
             $location.url("/home");
         }
 

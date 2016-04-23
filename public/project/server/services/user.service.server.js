@@ -1,15 +1,15 @@
 "use strict";
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+//var passport = require('passport');
+//var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var _ = require('lodash');
 
 module.exports = function(app, userModel, startupModel, upload) {
-  app.post("/api/project/login", passport.authenticate('local'), login);
+  //app.post("/api/project/login", passport.authenticate('local'), login);
   app.get("/api/project/loggedin", loggedin);
   app.post("/api/project/logout", logout);
   app.post("/api/project/user", createUser);
-  app.get("/api/project/profile/:userId", profile);
+  //app.get("/api/project/profile/:userId", profile);
   app.put("/api/project/profile/:userId", updateProfile);
   app.post('/api/project/register', register);
   app.put("/api/project/profile/:userId/project", addProject);
@@ -23,27 +23,27 @@ module.exports = function(app, userModel, startupModel, upload) {
     app.post('/api/project/user/logo/:id', upload.single('file'), updateLogo);
 
 
-    passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    //passport.use(new LocalStrategy(localStrategy));
+    //passport.serializeUser(serializeUser);
+    //passport.deserializeUser(deserializeUser);
 
-    function localStrategy(username, password, done) {
-        userModel
-            .findUserByCredentialsReal({username: username, password: password})
-            .then(
-                function (user) {
-                    if (!user) {
-                        return done(null, false);
-                    }
-                    return done(null, user);
-                },
-                function (err) {
-                    if (err) {
-                        return done(err);
-                    }
-                }
-            );
-    }
+    //function localStrategy(username, password, done) {
+    //    userModel
+    //        .findUserByCredentialsReal({username: username, password: password})
+    //        .then(
+    //            function (user) {
+    //                if (!user) {
+    //                    return done(null, false);
+    //                }
+    //                return done(null, user);
+    //            },
+    //            function (err) {
+    //                if (err) {
+    //                    return done(err);
+    //                }
+    //            }
+    //        );
+    //}
 
     function serializeUser(user, done) {
         done(null, user);
@@ -65,10 +65,10 @@ module.exports = function(app, userModel, startupModel, upload) {
     }
 
 
-    function login(req,  res) {
-        var user = req.user;
-        res.json(user);
-    }
+    //function login(req,  res) {
+    //    var user = req.user;
+    //    res.json(user);
+    //}
 
     function loggedin(req, res) {
         res.send(req.isAuthenticated() ? req.user : '0');
@@ -120,7 +120,7 @@ module.exports = function(app, userModel, startupModel, upload) {
             );
     }
 
-    function profile(req, res) {
+    /*function profile(req, res) {
         console.log("profile function");
         var userId = req.params.userId;
         console.log("In server user service: " + userId);
@@ -140,7 +140,7 @@ module.exports = function(app, userModel, startupModel, upload) {
                     res.status(400).send(err);
                 }
             );
-    }
+    }*/
 
     function updateProfile(req, res) {
         var id = req.params.userId;

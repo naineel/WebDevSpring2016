@@ -18,10 +18,12 @@
             getCurrentUser : getCurrentUser,
             setCurrentUserA : setCurrentUserA,
             findUserByUsername : findUserByUsername,
-            //getLoggedInUser : getLoggedInUser,
+            getLoggedInUser : getLoggedInUser,
             deleteSession : deleteSession,
             login : login,
-            register : register
+            register : register,
+            logout : logout,
+            updateUser : updateUser
         };
 
         return service;
@@ -63,9 +65,9 @@
             return $http.get("/api/assignment/user?username=" + username);
         }
 
-        //function getLoggedInUser() {
-        //    return $http.get('/api/assignment/usersession');
-        //}
+        function getLoggedInUser() {
+            return $http.get('/api/assignment/loggedin');
+        }
 
         function deleteSession() {
             return $http.post('/api/assignment/logout');
@@ -77,6 +79,14 @@
 
         function register(user) {
             return $http.post('/api/assignment/register', user);
+        }
+
+        function logout() {
+            return $http.post('/api/assignment/logout');
+        }
+
+        function updateUser(userId, user) {
+            return $http.put("/api/assignment/user/" + userId, user);
         }
 
     }

@@ -2,27 +2,30 @@
  * Created by naineel on 3/18/16.
  */
 "use strict";
-//var passport = require('passport');
-//var LocalStrategy = require('passport-local').Strategy;
-//var mongoose = require('mongoose');
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app, userModel) {
-    var isAdmin = authorized;
+    var auth = authorized;
 
     app.post("/api/assignment/admin/user", isAdmin, createNewUser);
     app.get("/api/assignment/admin/user", isAdmin, getAllUsers);
-    app.get("/api/assignment/user/:id", getUserById);
+    app.get("/api/assignment/admin/user/:id", isAdmin, getUserById);
     app.put("/api/assignment/admin/user/:id", isAdmin, updateUserById);
     app.delete("/api/assignment/admin/user/:id", isAdmin, deleteUserById);
+
     app.get('/api/assignment/loggedin', getLoggedInUser);
-    //app.post('/api/assignment/login', passport.authenticate('local'), login);
+    app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.post('/api/assignment/logout', logout);
     app.post('/api/assignment/register', register);
+    app.put('/api/assignment/user/:id', auth, updateUser);
 
 
-    //passport.use(new LocalStrategy(localStrategy));
-    //passport.serializeUser(serializeUser);
-    //passport.deserializeUser(deserializeUser);
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
 
     function authorized (req, res, next) {
         var user = req.user;
@@ -30,10 +33,7 @@ module.exports = function(app, userModel) {
         console.log(user.roles);
         if (!req.isAuthenticated()) {
             console.log("Not authenticated");
-            res.send(403);
-        } else if (!(user.roles.indexOf("admin") > -1)) {
-            console.log("Not an admin");
-            res.send(403);
+            res.send(401);
         } else {
             next();
         }
@@ -41,13 +41,14 @@ module.exports = function(app, userModel) {
 
     function localStrategy(username, password, done) {
         userModel
-            .findUserByCredentials({username: username, password: password})
+            .findUserByUsername(username)
             .then(
                 function (user) {
-                    if (!user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function (err) {
                     if (err) {
@@ -69,9 +70,7 @@ module.exports = function(app, userModel) {
                     return done(null, user);
                 },
                 function (err) {
-                    if (err) {
-                        return done(err);
-                    }
+                    return done(err, null);
                 }
             );
     }
@@ -91,12 +90,13 @@ module.exports = function(app, userModel) {
         res.send(200);
     }
 
-    //function isAdmin(user) {
-    //    if (user.roles.indexOf("admin") > -1) {
-    //        return true;
-    //    }
-    //    return false;
-    //}
+    function isAdmin(req, res, next) {
+        if (!req.isAuthenticated() || req.user.roles.indexOf("admin") === -1) {
+            res.send(403);
+        } else {
+            next();
+        }
+    }
 
     function getAllUsers(req, res) {
         userModel
@@ -126,28 +126,37 @@ module.exports = function(app, userModel) {
 
     function updateUserById(req, res) {
         var id = req.params.id;
-        var user = req.body;
-        console.log("Trying to update user: " + user);
-        delete user.roles;
-        if (typeof user.roles == "string") {
-            user.roles = user.roles.split(",");
+        var newUser = req.body;
+        console.log("Trying to update user: " + newUser);
+        if(req.user.roles.indexOf("admin") === -1) {
+            delete newUser.roles;
+        }
+
+        if(typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
         }
 
         userModel
-            .updateUserA(id, user)
+            .findUserById(id)
             .then(
-                function (user) {
-                    return userModel.findAllUsers();
+                function(user){
+                    if(user && ((newUser.password === user.password) || (newUser.password === ''))) {
+                        delete newUser.password;
+                        return userModel.updateUserA(user._id, newUser);
+                    } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
+                        return userModel.updateUserA(user._id, newUser);
+                    }
                 },
-                function (err) {
+                function(err){
                     res.status(400).send(err);
                 }
             )
             .then(
-                function (users) {
-                    res.json(users);
+                function(stats){
+                    res.send(200);
                 },
-                function (err) {
+                function(err){
                     res.status(400).send(err);
                 }
             );
@@ -180,7 +189,7 @@ module.exports = function(app, userModel) {
         if(newUser.roles && newUser.roles.length > 1) {
             newUser.roles = newUser.roles.split(",");
         } else {
-            newUser.roles = ["user"];
+            newUser.roles = ["student"];
         }
 
         userModel
@@ -190,6 +199,7 @@ module.exports = function(app, userModel) {
                     // if the user does not already exist
                     if (user == null) {
                         // create a new user
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createUser(newUser)
                             .then(
                                 // fetch all the users
@@ -222,7 +232,7 @@ module.exports = function(app, userModel) {
 
     function register(req, res) {
         var newUser = req.body;
-        newUser.roles = ['user'];
+        newUser.roles = ['student'];
 
         userModel
             .findUserByUsername(newUser.username)
@@ -231,6 +241,7 @@ module.exports = function(app, userModel) {
                     if (user) {
                         res.json(null);
                     } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createUser(newUser);
                     }
                 },
@@ -260,5 +271,40 @@ module.exports = function(app, userModel) {
     //    req.session.destroy();
     //    res.send(200);
     //}
+
+    function updateUser(req, res) {
+        var newUser = req.body;
+        if(req.user.roles.indexOf("admin") === -1) {
+            delete newUser.roles;
+        }
+        if(typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
+
+        userModel
+            .findUserById(req.params.id)
+            .then(
+                function(user){
+                    if(user && ((newUser.password === user.password) || (newUser.password === ''))) {
+                        delete newUser.password;
+                        return userModel.updateUserA(user._id, newUser);
+                    } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
+                        return userModel.updateUserA(user._id, newUser);
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(stats){
+                    res.send(200);
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            );
+    }
 
 };

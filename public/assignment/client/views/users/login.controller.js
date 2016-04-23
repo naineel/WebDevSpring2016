@@ -15,24 +15,12 @@
         vm.$location = $location;
 
         function login(user) {
-        //    UserService
-        //        .findUserByCredentialsA(user.username, user.password)
-        //        .then(loginCallback);
-        //    console.log(user);
-        //}
-        //
-        //function loginCallback (user) {
-        //    console.log("Login Callback: ");
-        //    console.log(user);
-        //    if (user != null) {
-        //        $rootScope.newUser = user.data;
-        //        $location.path('/profile');
-        //    } else {
-        //        console.log("User is null");
-        //    }
             if (user) {
                 UserService
-                    .login(user)
+                    .login({
+                        username: user.username,
+                        password: user.password
+                    })
                     .then(
                         function(response) {
                             $rootScope.newUser = response.data;

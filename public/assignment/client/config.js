@@ -38,7 +38,7 @@
                 controller: "adminController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn : checkLoggedIn
+                    verifyUserIsLoggedInAndAdmin: verifyUserIsLoggedInAndAdmin
                 }
             })
             .when("/home", {
@@ -68,7 +68,7 @@
             });
     }
 
-    function checkLoggedIn(UserService, $q, $location, $http, $rootScope) {
+    function checkLoggedIn($q, $location, $http, $rootScope) {
         var deferred = $q.defer();
 
         $http.get('/api/assignment/loggedin').success(function (user)
@@ -81,39 +81,44 @@
                $location.url('/login');
            }
         });
-        //UserService
-        //    .getLoggedInUser()
-        //    .then(function (response){
-        //        var currentUser = response.data;
-        //        if(currentUser) {
-        //            UserService.setCurrentUserA(currentUser);
-        //            deferred.resolve();
-        //        } else {
-        //            deferred.reject();
-        //            $location.url("/home");
-        //        }
-        //    });
         return deferred.promise;
     }
 
-    function getLoggedIn(UserService, $q, $http, $rootScope) {
+    function getLoggedIn($q, $http, $rootScope) {
         var deferred = $q.defer();
-        //UserService
-        //    .getLoggedInUser()
-        //    .then(function (response) {
-        //        var currentUser = response.data;
-        //        UserService.setCurrentUserA(currentUser);
-        //        deferred.resolve();
-        //    });
-        $http.get('/api/assignment/loggedin').success(function(user)
-        {
-            if (user !== '0') {
-                $rootScope.newUser = user;
+        $http.get('/api/assignment/loggedin').then(function (response){
+            if (response.data === '0') {
+                delete $rootScope.newUser;
+                deferred.resolve();
+            } else {
+                $rootScope.newUser = response.data;
+                deferred.resolve();
             }
-            deferred.resolve();
         });
-
         return deferred.promise;
     }
+
+    function verifyUserIsLoggedInAndAdmin(UserService, $q, $location, $rootScope) {
+        var deferred = $q.defer();
+        UserService.getLoggedInUser()
+            .then(function (response) {
+                if (response.data === '0') {
+                    delete $rootScope.newUser;
+                    deferred.reject();
+                    $location.url("/");
+                } else {
+                    var user = response.data;
+                    $rootScope.newUser = response.data;
+                    if (user.roles.indexOf('admin') === -1) {
+                        deferred.reject();
+                        $location.url("/");
+                    } else {
+                        deferred.resolve();
+                    }
+                }
+            });
+        return deferred.promise;
+    }
+
 
 })();
