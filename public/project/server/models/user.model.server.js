@@ -12,7 +12,7 @@ module.exports = function(db, mongoose) {
     var UserModel = mongoose.model('userp', UserSchema);
 
     var api = {
-        //findUserByCredentialsReal : findUserByCredentialsReal,
+        findUserByCredentialsReal : findUserByCredentialsReal,
         createUserP : createUserP,
         findUserByIdP : findUserByIdP,
         updateUser : updateUser,
@@ -36,13 +36,13 @@ module.exports = function(db, mongoose) {
         return UserModel;
     }
 
-    //function findUserByCredentialsReal(credentials) {
-    //    console.log("In server/model/userModel: credentials123= " + credentials.username + " " + credentials.password);
-    //    return UserModel.findOne(
-    //        {username: credentials.username,
-    //            password: credentials.password}
-    //    );
-    //}
+    function findUserByCredentialsReal(credentials) {
+        console.log("In server/model/userModel: credentials123= " + credentials.username + " " + credentials.password);
+        return UserModel.findOne(
+            {username: credentials.username,
+                password: credentials.password}
+        );
+    }
 
     function createUserP(userDetails) {
         return UserModel.create(userDetails);

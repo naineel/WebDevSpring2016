@@ -8,7 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app, userModel) {
-    var auth = authorized;
+    /*var auth = authorized;
 
     app.post("/api/assignment/admin/user", isAdmin, createNewUser);
     app.get("/api/assignment/admin/user", isAdmin, getAllUsers);
@@ -305,6 +305,6 @@ module.exports = function(app, userModel) {
                     res.status(400).send(err);
                 }
             );
-    }
+    }*/
 
 };

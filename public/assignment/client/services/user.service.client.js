@@ -9,7 +9,7 @@
 
     function UserService($rootScope, $http) {
 
-        var service = {
+        /*var service = {
             findUserByCredentialsA : findUsersByCredentialsA,
             findAllUsers : findAllUsers,
             createUserA : createUserA,
@@ -87,7 +87,7 @@
 
         function updateUser(userId, user) {
             return $http.put("/api/assignment/user/" + userId, user);
-        }
+        }*/
 
     }
 })();
