@@ -1,7 +1,7 @@
 <div class="container">
 <h1 xmlns="http://www.w3.org/1999/html">Search for startups</h1>
 <div class="row">
-    <hr class="col-xs-6">
+    <div ng-show="model.message" class="alert alert-danger" role="alert">{{model.message}}</div>
     <input ng-model="model.startupName" placeholder="Bitsight Technologies" class="form-control"/>
     <button ng-click="model.searchStartupReal(model.startupName)" class="btn btn-primary btn-block">
         Search
