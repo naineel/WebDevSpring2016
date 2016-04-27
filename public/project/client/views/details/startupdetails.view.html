@@ -3,34 +3,38 @@
     <div ng-if="model.followError" class="alert alert-danger" role="alert">
         <a href="#/login" class="alert-link">{{model.followError}}</a></div>
     <div class="panel-body">
-        <div class="media">
-            <div class="media-middle col-xs-12 col-sm-3">
-                <a href="#">
-                    <img class="media-object sizeFix" src="{{model.startup.logo_url}}" alt="...">
-                </a>
+        <div class="text-center">
+            <div class="col-xs-12 col-sm-4">
+                <div>
+                    <img class="sizeFix" src="{{model.startup.logo_url}}" align="middle">
+                </div>
+                <br>
+                <div>
+                    <button ng-show="!model.followed" class="btn btn-primary"
+                            ng-click="model.follow(model.startup)">
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        Follow
+                    </button>
+                    <button ng-show="model.followed" class="btn btn-danger"
+                            ng-click="model.unfollow(model.startup)">
+                        Unfollow
+                    </button>
+                </div>
             </div>
-            <div class="media-body">
-                <button ng-show="!model.followed" class="btn btn-primary pull-right"
-                        ng-click="model.follow(model.startup)">
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                    Follow
-                </button>
-                <button ng-show="model.followed" class="btn btn-danger pull-right"
-                        ng-click="model.unfollow(model.startup)">
-                    Unfollow
-                </button>
+            <div class="col-sm-8">
                 <div class="text-center">
-                    <h1 ng-show="model.startup.name" class="page-header text-uppercase">{{model.startup.name}}</h1>
-                <p class="text-center">{{model.startup.high_concept}}</p>
-                <ul class="list-inline text-center">
-                    <li ng-repeat="location in model.startup.locations">{{location.name}}</li>
-                </ul>
-                <div class="text-center"><a href="{{model.startup.company_url}}" target="_blank">{{model.startup.company_url}}</a></div>
-                <div class="text-center">Followers: {{model.noOfFollowers}}</a></div>
+                    <br>
+                    <h1 ng-show="model.startup.name" class="text-uppercase">{{model.startup.name}}</h1>
+                    <p class="text-center">{{model.startup.high_concept}}</p>
+                    <ul class="list-inline text-center">
+                        <li ng-repeat="location in model.startup.locations">{{location.name}}</li>
+                    </ul>
+                    <div class="text-center"><a href="{{model.startup.company_url}}" target="_blank">{{model.startup.company_url}}</a></div>
+                    <div class="text-center">Followers: {{model.noOfFollowers}}</a></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <blockquote>
