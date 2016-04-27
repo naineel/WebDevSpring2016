@@ -95,22 +95,30 @@
             console.log("Follow this startupId: ");
             vm.followed = true;
             console.log(startup);
+            console.log("Current user: ");
+            console.log(currentUser);
             if(currentUser) {
-                if (startup.id) {
-                    var newFollow = {
-                        username : currentUser.username,
-                        startupId : startup.id
-                    };
+                if (currentUser._id != startup.userId) {
+                    if (startup.id) {
+                        var newFollow = {
+                            username : currentUser.username,
+                            startupId : startup.id
+                        };
+                    } else {
+                        newFollow = {
+                            username : currentUser.username,
+                            startupId : startup.userId
+                        };
+                    }
+                    FollowService.addFollow(newFollow);
+                    getFollows();
                 } else {
-                    newFollow = {
-                        username : currentUser.username,
-                        startupId : startup.userId
-                    };
+                    vm.followError = "Cannot follow your own startup";
+                    vm.followed = false;
                 }
-                FollowService.addFollow(newFollow);
-                getFollows();
             } else {
                 vm.followError = "Please log in first to follow the company";
+                vm.followed = false;
                 //$location.url("/login");
             }
         }
