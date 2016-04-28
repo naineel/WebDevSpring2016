@@ -4,6 +4,8 @@
 /**
  * Created by naineel on 4/18/16.
  */
+var _ = require("lodash");
+var q = require("q");
 module.exports = function(mongoose) {
 
     var JobSchema = require("./job.schema.server.js")(mongoose);
@@ -14,7 +16,8 @@ module.exports = function(mongoose) {
         addJobToStartup : addJobToStartup,
         deleteJobFromStartup : deleteJobFromStartup,
         getJobsForStartupId : getJobsForStartupId,
-        getAllJobs : getAllJobs
+        getAllJobs : getAllJobs,
+        updateJobById : updateJobById
     };
 
     return api;
@@ -34,6 +37,24 @@ module.exports = function(mongoose) {
     function getAllJobs() {
         console.log("Trying to find all jobs");
         return JobModel.find();
+    }
+
+    function updateJobById(jobId, job) {
+        console.log(jobId);
+        var deferred = q.defer();
+        delete job._id;
+        JobModel.update(
+            {_id: jobId},
+            {$set: job},
+            function (err, job) {
+                if (!err) {
+                    deferred.resolve(job);
+                } else {
+                    deferred.reject(err);
+                }
+            }
+        );
+        return deferred.promise;
     }
 
 };

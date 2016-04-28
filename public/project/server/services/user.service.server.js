@@ -22,6 +22,9 @@ module.exports = function(app, userModel, startupModel, upload) {
     app.post('/api/project/user/profilePic/:id', upload.single('file'), updateProfilePic);
     app.post('/api/project/user/logo/:id', upload.single('file'), updateLogo);
 
+    app.put("/api/project/profile/:userId/project/:projectId", updateProject);
+    app.put("/api/project/profile/:userId/experience/:expId", updateExperience);
+    app.put("/api/project/profile/:userId/education/:eduId", updateEducation);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -350,6 +353,60 @@ module.exports = function(app, userModel, startupModel, upload) {
                     res.status(400).send(err);
                 }
             )
+    }
+
+    function updateProject(req, res) {
+        var userId = req.params.userId;
+        var project = req.body;
+        var projectId = req.params.projectId;
+        console.log("Project received in model: ");
+        console.log(project);
+        userModel
+            .updateProjectInProfile(userId, projectId, project)
+            .then(
+                function (project) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function updateExperience(req, res) {
+        var userId = req.params.userId;
+        var experience = req.body;
+        var expId = req.params.expId;
+        console.log("Experience received in model: ");
+        console.log(experience);
+        userModel
+            .updateExperienceInProfile(userId, expId, experience)
+            .then(
+                function (experience) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function updateEducation(req, res) {
+        var userId = req.params.userId;
+        var education = req.body;
+        var eduId = req.params.eduId;
+        console.log("Education received in model: ");
+        console.log(education);
+        userModel
+            .updateEducationInProfile(userId, eduId, education)
+            .then(
+                function (education) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
 };

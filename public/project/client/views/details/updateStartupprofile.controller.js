@@ -17,6 +17,10 @@
         vm.updateLogo = updateLogo;
         //vm.addEducation = addEducation;
         //vm.removeEducation = removeEducation;
+        vm.selectJob = selectJob;
+        vm.updateJob = updateJob;
+        vm.selectPerson = selectPerson;
+        vm.updatePerson = updatePerson;
 
 
         var username = $routeParams.username;
@@ -82,10 +86,10 @@
                                     console.log(err);
                                 });
                             vm.personMessage = "Person added successfully";
-                            vm.startupRoles.person = null;
+                            vm.startupRoles.newPerson = null;
                         } else {
                             vm.personMessage = "Unable to add the project";
-                            vm.startupRoles.person = null;
+                            vm.startupRoles.newPerson = null;
                         }
                     });
             } else {
@@ -97,24 +101,23 @@
 
         function addJob(startup, job) {
             if (job != null) {
-            job.startupId = startup._id;
-            JobService
-                .addJobToStartup(job)
-                .then(function updateJobCallback(response) {
-                    if (response.status == 200) {
-                        JobService.getJobsByStartupId(startup._id)
-                            .then(function (response) {
-                                vm.jobs = response.data;
-                            }, function (err) {
-                                console.log(err);
-                            });
-                        vm.jobMessage = "Job added successfully";
-                    } else {
-                        vm.jobMessage ="Unable to add job";
-                    }
-                });
-
-            vm.job = null;
+                job.startupId = startup._id;
+                JobService
+                    .addJobToStartup(job)
+                    .then(function updateJobCallback(response) {
+                        if (response.status == 200) {
+                            JobService.getJobsByStartupId(startup._id)
+                                .then(function (response) {
+                                    vm.jobs = response.data;
+                                }, function (err) {
+                                    console.log(err);
+                                });
+                            vm.jobMessage = "Job added successfully";
+                        } else {
+                            vm.jobMessage ="Unable to add job";
+                        }
+                    });
+                vm.newJob = null;
             } else {
                 vm.jobMessage = "Add information to add a job."
             }
@@ -163,6 +166,49 @@
                     vm.profile.startupDetails.logo_url = response.data;
                     vm.showLogoSuccessAlert = true;
                 });
+        }
+
+        function selectJob(startup, job) {
+            console.log(job);
+            var newJob = {
+               _id : job._id,
+               position : job.position,
+               description : job.description,
+               startupId : job.startupId,
+               skills : job.skills
+            };
+            vm.newJob = newJob;
+        }
+
+        function updateJob(job) {
+            JobService.
+                updateJobInStartup(job._id, job)
+                .then(init);
+            vm.newJob = null;
+        }
+
+        function selectPerson(startup, person) {
+            console.log('select person');
+            console.log(startup);
+            var newRole = {
+              _id : person._id,
+              role : person.role,
+                title : person.title,
+                startupId : person.startupId,
+                tagged : {
+                    name : person.tagged.name,
+                    image : person.tagged.image
+                }
+            };
+            vm.startupRoles = {};
+            vm.startupRoles.newPerson = newRole;
+        }
+
+        function updatePerson(role) {
+            RolesService.
+                updateRole(role._id, role)
+                .then(init);
+            vm.startupRoles.newPerson = null;
         }
 
     }

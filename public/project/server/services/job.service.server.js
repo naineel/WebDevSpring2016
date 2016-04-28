@@ -9,6 +9,7 @@ module.exports = function(app, jobModel) {
     app.get('/api/project/jobs/:startupId', getJobsByStartupId);
     app.delete('/api/project/jobs/:jobId', deleteJobFromStartup);
     app.get('/api/project/jobsUnique/all', getAllJobs);
+    app.put('/api/project/jobs/:jobId', updateJobInStartup);
 
     function addJobToStartup(req, res) {
         var job = req.body;
@@ -55,6 +56,22 @@ module.exports = function(app, jobModel) {
             .then(
                 function (job) {
                     res.json(job);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function updateJobInStartup(req, res) {
+        var jobId = req.params.jobId;
+        var job = req.body;
+        console.log("Update job");
+        console.log(job);
+        jobModel.updateJobById(jobId, job)
+            .then(
+                function (job) {
+                    res.send(200);
                 },
                 function (err) {
                     res.status(400).send(err);

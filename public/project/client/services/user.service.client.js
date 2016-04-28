@@ -23,7 +23,10 @@
             findUserById : findUserById,
             search : search,
             updateProfilePicture : updateProfilePicture,
-            updateStartupLogo : updateStartupLogo
+            updateStartupLogo : updateStartupLogo,
+            updateProject : updateProject,
+            updateExperience : updateExperience,
+            updateEducation : updateEducation
         };
         return api;
 
@@ -115,6 +118,18 @@
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             });
+        }
+
+        function updateProject(userId, projectId, project) {
+            return $http.put("/api/project/profile/" + userId + "/project/" + projectId, project);
+        }
+
+        function updateExperience(userId, expId, experience) {
+            return $http.put("/api/project/profile/" + userId + "/experience/" + expId, experience);
+        }
+
+        function updateEducation(userId, eduId, education) {
+            return $http.put("/api/project/profile/" + userId + "/education/" + eduId, education);
         }
     }
 

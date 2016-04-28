@@ -12,7 +12,8 @@
             addJobToStartup: addJobToStartup,
             getJobsByStartupId : getJobsByStartupId,
             removeJobFromStartup : removeJobFromStartup,
-            getAllJobs : getAllJobs
+            getAllJobs : getAllJobs,
+            updateJobInStartup : updateJobInStartup
         };
 
         return api;
@@ -31,6 +32,10 @@
 
         function getAllJobs() {
             return $http.get('/api/project/jobsUnique/all');
+        }
+
+        function updateJobInStartup(jobId, job) {
+            return $http.put('/api/project/jobs/' + jobId, job);
         }
     }
 })();

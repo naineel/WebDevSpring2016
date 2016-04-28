@@ -14,6 +14,12 @@
         vm.addEducation = addEducation;
         vm.removeEducation = removeEducation;
         vm.updateProfilePic = updateProfilePic;
+        vm.selectProject = selectProject;
+        vm.updateProject = updateProject;
+        vm.selectExperience = selectExperience;
+        vm.updateExperience = updateExperience;
+        vm.selectEducation = selectEducation;
+        vm.updateEducation = updateEducation;
 
 
         var username = $routeParams.username;
@@ -59,7 +65,7 @@
                         vm.projectMessage = "Unable to add the project";
                     }
                 });
-            vm.userDetails.project = null;
+            vm.userDetails.newProject = null;
             } else {
                 vm.projectMessage = "Add info. to add as a project.";
             }
@@ -95,7 +101,7 @@
                             vm.expMessage = "Unable to add the project";
                         }
                     });
-                vm.userDetails.experience = null;
+                vm.userDetails.newExperience = null;
             } else {
                 vm.expMessage = "Add info to add as an experience";
             }
@@ -128,7 +134,7 @@
                             vm.eduMessage = "Unable to add the Education";
                         }
                     });
-                vm.userDetails.education = null;
+                vm.userDetails.newEducation = null;
             } else {
                 vm.eduMessage = "Add info to add as an education.";
             }
@@ -155,6 +161,85 @@
                 vm.profile.userDetails.profilePicUrl = response.data;
                 vm.showProfilePicSuccessAlert = true;
             });
+        }
+
+        function selectProject(user, project) {
+            console.log("Entered select project");
+            console.log(project);
+            var newProject = {
+                _id : project._id,
+                name : project.name,
+                description : project.description,
+                project_url : project.project_url,
+                startDate : project.startDate,
+                endDate : project.endDate,
+                technologies : project.technologies
+            };
+            vm.userDetails = user.userDetails;
+            vm.userDetails.newProject = newProject;
+            vm.userDetails.newProject.startDate = new Date(newProject.startDate);
+            vm.userDetails.newProject.endDate = new Date(newProject.endDate);
+        }
+
+        function updateProject(user, project) {
+            console.log('Update project');
+            vm.userDetails = user.userDetails;
+            UserService
+                .updateProject(user._id, project._id, project)
+                .then(init);
+            vm.userDetails.newProject = null;
+        }
+
+        function selectExperience(user, experience) {
+            console.log("Entered select experience");
+            console.log(experience);
+            console.log(user);
+            var newExperience = {
+                _id : experience._id,
+                employer : experience.employer,
+                title : experience.title,
+                description : experience.description,
+                startDate : experience.startDate,
+                endDate : experience.endDate
+            };
+            vm.userDetails = user.userDetails;
+            vm.userDetails.newExperience = newExperience;
+            vm.userDetails.newExperience.startDate = new Date(newExperience.startDate);
+            vm.userDetails.newExperience.endDate = new Date(newExperience.endDate);
+        }
+
+        function updateExperience(user, experience) {
+            console.log('Update experience');
+            vm.userDetails = user.userDetails;
+            UserService
+                .updateExperience(user._id, experience._id, experience)
+                .then(init);
+            vm.userDetails.newExperience = null;
+        }
+
+        function selectEducation(user, education) {
+            console.log("Entered select experience");
+            console.log(education);
+            var newEducation = {
+                _id : education._id,
+                university : education.university,
+                major : education.major,
+                degree : education.degree,
+                achievements : education.achievements,
+                yearGraduated : education.yearGraduated
+            };
+            vm.userDetails = user.userDetails;
+            vm.userDetails.newEducation = newEducation;
+            vm.userDetails.newEducation.yearGraduated = new Date(newEducation.yearGraduated);
+        }
+
+        function updateEducation(user, education) {
+            console.log('Update education');
+            vm.userDetails = user.userDetails;
+            UserService
+                .updateEducation(user._id, education._id, education)
+                .then(init);
+            vm.userDetails.newEducation = null;
         }
 
     }

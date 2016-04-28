@@ -1,6 +1,9 @@
 /**
  * Created by naineel on 4/18/16.
  */
+var _ = require("lodash");
+var q = require("q");
+
 module.exports = function(mongoose) {
 
     var RolesSchema = require("./startupRoles.schema.server.js")(mongoose);
@@ -10,7 +13,8 @@ module.exports = function(mongoose) {
     var api = {
         addRoleToStartup: addRoleToStartup,
         findRolesByStartupId : findRolesByStartupId,
-        deleteRoleByRoleIdAndStartupId : deleteRoleByRoleIdAndStartupId
+        deleteRoleByRoleIdAndStartupId : deleteRoleByRoleIdAndStartupId,
+        updateRole : updateRole
     };
 
     return api;
@@ -25,6 +29,23 @@ module.exports = function(mongoose) {
 
     function deleteRoleByRoleIdAndStartupId(roleId, startupId) {
         return RolesModel.remove({_id: roleId});
+    }
+
+    function updateRole(roleId, role) {
+        var deferred = q.defer();
+        delete role._id;
+        RolesModel.update(
+            {_id: roleId},
+            {$set: role},
+            function (err, roles) {
+                if (!err) {
+                    deferred.resolve(roles);
+                } else {
+                    deferred.reject(err);
+                }
+            }
+        );
+        return deferred.promise;
     }
 
 };

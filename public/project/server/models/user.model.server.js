@@ -2,6 +2,7 @@
 
 var textSearch = require('mongoose-text-search');
 var q = require("q");
+var _ = require("lodash");
 
 module.exports = function(db, mongoose) {
     var UserSchema = require("./user.schema.server")(mongoose);
@@ -27,7 +28,10 @@ module.exports = function(db, mongoose) {
         getMongooseModel : getMongooseModel,
         searchText : searchText,
         updateProfilePic : updateProfilePic,
-        updateLogo : updateLogo
+        updateLogo : updateLogo,
+        updateProjectInProfile : updateProjectInProfile,
+        updateExperienceInProfile : updateExperienceInProfile,
+        updateEducationInProfile : updateEducationInProfile
     };
 
     return api;
@@ -183,6 +187,48 @@ module.exports = function(db, mongoose) {
             }
         );
         return deferred.promise;
+    }
+
+    function updateProjectInProfile(userId, projectId, project) {
+        console.log(userId);
+        console.log('userId update project');
+        return UserModel
+            .findById(userId)
+            .then(
+                function (user) {
+                    var projectToUpdate = user.userDetails.projects.id(projectId);
+                    _.extend(projectToUpdate, project);
+                    return user.save();
+                }
+            );
+    }
+
+    function updateExperienceInProfile(userId, expId, experience) {
+        console.log(userId);
+        console.log('userId update experience');
+        return UserModel
+            .findById(userId)
+            .then(
+                function (user) {
+                    var experienceToUpdate = user.userDetails.experience.id(expId);
+                    _.extend(experienceToUpdate, experience);
+                    return user.save();
+                }
+            );
+    }
+
+    function updateEducationInProfile(userId, eduId, education) {
+        console.log(userId);
+        console.log('userId update education');
+        return UserModel
+            .findById(userId)
+            .then(
+                function (user) {
+                    var educationToUpdate = user.userDetails.education.id(eduId);
+                    _.extend(educationToUpdate, education);
+                    return user.save();
+                }
+            );
     }
 
 };

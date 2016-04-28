@@ -19,8 +19,8 @@
         <div class="panel-body">
             <div class="col-lg-10">
             <h5 class="text-justify">{{model.profile.userDetails.about}}</h5>
+                <p>Contact me at {{model.profile.userDetails.email}}</p>
             </div>
-            <button class="btn btn-secondary pull-right">Share</button>
         </div>
     </div>
     <div class="panel panel-default">
@@ -59,7 +59,7 @@
             <div ng-repeat="education in model.profile.userDetails.education">
                 <div>
                     <h3>{{education.university}}</h3>
-                    {{education.major}}
+                    {{education.degree}}, {{education.major}}
                     <div>
                         Graduated in {{education.yearGraduated | amDateFormat:'YYYY'}}
                     </div>

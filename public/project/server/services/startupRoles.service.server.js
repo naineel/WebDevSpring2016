@@ -11,6 +11,7 @@ module.exports = function(app, rolesModel) {
     app.post('/api/project/roles', addRoleToStartup);
     app.get('/api/project/roles/:startupId', getRolesByStartupId);
     app.delete('/api/project/roles/:roleId/startup/:startupId', deleteRoleFromStartup);
+    app.put('/api/project/roles/:roleId', updateRolesByRoleId);
 
     function addRoleToStartup(req, res) {
         var role = req.body;
@@ -46,6 +47,20 @@ module.exports = function(app, rolesModel) {
             .then(
                 function (role) {
                     res.json(role);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function updateRolesByRoleId(req, res) {
+        var roleId = req.params.roleId;
+        var role = req.body;
+        rolesModel.updateRole(roleId, role)
+            .then(
+                function(role) {
+                    res.send(200);
                 },
                 function (err) {
                     res.status(400).send(err);

@@ -11,7 +11,8 @@
         var api = {
             addRoleToStartup: addRoleToStartup,
             getRolesByStartupId : getRolesByStartupId,
-            removeRoleFromStartup : removeRoleFromStartup
+            removeRoleFromStartup : removeRoleFromStartup,
+            updateRole : updateRole
         };
 
         return api;
@@ -26,6 +27,10 @@
 
         function removeRoleFromStartup(startupId, roleId) {
             return $http.delete('/api/project/roles/' + roleId + '/startup/' + startupId);
+        }
+
+        function updateRole(roleId, role) {
+            return $http.put('/api/project/roles/' + roleId, role);
         }
     }
 })();
